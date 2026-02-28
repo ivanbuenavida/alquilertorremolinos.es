@@ -182,7 +182,43 @@ export class CalendarView extends LitElement {
       text-align: center;
       color: #717171;
     }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .month-label {
+      text-transform: capitalize;
+    }
   `;
+
+  private _minDate = new Date();
+  private _maxDate = new Date();
+
+  constructor() {
+    super();
+    this._minDate.setHours(0, 0, 0, 0);
+    this._minDate.setDate(1); // Limit to beginning of current month
+    
+    this._maxDate = new Date(this._minDate);
+    this._maxDate.setMonth(this._maxDate.getMonth() + 6); // Max 6 months forward
+  }
+
+  private _checkIfBusy(date: Date, events: CalendarEvent[]): boolean {
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    const dTime = d.getTime();
+
+    return events.some(event => {
+      const start = new Date(event.start);
+      start.setHours(0, 0, 0, 0);
+      const end = new Date(event.end);
+      end.setHours(0, 0, 0, 0);
+      
+      return dTime >= start.getTime() && dTime < end.getTime();
+    });
+  }
 
   connectedCallback() {
     super.connectedCallback();
@@ -198,13 +234,20 @@ export class CalendarView extends LitElement {
     const firstDayOfMonth = new Date(year, month, 1);
     const lastDayOfMonth = new Date(year, month + 1, 0);
     
-    // Calculate start and end for the grid (including padding from prev/next months)
+    // Grid alignment: Start on Monday of the first week of the month
     const start = new Date(firstDayOfMonth);
-    start.setDate(start.getDate() - (start.getDay() === 0 ? 6 : start.getDay() - 1)); // Start on Monday
+    const startDay = start.getDay(); 
+    const offset = startDay === 0 ? 6 : startDay - 1;
+    start.setDate(start.getDate() - offset);
 
+    // End on Sunday of the last week of the month
     const end = new Date(lastDayOfMonth);
-    end.setDate(end.getDate() + (7 - (end.getDay() === 0 ? 7 : end.getDay()))); // End on Sunday
+    const endDay = end.getDay();
+    const endOffset = endDay === 0 ? 0 : 7 - endDay;
+    end.setDate(end.getDate() + endOffset);
+    end.setHours(23, 59, 59, 999);
 
+    // Now we fetch events only for the range visible in this specific month view
     const busyEvents = await CalendarService.getBusyDays(start, end);
     
     const days: DayInfo[] = [];
@@ -230,47 +273,44 @@ export class CalendarView extends LitElement {
     this._days = days;
     this._loading = false;
   }
+  
+  private _canGoNext() {
+    const next = new Date(this._currentDate);
+    next.setMonth(next.getMonth() + 1);
+    return next <= this._maxDate;
+  }
 
-  private _checkIfBusy(date: Date, events: CalendarEvent[]): boolean {
-    const d = new Date(date);
-    d.setHours(0, 0, 0, 0);
-    const dTime = d.getTime();
-
-    return events.some(event => {
-      const start = new Date(event.start);
-      start.setHours(0, 0, 0, 0);
-      const end = new Date(event.end);
-      end.setHours(0, 0, 0, 0);
-      
-      return dTime >= start.getTime() && dTime < end.getTime();
-    });
+  private _canGoPrev() {
+    return this._currentDate > this._minDate;
   }
 
   private _nextMonth() {
+    if (!this._canGoNext()) return;
     this._currentDate = new Date(this._currentDate.getFullYear(), this._currentDate.getMonth() + 1, 1);
     this._generateCalendar();
   }
 
   private _prevMonth() {
+    if (!this._canGoPrev()) return;
     this._currentDate = new Date(this._currentDate.getFullYear(), this._currentDate.getMonth() - 1, 1);
     this._generateCalendar();
   }
 
   private _formatMonth(date: Date) {
-    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    return date.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
   }
 
   render() {
-    const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const weekDays = ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do'];
 
     return html`
       <div class="calendar-container">
         <div class="calendar-header">
-          <button class="nav-btn" @click="${this._prevMonth}">
+          <button class="nav-btn" @click="${this._prevMonth}" ?disabled="${!this._canGoPrev()}">
             <i class="bi bi-chevron-left"></i>
           </button>
-          <div class="month-title">${this._formatMonth(this._currentDate)}</div>
-          <button class="nav-btn" @click="${this._nextMonth}">
+          <div class="month-title month-label">${this._formatMonth(this._currentDate)}</div>
+          <button class="nav-btn" @click="${this._nextMonth}" ?disabled="${!this._canGoNext()}">
             <i class="bi bi-chevron-right"></i>
           </button>
         </div>
