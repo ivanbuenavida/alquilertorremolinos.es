@@ -32,11 +32,15 @@ export class MyApp extends LitElement {
     if (!this.data) return html`<div>Loading...</div>`;
 
     return html`
-      <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
+
+      <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <div class="container">
-          <a class="navbar-brand text-primary d-flex align-items-center gap-2" href="#">
-            <i class="bi bi-house-door-fill"></i>
-            Torremolinos Retreat
+          <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+            <img src="/logo.svg" alt="Logo" class="logo-icon">
+            <span>Alquiler Torremolinos</span>
           </a>
         </div>
       </nav>

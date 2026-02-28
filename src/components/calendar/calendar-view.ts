@@ -136,7 +136,7 @@ export class CalendarView extends LitElement {
 
     .day.is-today .day-number {
       color: white;
-      background: #222;
+      background: var(--primary-dark);
       width: 28px;
       height: 28px;
       display: flex;
@@ -150,7 +150,7 @@ export class CalendarView extends LitElement {
       width: 4px;
       height: 4px;
       border-radius: 50%;
-      background: #008a05;
+      background: var(--primary);
       margin-top: 4px;
     }
 
