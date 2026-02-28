@@ -14,20 +14,20 @@ export interface PropertyData {
 }
 
 export const propertyData: PropertyData = {
-  title: "Stunning Apartment in Torremolinos",
-  location: "Torremolinos, Málaga, Spain",
+  title: "Moderno Apartamento de 2 Dormitorios en el Centro",
+  location: "Cerca de Plaza de Andalucía, Torremolinos, Málaga",
   host: {
     name: "Iván",
-    description: "Superhost · Reliable support"
+    description: "Anfitrión verificado · Respuesta rápida"
   },
-  description: "Welcome to our beautiful apartment in the heart of Torremolinos. Perfectly located just minutes from the beach, enjoy a relaxing getaway with all the modern amenities you could ask for. Experience the best of the Costa del Sol with easy access to restaurants, supermarkets, and public transport.",
+  description: "Un luminoso y moderno apartamento de dos dormitorios situado en el corazón de Torremolinos, a solo dos minutos de la estación de tren. Ubicado en una zona peatonal tranquila, este encantador hogar combina el estilo mediterráneo con un diseño contemporáneo. Se encuentra en la segunda planta de un edificio (sin ascensor) y ha sido recientemente renovado con materiales de alta calidad. Cuenta con una cocina equipada (horno, microondas, vitrocerámica), un salón espacioso con aire acondicionado y balcón con vistas a una plaza local pintoresca.",
   amenities: [
-    { icon: "bi-wifi", name: "Fast Wi-Fi" },
-    { icon: "bi-tv", name: "Smart TV" },
-    { icon: "bi-snow", name: "Air Conditioning" },
-    { icon: "bi-cup-hot", name: "Kitchen Basics" },
-    { icon: "bi-car-front", name: "Free Parking" },
-    { icon: "bi-water", name: "Pool Access" }
+    { icon: "bi-wifi", name: "Wi-Fi de alta velocidad" },
+    { icon: "bi-snow", name: "Aire Acondicionado (Frío/Calor)" },
+    { icon: "bi-cup-hot", name: "Cocina y Horno/Microondas" },
+    { icon: "bi-droplet", name: "Lavadora en el baño" },
+    { icon: "bi-door-open", name: "Balcón privado (Vistas a la plaza)" },
+    { icon: "bi-heart", name: "Se permiten mascotas" }
   ],
   images: [
     '/images/WhatsApp-Image-2026-02-20-at-15.06.42-1.jpeg',

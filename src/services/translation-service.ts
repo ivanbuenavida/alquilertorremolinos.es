@@ -16,6 +16,9 @@ interface Labels {
   amen_kitchen: string;
   amen_parking: string;
   amen_pool: string;
+  amen_washer: string;
+  amen_balcony: string;
+  amen_pets: string;
   // Availability Calendar
   cal_title: string;
   cal_legend_available: string;
@@ -52,7 +55,10 @@ const translations: Record<Language, Labels> = {
     amen_ac: "Aire Acondicionado",
     amen_kitchen: "Conceptos básicos de cocina",
     amen_parking: "Aparcamiento gratuito",
-    amen_pool: "Acceso a la piscina",
+    amen_pool: "Piscina comunitaria",
+    amen_washer: "Lavadora",
+    amen_balcony: "Balcón privado",
+    amen_pets: "Mascotas permitidas",
     cal_title: "Disponibilidad y Reservas",
     cal_legend_available: "Disponible",
     cal_legend_occupied: "Ocupado",
@@ -76,7 +82,10 @@ const translations: Record<Language, Labels> = {
     amen_ac: "Air Conditioning",
     amen_kitchen: "Kitchen Basics",
     amen_parking: "Free Parking",
-    amen_pool: "Pool Access",
+    amen_pool: "Communal Pool",
+    amen_washer: "Washing Machine",
+    amen_balcony: "Private Balcony",
+    amen_pets: "Pets Allowed",
     cal_title: "Availability & Bookings",
     cal_legend_available: "Available",
     cal_legend_occupied: "Occupied",
@@ -100,7 +109,10 @@ const translations: Record<Language, Labels> = {
     amen_ac: "Klimaanlage",
     amen_kitchen: "Küchengrundausstattung",
     amen_parking: "Kostenlose Parkplätze",
-    amen_pool: "Poolzugang",
+    amen_pool: "Gemeinschaftspool",
+    amen_washer: "Waschmaschine",
+    amen_balcony: "Privater Balkon",
+    amen_pets: "Haustiere erlaubt",
     cal_title: "Verfügbarkeit & Buchungen",
     cal_legend_available: "Verfügbar",
     cal_legend_occupied: "Belegt",
@@ -124,7 +136,10 @@ const translations: Record<Language, Labels> = {
     amen_ac: "Climatisation",
     amen_kitchen: "Équipements de cuisine",
     amen_parking: "Parking gratuit",
-    amen_pool: "Accès à la piscine",
+    amen_pool: "Piscine commune",
+    amen_washer: "Lave-linge",
+    amen_balcony: "Balcon privé",
+    amen_pets: "Animaux acceptés",
     cal_title: "Disponibilité et Réservations",
     cal_legend_available: "Disponible",
     cal_legend_occupied: "Occupé",
@@ -148,7 +163,10 @@ const translations: Record<Language, Labels> = {
     amen_ac: "Airconditioning",
     amen_kitchen: "Keukenbenodigdheden",
     amen_parking: "Gratis parkeren",
-    amen_pool: "Toegang tot het zwembad",
+    amen_pool: "Gedeeld zwembad",
+    amen_washer: "Wasmachine",
+    amen_balcony: "Privébalkon",
+    amen_pets: "Huisdieren toegestaan",
     cal_title: "Beschikbaarheid & Boekingen",
     cal_legend_available: "Beschikbaar",
     cal_legend_occupied: "Bezet",
@@ -204,6 +222,9 @@ export class TranslationService {
       'bi-cup-hot': this.l.amen_kitchen,
       'bi-car-front': this.l.amen_parking,
       'bi-water': this.l.amen_pool,
+      'bi-droplet': this.l.amen_washer,
+      'bi-door-open': this.l.amen_balcony,
+      'bi-heart': this.l.amen_pets,
     };
     return map[key] || key;
   }
