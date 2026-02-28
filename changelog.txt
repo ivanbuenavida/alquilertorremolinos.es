@@ -1,0 +1,14 @@
+CHANGELOG - ALQUILER TORREMOLINOS
+==============================
+
+[2026-02-28] PREMIUM BOOKING EXPERIENCE & THEMING
+-------------------------------------------------
+
+* Added Google Calendar Integration (CalendarService).
+* Implemented dynamic pricing based on seasonality and weekends.
+* Built a new Airbnb-style CalendarView component.
+* Integrated its logo.svg and updated the navbar.
+* Added "Outfit" Google Font for modern typography.
+* Created a .env.example for Google API configuration.
+* Refactored CSS to use a variable-based themes (:root).
+* All components updated to respect the new color palette (#1D7874, #CE7D55, #003D4D).
