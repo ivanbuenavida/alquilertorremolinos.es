@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import './calendar/calendar-view';
+import './calendar/calendar-view.ts';
 import { TranslationService } from '../services/translation-service';
 
 @customElement('availability-calendar')

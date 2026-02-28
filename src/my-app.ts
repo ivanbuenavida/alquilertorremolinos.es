@@ -3,9 +3,9 @@ import { customElement, state } from 'lit/decorators.js';
 import './index.css';
 
 // Import child components
-import './components/image-carousel';
-import './components/property-details';
-import './components/availability-calendar';
+import './components/image-carousel.ts';
+import './components/property-details.ts';
+import './components/availability-calendar.ts';
 
 // Import Service / Data
 import { propertyData } from './data/mock-data';
