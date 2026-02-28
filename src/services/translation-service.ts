@@ -7,6 +7,7 @@ interface Labels {
   hero_title: string;
   // Property Details
   prop_about: string;
+  prop_host_prefix: string;
   // Amenities
   amen_offers: string;
   amen_wifi: string;
@@ -44,6 +45,7 @@ const translations: Record<Language, Labels> = {
     nav_brand: "Alquiler Torremolinos",
     hero_title: "Escapada en Torremolinos",
     prop_about: "Sobre este lugar",
+    prop_host_prefix: "Anfitrión",
     amen_offers: "Lo que este lugar ofrece",
     amen_wifi: "Wi-Fi rápido",
     amen_tv: "Smart TV",
@@ -67,6 +69,7 @@ const translations: Record<Language, Labels> = {
     nav_brand: "Torremolinos Rental",
     hero_title: "Torremolinos Retreat",
     prop_about: "About this place",
+    prop_host_prefix: "Host",
     amen_offers: "What this place offers",
     amen_wifi: "Fast Wi-Fi",
     amen_tv: "Smart TV",
@@ -90,6 +93,7 @@ const translations: Record<Language, Labels> = {
     nav_brand: "Ferienwohnung Torremolinos",
     hero_title: "Rückzugsort in Torremolinos",
     prop_about: "Über diesen Ort",
+    prop_host_prefix: "Gastgeber",
     amen_offers: "Was dieser Ort bietet",
     amen_wifi: "Schnelles WLAN",
     amen_tv: "Smart TV",
@@ -113,6 +117,7 @@ const translations: Record<Language, Labels> = {
     nav_brand: "Location Torremolinos",
     hero_title: "Retraite à Torremolinos",
     prop_about: "À propos de ce logement",
+    prop_host_prefix: "Hôte",
     amen_offers: "Ce que ce logement propose",
     amen_wifi: "Wi-Fi rapide",
     amen_tv: "Smart TV",
@@ -136,6 +141,7 @@ const translations: Record<Language, Labels> = {
     nav_brand: "Verhuur Torremolinos",
     hero_title: "Torremolinos Retreat",
     prop_about: "Over deze plek",
+    prop_host_prefix: "Host",
     amen_offers: "Wat deze plek biedt",
     amen_wifi: "Snelle wifi",
     amen_tv: "Smart-tv",

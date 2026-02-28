@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { CalendarService, type DayInfo, type CalendarEvent } from '../../services/calendar-service';
+import { TranslationService } from '../../services/translation-service';
 
 @customElement('calendar-view')
 export class CalendarView extends LitElement {
@@ -11,7 +12,7 @@ export class CalendarView extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Outfit', sans-serif;
     }
 
     .calendar-container {
@@ -209,11 +210,21 @@ export class CalendarView extends LitElement {
 
   constructor() {
     super();
+    const now = new Date();
+    this._minDate = new Date(now.getFullYear(), now.getMonth(), 1);
     this._minDate.setHours(0, 0, 0, 0);
-    this._minDate.setDate(1); // Limit to beginning of current month
     
     this._maxDate = new Date(this._minDate);
-    this._maxDate.setMonth(this._maxDate.getMonth() + 6); // Max 6 months forward
+    this._maxDate.setMonth(this._maxDate.getMonth() + 24); // Allow looking up to 2 years ahead
+    
+    // Set initial view to current month start
+    this._currentDate = new Date(this._minDate);
+
+    // Re-render when language changes
+    window.addEventListener('language-changed', () => {
+      this._generateCalendar();
+      this.requestUpdate();
+    });
   }
 
   private _checkIfBusy(date: Date, events: CalendarEvent[]): boolean {
@@ -310,11 +321,21 @@ export class CalendarView extends LitElement {
   }
 
   private _formatMonth(date: Date) {
-    return date.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
+    const langMap: any = { 'es': 'es-ES', 'en': 'en-US', 'de': 'de-DE', 'fr': 'fr-FR', 'nl': 'nl-NL' };
+    const locale = langMap[TranslationService.currentLang] || 'es-ES';
+    return date.toLocaleDateString(locale, { month: 'long', year: 'numeric' });
   }
 
   render() {
-    const weekDays = ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do'];
+    const lang = TranslationService.currentLang;
+    const weekDaysMap: any = {
+      'es': ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do'],
+      'en': ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+      'de': ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
+      'fr': ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'],
+      'nl': ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo']
+    };
+    const weekDays = weekDaysMap[lang] || weekDaysMap['es'];
 
     return html`
       <div class="calendar-container">
@@ -329,13 +350,13 @@ export class CalendarView extends LitElement {
         </div>
 
         <div class="weekdays">
-          ${weekDays.map(day => html`<div>${day}</div>`)}
+          ${weekDays.map((day: string) => html`<div>${day}</div>`)}
         </div>
 
         ${this._loading 
           ? html`<div class="loading-overlay">
               <div class="spinner-border spinner-border-sm" role="status"></div>
-              <span class="ms-2">Cargando...</span>
+              <span class="ms-2">${TranslationService.l.cal_loading}</span>
             </div>`
           : html`
             <div class="days-grid">
@@ -353,11 +374,11 @@ export class CalendarView extends LitElement {
         <div class="legend">
           <div class="legend-item">
             <span class="dot available"></span>
-            <span>Disponible</span>
+            <span>${TranslationService.l.cal_legend_available}</span>
           </div>
           <div class="legend-item">
             <span class="dot busy"></span>
-            <span>Ocupado</span>
+            <span>${TranslationService.l.cal_legend_occupied}</span>
           </div>
         </div>
       </div>

@@ -1,6 +1,5 @@
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import type { PropertyData } from '../data/mock-data';
 import { TranslationService } from '../services/translation-service';
 
 @customElement('property-details')
@@ -31,7 +30,7 @@ export class PropertyDetails extends LitElement {
       <div class="host-info d-flex align-items-center gap-3 p-3 bg-light rounded-4 mb-4">
         <img src="${this.data.host.image}" alt="Host" class="rounded-circle" width="56" height="56">
         <div>
-          <h5 class="mb-0 fw-bold">Anfitrión: ${this.data.host.name}</h5>
+          <h5 class="mb-0 fw-bold">${TranslationService.l.prop_host_prefix}: ${this.data.host.name}</h5>
           <small class="text-muted">${this.data.host.experience}</small>
         </div>
       </div>
