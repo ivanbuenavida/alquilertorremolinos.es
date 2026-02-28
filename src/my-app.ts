@@ -48,7 +48,7 @@ export class MyApp extends LitElement {
       <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <div class="container d-flex justify-content-between align-items-center">
           <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-            <img src="/logo.svg" alt="Logo" class="logo-icon">
+            <img src="/logo.svg" alt="Logo" style="height: 40px; width: auto;">
             <span>${TranslationService.l.nav_brand}</span>
           </a>
           <language-selector></language-selector>

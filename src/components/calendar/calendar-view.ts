@@ -23,12 +23,10 @@ export class CalendarView extends LitElement {
     this._minDate.setHours(0, 0, 0, 0);
     
     this._maxDate = new Date(this._minDate);
-    this._maxDate.setMonth(this._maxDate.getMonth() + 24); // Allow looking up to 2 years ahead
+    this._maxDate.setMonth(this._maxDate.getMonth() + 24); 
     
-    // Set initial view to current month start
     this._currentDate = new Date(this._minDate);
 
-    // Re-render when language changes
     window.addEventListener('language-changed', () => {
       this._generateCalendar();
       this.requestUpdate();
@@ -45,7 +43,6 @@ export class CalendarView extends LitElement {
       start.setHours(0, 0, 0, 0);
       const end = new Date(event.end);
       end.setHours(0, 0, 0, 0);
-      
       return dTime >= start.getTime() && dTime < end.getTime();
     });
   }
@@ -57,49 +54,38 @@ export class CalendarView extends LitElement {
 
   private async _generateCalendar() {
     this._loading = true;
-    
     const year = this._currentDate.getFullYear();
     const month = this._currentDate.getMonth();
-
     const firstDayOfMonth = new Date(year, month, 1);
     const lastDayOfMonth = new Date(year, month + 1, 0);
     
-    // Grid alignment: Start on Monday of the first week of the month
     const start = new Date(firstDayOfMonth);
     const startDay = start.getDay(); 
     const offset = startDay === 0 ? 6 : startDay - 1;
     start.setDate(start.getDate() - offset);
 
-    // End on Sunday of the last week of the month
     const end = new Date(lastDayOfMonth);
     const endDay = end.getDay();
     const endOffset = endDay === 0 ? 0 : 7 - endDay;
     end.setDate(end.getDate() + endOffset);
     end.setHours(23, 59, 59, 999);
 
-    // Now we fetch events only for the range visible in this specific month view
     const busyEvents = await CalendarService.getBusyDays(start, end);
-    
     const days: DayInfo[] = [];
     const curr = new Date(start);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
     while (curr <= end) {
-      const isBusy = this._checkIfBusy(curr, busyEvents);
-      const price = CalendarService.getPriceForDate(curr);
-      
       days.push({
         date: new Date(curr),
-        isBusy,
-        price,
+        isBusy: this._checkIfBusy(curr, busyEvents),
+        price: CalendarService.getPriceForDate(curr),
         isCurrentMonth: curr.getMonth() === month,
         isToday: curr.getTime() === today.getTime()
       });
-      
       curr.setDate(curr.getDate() + 1);
     }
-
     this._days = days;
     this._loading = false;
   }
@@ -146,46 +132,70 @@ export class CalendarView extends LitElement {
     const weekDays = weekDaysMap[lang] || weekDaysMap['es'];
 
     return html`
-      <div class="calendar-container">
-        <div class="calendar-header">
-          <button class="nav-btn" @click="${this._prevMonth}" ?disabled="${!this._canGoPrev()}">
-            <i class="bi bi-chevron-left"></i>
+      <div class="bg-white rounded-4 overflow-hidden shadow-none border">
+        <!-- Header -->
+        <div class="d-flex align-items-center justify-content-between p-3 border-bottom bg-white">
+          <button class="btn btn-light rounded-circle p-1 d-flex align-items-center justify-content-center" 
+                  @click="${this._prevMonth}" ?disabled="${!this._canGoPrev()}" style="width: 32px; height: 32px;">
+            <i class="bi bi-chevron-left small"></i>
           </button>
-          <div class="month-title month-label">${this._formatMonth(this._currentDate)}</div>
-          <button class="nav-btn" @click="${this._nextMonth}" ?disabled="${!this._canGoNext()}">
-            <i class="bi bi-chevron-right"></i>
+          <div class="fw-bold text-dark text-capitalize">${this._formatMonth(this._currentDate)}</div>
+          <button class="btn btn-light rounded-circle p-1 d-flex align-items-center justify-content-center" 
+                  @click="${this._nextMonth}" ?disabled="${!this._canGoNext()}" style="width: 32px; height: 32px;">
+            <i class="bi bi-chevron-right small"></i>
           </button>
         </div>
 
-        <div class="weekdays">
+        <!-- Weekdays -->
+        <div class="grid-7 py-2 bg-light border-bottom text-center small fw-bold text-muted">
           ${weekDays.map((day: string) => html`<div>${day}</div>`)}
         </div>
 
-        ${this._loading 
-          ? html`<div class="loading-overlay">
-              <div class="spinner-border spinner-border-sm" role="status"></div>
-              <span class="ms-2">${TranslationService.l.cal_loading}</span>
-            </div>`
-          : html`
-            <div class="days-grid">
-              ${this._days.map(day => html`
-                <div class="day ${day.isCurrentMonth ? 'current' : 'not-current'} ${day.isBusy ? 'busy' : 'available'} ${day.isToday ? 'is-today' : ''}">
-                  <span class="day-number">${day.date.getDate()}</span>
-                  <span class="day-price">${day.price}€</span>
-                  <div class="status-dot"></div>
-                </div>
-              `)}
-            </div>
-          `
-        }
+        <!-- Days Grid -->
+        <div class="position-relative">
+          ${this._loading 
+            ? html`<div class="d-flex align-items-center justify-content-center p-5 text-muted small">
+                <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                <span>${TranslationService.l.cal_loading}</span>
+              </div>`
+            : html`
+              <div class="grid-7 bg-light gap-px">
+                ${this._days.map(day => html`
+                  <div class="bg-white aspect-ratio-1 d-flex flex-column align-items-center justify-content-center p-1 
+                              ${!day.isCurrentMonth ? 'opacity-25' : ''} 
+                              ${day.isBusy ? 'bg-light-subtle text-decoration-line-through text-muted' : ''}
+                              position-relative"
+                       style="min-height: 50px;">
+                    
+                    <span class="small fw-bold ${day.isToday ? 'bg-dark text-white rounded-circle d-flex align-items-center justify-content-center' : ''}"
+                          style="${day.isToday ? 'width: 24px; height: 24px;' : ''}">
+                      ${day.date.getDate()}
+                    </span>
+                    
+                    ${!day.isBusy && day.isCurrentMonth 
+                      ? html`<span class="text-muted" style="font-size: 0.65rem;">${day.price}€</span>` 
+                      : ''
+                    }
 
-        <div class="legend">
-          <div class="legend-item">
-            <span class="dot available"></span>
+                    ${day.isBusy 
+                      ? html`<div class="bg-danger rounded-circle position-absolute bottom-0 mb-1" style="width: 4px; height: 4px;"></div>`
+                      : html`<div class="bg-primary rounded-circle position-absolute bottom-0 mb-1" style="width: 4px; height: 4px;"></div>`
+                    }
+                  </div>
+                `)}
+              </div>
+            `
+          }
+        </div>
+
+        <!-- Legend -->
+        <div class="d-flex justify-content-center gap-4 p-3 bg-light border-top small fw-bold text-dark">
+          <div class="d-flex align-items-center gap-2">
+            <span class="rounded-circle bg-primary" style="width: 10px; height: 10px;"></span>
             <span>${TranslationService.l.cal_legend_available}</span>
           </div>
-          <div class="legend-item">
-            <span class="dot busy"></span>
+          <div class="d-flex align-items-center gap-2">
+            <span class="rounded-circle bg-danger" style="width: 10px; height: 10px;"></span>
             <span>${TranslationService.l.cal_legend_occupied}</span>
           </div>
         </div>
