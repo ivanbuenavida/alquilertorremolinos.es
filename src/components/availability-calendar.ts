@@ -34,7 +34,7 @@ export class AvailabilityCalendar extends LitElement {
       <div class="card p-4 border-primary border-opacity-25 shadow-sm">
         <h4 class="fw-bold d-flex align-items-center gap-2 mb-4">
           <i class="bi bi-calendar-check text-primary"></i> 
-          Bookings & Availability
+          Disponibilidad y Reservas
         </h4>
         
         <div class="mb-4">
@@ -48,14 +48,14 @@ export class AvailabilityCalendar extends LitElement {
             class="btn btn-success btn-lg d-flex align-items-center justify-content-center gap-2 fw-bold rounded-pill shadow-sm" 
             @click="${this._handleWhatsAppClick}"
           >
-            <i class="bi bi-whatsapp fs-5"></i> Book via WhatsApp
+            <i class="bi bi-whatsapp fs-5"></i> Reservar por WhatsApp
           </a>
           <button 
             class="btn btn-primary btn-lg d-flex align-items-center justify-content-center gap-2 fw-bold rounded-pill shadow-sm" 
             type="button"
             @click="${this._handlePayPalClick}"
           >
-            <i class="bi bi-paypal fs-5"></i> Pay with PayPal
+            <i class="bi bi-paypal fs-5"></i> Pagar con PayPal
           </button>
         </div>
       </div>

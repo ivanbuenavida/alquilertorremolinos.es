@@ -24,31 +24,38 @@ export class CalendarView extends LitElement {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.25rem;
+      padding: 1rem 1.25rem;
       border-bottom: 1px solid #efefef;
-      background: linear-gradient(to bottom, #ffffff, #fcfcfc);
+      background: white;
     }
 
     .month-title {
       font-weight: 700;
-      font-size: 1.1rem;
-      color: #222;
+      font-size: 1rem;
+      color: var(--primary-dark);
+      margin: 0;
+      text-align: center;
+      flex-grow: 1;
     }
 
     .nav-btn {
-      background: none;
-      border: none;
-      padding: 8px;
+      background: #f7f7f7;
+      border: 1px solid #efefef;
+      width: 32px;
+      height: 32px;
       cursor: pointer;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s;
+      transition: all 0.2s;
+      color: var(--primary-dark);
     }
 
-    .nav-btn:hover {
-      background: #f7f7f7;
+    .nav-btn:hover:not(:disabled) {
+      background: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-color: var(--primary);
     }
 
     .weekdays {
@@ -156,26 +163,30 @@ export class CalendarView extends LitElement {
 
     .legend {
       display: flex;
-      gap: 1.5rem;
-      padding: 1rem;
-      font-size: 0.8rem;
-      color: #717171;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1.25rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      border-top: 1px solid #efefef;
+      background: #fafafa;
     }
 
     .legend-item {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
     }
 
     .dot {
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
     }
 
-    .dot.busy { background: #ff385c; }
-    .dot.available { background: #008a05; }
+    .dot.available { background: var(--primary); }
+    .dot.busy { background: var(--secondary); }
 
     .loading-overlay {
       padding: 3rem;
@@ -281,7 +292,9 @@ export class CalendarView extends LitElement {
   }
 
   private _canGoPrev() {
-    return this._currentDate > this._minDate;
+    const prev = new Date(this._currentDate);
+    prev.setMonth(prev.getMonth() - 1);
+    return prev >= this._minDate;
   }
 
   private _nextMonth() {
@@ -321,8 +334,8 @@ export class CalendarView extends LitElement {
 
         ${this._loading 
           ? html`<div class="loading-overlay">
-              <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
-              <span class="ms-2">Loading values...</span>
+              <div class="spinner-border spinner-border-sm" role="status"></div>
+              <span class="ms-2">Cargando...</span>
             </div>`
           : html`
             <div class="days-grid">
@@ -340,11 +353,11 @@ export class CalendarView extends LitElement {
         <div class="legend">
           <div class="legend-item">
             <span class="dot available"></span>
-            <span>Available</span>
+            <span>Disponible</span>
           </div>
           <div class="legend-item">
             <span class="dot busy"></span>
-            <span>Occupied</span>
+            <span>Ocupado</span>
           </div>
         </div>
       </div>
