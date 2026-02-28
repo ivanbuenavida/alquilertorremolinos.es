@@ -10,6 +10,9 @@ import './components/availability-calendar';
 // Import Service / Data
 import { propertyData } from './data/mock-data';
 
+import { TranslationService } from './services/translation-service';
+import './components/language-selector';
+
 /**
  * Main application component.
  * Acts as a Smart Component, handling data fetching and distribution to Dumb Components.
@@ -24,6 +27,12 @@ export class MyApp extends LitElement {
   @state()
   private data = propertyData;
 
+  constructor() {
+    super();
+    // Re-render when language changes
+    window.addEventListener('language-changed', () => this.requestUpdate());
+  }
+
   // Configuration for external booking
   private whatsappNumber = '34000000000'; // Replace with real number
   private paypalLink = ''; // Replace with real link
@@ -37,11 +46,12 @@ export class MyApp extends LitElement {
       <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
 
       <nav class="navbar navbar-expand-lg navbar-light sticky-top">
-        <div class="container">
+        <div class="container d-flex justify-content-between align-items-center">
           <a class="navbar-brand d-flex align-items-center gap-2" href="#">
             <img src="/logo.svg" alt="Logo" class="logo-icon">
-            <span>Alquiler Torremolinos</span>
+            <span>${TranslationService.l.nav_brand}</span>
           </a>
+          <language-selector></language-selector>
         </div>
       </nav>
 
@@ -67,7 +77,7 @@ export class MyApp extends LitElement {
 
       <footer class="bg-dark text-white text-center py-4 mt-5">
         <div class="container">
-          <p class="mb-0">&copy; ${new Date().getFullYear()} Torremolinos Retreat. All rights reserved.</p>
+          <p class="mb-0">&copy; ${new Date().getFullYear()} ${TranslationService.l.nav_brand}. ${TranslationService.l.footer_rights}</p>
         </div>
       </footer>
     `;
