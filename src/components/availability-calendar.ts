@@ -1,5 +1,6 @@
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import './calendar/calendar-view';
 
 @customElement('availability-calendar')
 export class AvailabilityCalendar extends LitElement {
@@ -36,14 +37,8 @@ export class AvailabilityCalendar extends LitElement {
           Bookings & Availability
         </h4>
         
-        <div class="rounded border p-3 text-center mb-4 bg-light">
-          <!-- TODO: Consume Google Calendar API here, or use iframe embed within a responsive container -->
-          <i class="bi bi-calendar3 display-4 text-muted mb-3 d-block opacity-50"></i>
-          <p class="text-muted small fw-medium mb-1">Calendar Data Pending</p>
-          <div class="badge bg-secondary mb-2">To Integrate</div>
-          <p class="text-muted" style="font-size: 0.85rem;">
-            You can embed your exact Google Calendar availability via API or iframe here.
-          </p>
+        <div class="mb-4">
+          <calendar-view></calendar-view>
         </div>
 
         <div class="d-grid gap-3">
