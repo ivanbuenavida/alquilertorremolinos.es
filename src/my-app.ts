@@ -34,7 +34,7 @@ export class MyApp extends LitElement {
   }
 
   // Configuration for external booking
-  private whatsappNumber = '34000000000'; // Replace with real number
+  private whatsappNumber = '34617293504'; 
   private paypalLink = ''; // Replace with real link
 
   render() {
