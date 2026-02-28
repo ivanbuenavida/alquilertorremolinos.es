@@ -1,0 +1,53 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+body {
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.carousel-img {
+  object-fit: cover;
+  height: 60vh;
+  min-height: 400px;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+}
+
+.text-primary {
+  color: #ff385c !important; /* Airbnb brand color ish */
+}
+
+.btn-primary {
+  background-color: #ff385c;
+  border-color: #ff385c;
+}
+
+.btn-primary:hover {
+  background-color: #e31c5f;
+  border-color: #e31c5f;
+}
+
+.amenity-icon {
+  font-size: 1.5rem;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
