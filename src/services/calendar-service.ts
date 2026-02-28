@@ -13,8 +13,10 @@ export interface DayInfo {
 }
 
 export class CalendarService {
-  private static API_KEY = import.meta.env.VITE_GOOGLE_API_KEY || '';
-  private static CALENDAR_ID = import.meta.env.VITE_GOOGLE_CALENDAR_ID || '';
+  // ⚠️ PASTE YOUR GOOGLE CALENDAR DATA HERE
+  // These keys are restricted by domain in the Google Cloud Console.
+  private static API_KEY = 'AIzaSyAaIkxaKDZnma_1mfYJXZ0TXISiL3NrE5o';
+  private static CALENDAR_ID = 'YOUR_CALENDAR_ID_HERE';
 
   // Pricing configuration - could be moved to a settings file
   private static BASE_PRICE = 85;
