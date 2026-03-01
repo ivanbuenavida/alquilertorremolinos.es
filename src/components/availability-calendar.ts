@@ -53,7 +53,7 @@ export class AvailabilityCalendar extends LitElement {
           ${(() => {
             const startStr = this._startDate ? this._startDate.toLocaleDateString('es-ES') : '';
             const endStr = this._endDate ? this._endDate.toLocaleDateString('es-ES') : '';
-            const message = `Hola, se ha solicitado la reserva de los días ${startStr} a ${endStr}`;
+            const message = `Hola, se ha solicitado la reserva de los días ${startStr} a ${endStr} para el alojamiento en Plaza de Andalucía en Torremolinos.`;
             const encodedMsg = encodeURIComponent(message);
             const waUrl = `https://wa.me/${this.whatsappNumber}?text=${encodedMsg}`;
             
