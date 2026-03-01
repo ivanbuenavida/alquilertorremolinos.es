@@ -83,10 +83,12 @@ export class CalendarView extends LitElement {
     today.setHours(0, 0, 0, 0);
 
     while (curr <= end) {
+      const { price, season } = CalendarService.getPriceAndSeasonForDate(curr);
       days.push({
         date: new Date(curr),
         isBusy: this._checkIfBusy(curr, busyEvents),
-        price: CalendarService.getPriceForDate(curr),
+        price,
+        season,
         isCurrentMonth: curr.getMonth() === month,
         isToday: curr.getTime() === today.getTime()
       });
@@ -205,7 +207,7 @@ export class CalendarView extends LitElement {
       totalPrice = 0;
       let curr = new Date(this._startDate);
       while (curr < this._endDate) {
-        totalPrice += CalendarService.getPriceForDate(curr);
+        totalPrice += CalendarService.getPriceAndSeasonForDate(curr).price;
         curr.setDate(curr.getDate() + 1);
       }
     }
@@ -291,6 +293,11 @@ export class CalendarView extends LitElement {
                   
                   // Use conditional classes to avoid background conflicts
                   let bgClass = 'bg-white';
+                  if (day.isCurrentMonth && !day.isBusy && !isSelected && !isInRange) {
+                    if (day.season === 'high') bgClass = 'bg-info bg-opacity-10'; // Subtle blue for high season
+                    else if (day.season === 'mid') bgClass = 'bg-warning bg-opacity-10'; // Subtle yellow for mid season
+                  }
+
                   if (day.isBusy) {
                     bgClass = 'bg-light-subtle text-decoration-line-through text-muted';
                   } else if (isSelected) {

@@ -10,6 +10,7 @@ export interface DayInfo {
   date: Date;
   isBusy: boolean;
   price: number;
+  season: 'low' | 'mid' | 'high';
   isCurrentMonth: boolean;
   isToday: boolean;
 }
@@ -60,7 +61,7 @@ export class CalendarService {
     }
   }
 
-  static getPriceForDate(date: Date): number {
+  static getPriceAndSeasonForDate(date: Date): { price: number, season: 'low' | 'mid' | 'high' } {
     const month = date.getMonth(); // 0-indexed
     const dayOfWeek = date.getDay(); // 0 is Sunday
     
@@ -71,12 +72,15 @@ export class CalendarService {
                       pricingConfig.holidays.includes(recurringDateString);
 
     let price = pricingConfig.basePrice;
+    let season: 'low' | 'mid' | 'high' = 'low';
 
     // Determine seasonal base price
     if (isHoliday || pricingConfig.highSeasonMonths.includes(month)) {
       price = price * pricingConfig.highSeasonMultiplier;
+      season = 'high';
     } else if (pricingConfig.midSeasonMonths.includes(month)) {
       price = price * pricingConfig.midSeasonMultiplier;
+      season = 'mid';
     }
 
     // Weekend surcharge (or if holiday, charge as weekend)
@@ -84,7 +88,7 @@ export class CalendarService {
       price = price * pricingConfig.weekendMultiplier;
     }
 
-    return Math.round(price);
+    return { price: Math.round(price), season };
   }
 
   private static getMockBusyDays(_start: Date, _end: Date): CalendarEvent[] {
