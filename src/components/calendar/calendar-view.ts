@@ -12,6 +12,10 @@ export class CalendarView extends LitElement {
   @state() private _currentDate = new Date();
   @state() private _days: DayInfo[] = [];
   @state() private _loading = true;
+  
+  // Selection state
+  @state() private _startDate: Date | null = null;
+  @state() private _endDate: Date | null = null;
 
   private _minDate = new Date();
   private _maxDate = new Date();
@@ -114,6 +118,64 @@ export class CalendarView extends LitElement {
     this._generateCalendar();
   }
 
+  private _handleDayClick(date: Date, isBusy: boolean) {
+    if (isBusy) return;
+
+    const clickedTime = date.getTime();
+
+    if (!this._startDate || (this._startDate && this._endDate)) {
+      this._startDate = new Date(date);
+      this._endDate = null;
+    } else {
+      const startTime = this._startDate.getTime();
+      
+      if (clickedTime < startTime) {
+        this._startDate = new Date(date);
+      } else if (clickedTime === startTime) {
+        this._startDate = null;
+      } else {
+        // Enforce max 30 days
+        const diffDays = Math.ceil((clickedTime - startTime) / (1000 * 60 * 60 * 24));
+        if (diffDays > 30) {
+          alert('La reserva máxima es de 30 días');
+          return;
+        }
+
+        // Check for busy days in between
+        const hasBusyDaysBetween = this._days.some(d => {
+          const t = d.date.getTime();
+          return t > startTime && t < clickedTime && d.isBusy;
+        });
+
+        if (hasBusyDaysBetween) {
+          alert('El rango seleccionado contiene días ya reservados');
+          return;
+        }
+
+        this._endDate = new Date(date);
+      }
+    }
+
+    this.dispatchEvent(new CustomEvent('range-selected', {
+      detail: { start: this._startDate, end: this._endDate },
+      bubbles: true,
+      composed: true
+    }));
+  }
+
+  private _isDateSelected(date: Date) {
+    const time = date.getTime();
+    if (this._startDate && time === this._startDate.getTime()) return true;
+    if (this._endDate && time === this._endDate.getTime()) return true;
+    return false;
+  }
+
+  private _isDateInRange(date: Date) {
+    if (!this._startDate || !this._endDate) return false;
+    const time = date.getTime();
+    return time > this._startDate.getTime() && time < this._endDate.getTime();
+  }
+
   private _formatMonth(date: Date) {
     const langMap: any = { 'es': 'es-ES', 'en': 'en-US', 'de': 'de-DE', 'fr': 'fr-FR', 'nl': 'nl-NL' };
     const locale = langMap[TranslationService.currentLang] || 'es-ES';
@@ -139,7 +201,7 @@ export class CalendarView extends LitElement {
                   @click="${this._prevMonth}" ?disabled="${!this._canGoPrev()}" style="width: 32px; height: 32px;">
             <i class="bi bi-chevron-left small"></i>
           </button>
-          <div class="fw-bold text-dark text-capitalize">${this._formatMonth(this._currentDate)}</div>
+          <div class="fw-bold text-dark text-capitalize px-2">${this._formatMonth(this._currentDate)}</div>
           <button class="btn btn-light rounded-circle p-1 d-flex align-items-center justify-content-center" 
                   @click="${this._nextMonth}" ?disabled="${!this._canGoNext()}" style="width: 32px; height: 32px;">
             <i class="bi bi-chevron-right small"></i>
@@ -160,29 +222,36 @@ export class CalendarView extends LitElement {
               </div>`
             : html`
               <div class="grid-7 bg-light gap-px">
-                ${this._days.map(day => html`
-                  <div class="bg-white aspect-ratio-1 d-flex flex-column align-items-center justify-content-center p-1 
-                              ${!day.isCurrentMonth ? 'opacity-25' : ''} 
-                              ${day.isBusy ? 'bg-light-subtle text-decoration-line-through text-muted' : ''}
-                              position-relative"
-                       style="min-height: 50px;">
-                    
-                    <span class="small fw-bold ${day.isToday ? 'bg-dark text-white rounded-circle d-flex align-items-center justify-content-center' : ''}"
-                          style="${day.isToday ? 'width: 24px; height: 24px;' : ''}">
-                      ${day.date.getDate()}
-                    </span>
-                    
-                    ${!day.isBusy && day.isCurrentMonth 
-                      ? html`<span class="text-muted" style="font-size: 0.65rem;">${day.price}€</span>` 
-                      : ''
-                    }
+                ${this._days.map(day => {
+                  const isSelected = this._isDateSelected(day.date);
+                  const isInRange = this._isDateInRange(day.date);
+                  
+                  return html`
+                    <div class="bg-white aspect-ratio-1 d-flex flex-column align-items-center justify-content-center p-1 
+                                ${!day.isCurrentMonth ? 'opacity-25' : ''} 
+                                ${day.isBusy ? 'bg-light-subtle text-decoration-line-through text-muted' : 'cursor-pointer'}
+                                ${isSelected ? 'bg-primary text-white' : ''}
+                                ${isInRange ? 'bg-primary-subtle' : ''}
+                                position-relative"
+                         style="min-height: 50px;"
+                         @click="${() => this._handleDayClick(day.date, day.isBusy)}">
+                      
+                      <span class="small fw-bold ${day.isToday && !isSelected ? 'text-primary' : ''}">
+                        ${day.date.getDate()}
+                      </span>
+                      
+                      ${!day.isBusy && day.isCurrentMonth 
+                        ? html`<span class="${isSelected ? 'text-white' : 'text-muted'}" style="font-size: 0.65rem;">${day.price}€</span>` 
+                        : ''
+                      }
 
-                    ${day.isBusy 
-                      ? html`<div class="bg-danger rounded-circle position-absolute bottom-0 mb-1" style="width: 4px; height: 4px;"></div>`
-                      : html`<div class="bg-primary rounded-circle position-absolute bottom-0 mb-1" style="width: 4px; height: 4px;"></div>`
-                    }
-                  </div>
-                `)}
+                      ${!isSelected && !isInRange ? html`
+                        <div class="rounded-circle position-absolute bottom-0 mb-1 ${day.isBusy ? 'bg-danger' : 'bg-primary'}" 
+                             style="width: 4px; height: 4px;"></div>
+                      ` : ''}
+                    </div>
+                  `;
+                })}
               </div>
             `
           }

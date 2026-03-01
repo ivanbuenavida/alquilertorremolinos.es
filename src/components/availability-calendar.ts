@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import './calendar/calendar-view.ts';
 import { TranslationService } from '../services/translation-service';
 
@@ -15,9 +15,18 @@ export class AvailabilityCalendar extends LitElement {
   @property({ type: String })
   paypalLink = '';
 
+  @state() private _startDate: Date | null = null;
+  @state() private _endDate: Date | null = null;
+
   constructor() {
     super();
     window.addEventListener('language-changed', () => this.requestUpdate());
+    
+    // Listen for range selection from child calendar-view
+    this.addEventListener('range-selected', (e: any) => {
+      this._startDate = e.detail.start;
+      this._endDate = e.detail.end;
+    });
   }
 
   private _handleWhatsAppClick() {
@@ -41,14 +50,25 @@ export class AvailabilityCalendar extends LitElement {
         </div>
 
         <div class="d-grid gap-3">
-          <a 
-            href="https://wa.me/${this.whatsappNumber}" 
-            target="_blank"
-            class="btn btn-success btn-lg d-flex align-items-center justify-content-center gap-2 fw-bold rounded-pill shadow-sm" 
-            @click="${this._handleWhatsAppClick}"
-          >
-            <i class="bi bi-whatsapp fs-5"></i> ${TranslationService.l.cal_btn_whatsapp}
-          </a>
+          ${(() => {
+            const startStr = this._startDate ? this._startDate.toLocaleDateString('es-ES') : '';
+            const endStr = this._endDate ? this._endDate.toLocaleDateString('es-ES') : '';
+            const message = `Hola, se ha solicitado la reserva de los días ${startStr} a ${endStr}`;
+            const encodedMsg = encodeURIComponent(message);
+            const waUrl = `https://wa.me/${this.whatsappNumber}?text=${encodedMsg}`;
+            
+            return html`
+              <a 
+                href="${waUrl}" 
+                target="_blank"
+                class="btn btn-success btn-lg d-flex align-items-center justify-content-center gap-2 fw-bold rounded-pill shadow-sm ${!this._startDate || !this._endDate ? 'disabled opacity-50' : ''}" 
+                @click="${this._handleWhatsAppClick}"
+                aria-disabled="${!this._startDate || !this._endDate}"
+              >
+                <i class="bi bi-whatsapp fs-5"></i> ${TranslationService.l.cal_btn_whatsapp}
+              </a>
+            `;
+          })()}
           <button 
             class="btn btn-primary btn-lg d-flex align-items-center justify-content-center gap-2 fw-bold rounded-pill shadow-sm" 
             type="button"
