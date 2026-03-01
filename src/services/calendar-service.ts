@@ -1,3 +1,5 @@
+import { pricingConfig } from '../config/pricing-config';
+
 export interface CalendarEvent {
   start: string;
   end: string;
@@ -17,13 +19,6 @@ export class CalendarService {
   // These keys are restricted by domain in the Google Cloud Console.
   private static API_KEY = 'AIzaSyAaIkxaKDZnma_1mfYJXZ0TXISiL3NrE5o';
   private static CALENDAR_ID = 'c_d03a807d6b2067a8380983f831efe4cba0a5b5340d7044bc47a9c03e6283c703@group.calendar.google.com';
-
-  // Pricing configuration - could be moved to a settings file
-  private static BASE_PRICE = 85;
-  private static SEASONAL_PRICES = {
-    high: [5, 6, 7, 8], // June to Sept
-    mid: [3, 4, 9, 10], // April, May, Oct, Nov
-  };
 
   private static _eventCache: { [key: string]: CalendarEvent[] } = {};
 
@@ -68,21 +63,28 @@ export class CalendarService {
   static getPriceForDate(date: Date): number {
     const month = date.getMonth(); // 0-indexed
     const dayOfWeek = date.getDay(); // 0 is Sunday
+    
+    // Check if it's a holiday
+    const specificDateString = date.toISOString().split('T')[0]; // YYYY-MM-DD
+    const recurringDateString = specificDateString.substring(5); // MM-DD
+    const isHoliday = pricingConfig.holidays.includes(specificDateString) || 
+                      pricingConfig.holidays.includes(recurringDateString);
 
-    let price = this.BASE_PRICE;
+    let price = pricingConfig.basePrice;
 
-    if (this.SEASONAL_PRICES.high.includes(month)) {
-      price = 150;
-    } else if (this.SEASONAL_PRICES.mid.includes(month)) {
-      price = 110;
+    // Determine seasonal base price
+    if (isHoliday || pricingConfig.highSeasonMonths.includes(month)) {
+      price = price * pricingConfig.highSeasonMultiplier;
+    } else if (pricingConfig.midSeasonMonths.includes(month)) {
+      price = price * pricingConfig.midSeasonMultiplier;
     }
 
-    // Weekend surcharge
-    if (dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6) {
-      price += 20;
+    // Weekend surcharge (or if holiday, charge as weekend)
+    if (isHoliday || dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6) {
+      price = price * pricingConfig.weekendMultiplier;
     }
 
-    return price;
+    return Math.round(price);
   }
 
   private static getMockBusyDays(_start: Date, _end: Date): CalendarEvent[] {

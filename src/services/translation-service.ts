@@ -9,6 +9,8 @@ interface Labels {
   prop_about: string;
   prop_host_prefix: string;
   prop_host_description: string;
+  prop_read_more: string;
+  prop_show_less: string;
   prop_location: string;
   prop_description: string;
   // Amenities
@@ -59,6 +61,8 @@ const translations: Record<Language, Labels> = {
     prop_about: "Sobre este lugar",
     prop_host_prefix: "Anfitrión",
     prop_host_description: "Alojamiento ubicado en el famoso pasaje Begoña, cuna de los derechos LGTBI en España. ¡Hospédate en un lugar histórico!\n¡Hola! Soy Iván, ingeniero de profesión, deportista, amante de viajar... hace muy poco reformé este bonito apartamento ubicado en un enclave histórico con mucho cariño para embarcarme en el mundo del alquiler turístico. Si decides alojarte en Nogalera Stonewall, vivirás la experiencia. Soy una persona extrovertida, risueña y con sentido del humor. Estoy disponible para ayudarte a que tu estancia supere tus expectativas y sea lo más placentera posible. ¡Nos vemos pronto!\nEn los alrededores del apartamento tienes un gimnasio, supermercado, varias tiendas... Está situado a 1 minuto de la calle San Miguel, donde encontrarás todas las tiendas de moda. Se encuentra a 1 minuto de la Plaza de la Nogalera, donde encontrarás bares y restaurantes. Y finalmente, el apartamento está situado a 3 minutos de la zona de copas LGTBI \"La Nogalera\". ¡Olvídate del coche o transporte urbano alojándote en la zona más céntrica de Torremolinos!\nIdiomas que habla: Inglés, Español",
+    prop_read_more: "Leer más",
+    prop_show_less: "Mostrar menos",
     prop_location: "Junto a calle San miguel, Torremolinos, Málaga",
     prop_description: "Un luminoso y moderno apartamento de dos dormitorios situado en el corazón de Torremolinos, a solo dos minutos de la estación de tren. Ubicado en una zona peatonal tranquila, este encantador hogar combina el estilo mediterráneo con un diseño contemporáneo. Se encuentra en la segunda planta de un edificio (sin ascensor) y ha sido recientemente renovado con materiales de alta calidad. Cuenta con una cocina equipada (horno, microondas, vitrocerámica), un salón espacioso con aire acondicionado y balcón con vistas a una plaza local pintoresca.",
     amen_offers: "Lo que este lugar ofrece",
@@ -95,6 +99,8 @@ const translations: Record<Language, Labels> = {
     prop_about: "About this place",
     prop_host_prefix: "Host",
     prop_host_description: "Accommodation located in the famous Begoña passage, cradle of LGBTI rights in Spain. Stay in a historic place!\nHello! I'm Iván, an engineer by profession, athlete, travel lover... I recently renovated this beautiful apartment located in a historic enclave with great affection to embark on the world of tourist rentals. If you decide to stay at Nogalera Stonewall, you will live the experience. I am an outgoing, cheerful person with a sense of humor. I am available to help make your stay exceed your expectations and be as pleasant as possible. See you soon!\nIn the surroundings of the apartment you have a gym, supermarket, several shops... It is located 1 minute from Calle San Miguel, where you will find all the fashion stores. It is located 1 minute from the Plaza de la Nogalera, where you will find bars and restaurants. And finally, the apartment is located 3 minutes from the LGTBI drinking area 'La Nogalera'. Forget about the car or urban transport by staying in the most central area of Torremolinos!!\nLanguages spoken: English, Spanish",
+    prop_read_more: "Read more",
+    prop_show_less: "Show less",
     prop_location: "Junto a calle San miguel, Torremolinos, Málaga",
     prop_description: "A bright and modern two-bedroom apartment located in the heart of Torremolinos, just two minutes from the train station. Situated in a quiet pedestrian area, this charming home combines Mediterranean style with contemporary design. It is located on the second floor of a building (no elevator) and has been recently renovated with high-quality materials. It features an equipped kitchen (oven, microwave, ceramic hob), a spacious air-conditioned living room, and a balcony overlooking a picturesque local square.",
     amen_offers: "What this place offers",
@@ -131,6 +137,8 @@ const translations: Record<Language, Labels> = {
     prop_about: "Über diesen Ort",
     prop_host_prefix: "Gastgeber",
     prop_host_description: "Unterkunft in der berühmten Begoña-Passage, der Wiege der LGBTI-Rechte in Spanien. Übernachten Sie an einem historischen Ort!\nHallo! Ich bin Iván, von Beruf Ingenieur, Sportler, reiselustig... Ich habe dieses schöne Apartment in einer historischen Enklave vor kurzem mit viel Liebe renoviert, um in die Welt der Ferienvermietung einzusteigen. Wenn Sie sich für einen Aufenthalt im Nogalera Stonewall entscheiden, werden Sie das Erlebnis leben. Ich bin ein aufgeschlossener, fröhlicher Mensch mit Sinn für Humor. Ich stehe Ihnen zur Verfügung, um Ihnen zu helfen, dass Ihr Aufenthalt Ihre Erwartungen übertrifft und so angenehm wie möglich ist. Bis bald!\nIn der Umgebung des Apartments finden Sie ein Fitnessstudio, einen Supermarkt, verschiedene Geschäfte... Es liegt 1 Minute von der Calle San Miguel entfernt, wo Sie alle Modegeschäfte finden. Es liegt 1 Minute von der Plaza de la Nogalera entfernt, wo sich Bars und Restaurants befinden. Und schließlich ist das Apartment 3 Minuten vom LGBTI-Ausgehviertel 'La Nogalera' entfernt. Vergessen Sie Auto oder öffentliche Verkehrsmittel und wohnen Sie im zentralsten Bereich von Torremolinos!\nGesprochene Sprachen: Englisch, Spanisch",
+    prop_read_more: "Mehr lesen",
+    prop_show_less: "Weniger anzeigen",
     prop_location: "Junto a calle San miguel, Torremolinos, Málaga",
     prop_description: "Ein helles und modernes Apartment mit zwei Schlafzimmern im Herzen von Torremolinos, nur zwei Minuten vom Bahnhof entfernt. In einer ruhigen Fußgängerzone gelegen, kombiniert dieses charmante Zuhause mediterranen Stil mit modernem Design. Es befindet sich im zweiten Stock eines Gebäudes (kein Aufzug) und wurde kürzlich mit hochwertigen Materialien renoviert. Es verfügt über eine ausgestattete Küche (Backofen, Mikrowelle, Cerankochfeld), ein geräumiges, klimatisiertes Wohnzimmer und einen Balkon mit Blick auf einen malerischen lokalen Platz.",
     amen_offers: "Was dieser Ort bietet",
@@ -167,6 +175,8 @@ const translations: Record<Language, Labels> = {
     prop_about: "À propos de ce logement",
     prop_host_prefix: "Hôte",
     prop_host_description: "Hébergement situé dans le célèbre passage Begoña, berceau des droits LGBTI en Espagne. Séjournez dans un lieu historique !\nBonjour ! Je suis Iván, ingénieur de profession, sportif, amateur de voyages... J'ai récemment rénové ce bel appartement situé dans une enclave historique avec beaucoup d'affection pour me lancer dans le monde de la location touristique. Si vous décidez de séjourner à Nogalera Stonewall, vous vivrez l'expérience. Je suis une personne extravertie, souriante et avec le sens de l'humour. Je suis disponible pour vous aider à ce que votre séjour dépasse vos attentes et soit le plus agréable possible. À bientôt !\nDans les environs de l'appartement, vous trouverez une salle de sport, un supermarché, plusieurs magasins... Il est situé à 1 minute de la Calle San Miguel, où vous trouverez tous les magasins de mode. Il est situé à 1 minute de la Plaza de la Nogalera, où vous trouverez des bars et des restaurants. Et enfin, l'appartement est situé à 3 minutes de la zone de bars LGBTI 'La Nogalera'. Oubliez la voiture ou les transports en commun en séjournant dans le quartier le plus central de Torremolinos !\nLangues parlées : Anglais, Espagnol",
+    prop_read_more: "Lire la suite",
+    prop_show_less: "Afficher moins",
     prop_location: "Junto a calle San miguel, Torremolinos, Málaga",
     prop_description: "Un appartement de deux chambres lumineux et moderne situé au cœur de Torremolinos, à seulement deux minutes de la gare. Située dans une zone piétonne calme, cette charmante maison combine le style méditerranéen avec un design contemporain. Il est situé au deuxième étage d'un bâtiment (pas d'ascenseur) et a été récemment rénové avec des matériaux de haute qualité. Il dispose d'une cuisine équipée (four, micro-ondes, plaque vitrocéramique), d'un salon climatisé spacieux et d'un balcon donnant sur une place locale pittoresque.",
     amen_offers: "Ce que ce logement propose",
@@ -203,6 +213,8 @@ const translations: Record<Language, Labels> = {
     prop_about: "Over deze plek",
     prop_host_prefix: "Host",
     prop_host_description: "Accommodatie gelegen in de beroemde Begoña-passage, de bakermat van LGBTI-rechten in Spanje. Verblijf op een historische plek!\nHallo! Ik ben Iván, ingenieur van beroep, atleet, reisliefhebber... Ik heb onlangs met veel liefde dit prachtige appartement in een historische enclave gerenoveerd om de wereld van de toeristische verhuur te betreden. Als je besluit om in Nogalera Stonewall te verblijven, zul je de ervaring beleven. Ik ben een extravert, vrolijk persoon met gevoel voor humor. Ik ben beschikbaar om je verblijf je verwachtingen te laten overtreffen en het zo aangenaam mogelijk te maken. Tot snel!\nIn de omgeving van het appartement heb je een sportschool, supermarkt, diverse winkels... Het ligt op 1 minuut van Calle San Miguel, waar u alle modewinkels vindt. Het bevindt zich op 1 minuut van Plaza de la Nogalera, waar u bars en restaurants vindt. Tot slot ligt het appartement op 3 minuten van het LGBTI-uitgaansgebied 'La Nogalera'. Vergeet uw auto of het openbaar vervoer door in het meest centrale deel van Torremolinos te verblijven!\nGesproken talen: Engels, Spaans",
+    prop_read_more: "Lees meer",
+    prop_show_less: "Toon minder",
     prop_location: "Junto a calle San miguel, Torremolinos, Málaga",
     prop_description: "Een licht en modern appartement met twee slaapkamers gelegen in het hart van Torremolinos, op slechts twee minuten van het treinstation. Gelegen in een rustig voetgangersgebied, combineert dit charmante huis een mediterrane stijl met een eigentijds design. Het bevindt zich op de tweede verdieping van een gebouw (geen lift) en is onlangs gerenoveerd met hoogwaardige materialen. Het beschikt over een uitgeruste keuken (oven, magnetron, keramische kookplaat), een ruime woonkamer met airconditioning en een balkon met uitzicht op een schilderachtig lokaal plein.",
     amen_offers: "Wat deze plek biedt",

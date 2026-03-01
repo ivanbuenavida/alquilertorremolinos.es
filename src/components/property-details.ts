@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import { TranslationService } from '../services/translation-service';
 
 @customElement('property-details')
@@ -10,6 +10,13 @@ export class PropertyDetails extends LitElement {
 
   @property({ type: Object })
   data: any;
+
+  @state()
+  private _showFullHostDesc = false;
+
+  private _toggleHostDesc() {
+    this._showFullHostDesc = !this._showFullHostDesc;
+  }
 
   constructor() {
     super();
@@ -39,9 +46,12 @@ export class PropertyDetails extends LitElement {
           </div>
         </div>
         <div>
-          <p class="fs-6 text-body lh-lg mb-0" style="white-space: pre-line;">
+          <p class="fs-6 text-body lh-lg mb-2" style="white-space: pre-line; ${!this._showFullHostDesc ? 'display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;' : ''}">
             ${TranslationService.l.prop_host_description}
           </p>
+          <button class="btn btn-link p-0 text-decoration-none fw-bold text-primary" @click="${this._toggleHostDesc}">
+            ${this._showFullHostDesc ? TranslationService.l.prop_show_less : TranslationService.l.prop_read_more}
+          </button>
         </div>
       </div>
 
