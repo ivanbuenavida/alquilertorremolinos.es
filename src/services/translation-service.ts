@@ -8,6 +8,8 @@ interface Labels {
   // Property Details
   prop_about: string;
   prop_host_prefix: string;
+  prop_location: string;
+  prop_description: string;
   // Amenities
   amen_offers: string;
   amen_wifi: string;
@@ -49,6 +51,8 @@ const translations: Record<Language, Labels> = {
     hero_title: "Escapada en Torremolinos",
     prop_about: "Sobre este lugar",
     prop_host_prefix: "Anfitrión",
+    prop_location: "Cerca de Plaza de Andalucía, Torremolinos, Málaga",
+    prop_description: "Un luminoso y moderno apartamento de dos dormitorios situado en el corazón de Torremolinos, a solo dos minutos de la estación de tren. Ubicado en una zona peatonal tranquila, este encantador hogar combina el estilo mediterráneo con un diseño contemporáneo. Se encuentra en la segunda planta de un edificio (sin ascensor) y ha sido recientemente renovado con materiales de alta calidad. Cuenta con una cocina equipada (horno, microondas, vitrocerámica), un salón espacioso con aire acondicionado y balcón con vistas a una plaza local pintoresca.",
     amen_offers: "Lo que este lugar ofrece",
     amen_wifi: "Wi-Fi rápido",
     amen_tv: "Smart TV",
@@ -76,6 +80,8 @@ const translations: Record<Language, Labels> = {
     hero_title: "Torremolinos Retreat",
     prop_about: "About this place",
     prop_host_prefix: "Host",
+    prop_location: "Near Plaza de Andalucía, Torremolinos, Málaga",
+    prop_description: "A bright and modern two-bedroom apartment located in the heart of Torremolinos, just two minutes from the train station. Situated in a quiet pedestrian area, this charming home combines Mediterranean style with contemporary design. It is located on the second floor of a building (no elevator) and has been recently renovated with high-quality materials. It features an equipped kitchen (oven, microwave, ceramic hob), a spacious air-conditioned living room, and a balcony overlooking a picturesque local square.",
     amen_offers: "What this place offers",
     amen_wifi: "Fast Wi-Fi",
     amen_tv: "Smart TV",
@@ -103,6 +109,8 @@ const translations: Record<Language, Labels> = {
     hero_title: "Rückzugsort in Torremolinos",
     prop_about: "Über diesen Ort",
     prop_host_prefix: "Gastgeber",
+    prop_location: "In der Nähe der Plaza de Andalucía, Torremolinos, Málaga",
+    prop_description: "Ein helles und modernes Apartment mit zwei Schlafzimmern im Herzen von Torremolinos, nur zwei Minuten vom Bahnhof entfernt. In einer ruhigen Fußgängerzone gelegen, kombiniert dieses charmante Zuhause mediterranen Stil mit modernem Design. Es befindet sich im zweiten Stock eines Gebäudes (kein Aufzug) und wurde kürzlich mit hochwertigen Materialien renoviert. Es verfügt über eine ausgestattete Küche (Backofen, Mikrowelle, Cerankochfeld), ein geräumiges, klimatisiertes Wohnzimmer und einen Balkon mit Blick auf einen malerischen lokalen Platz.",
     amen_offers: "Was dieser Ort bietet",
     amen_wifi: "Schnelles WLAN",
     amen_tv: "Smart TV",
@@ -130,6 +138,8 @@ const translations: Record<Language, Labels> = {
     hero_title: "Retraite à Torremolinos",
     prop_about: "À propos de ce logement",
     prop_host_prefix: "Hôte",
+    prop_location: "Près de la Plaza de Andalucía, Torremolinos, Málaga",
+    prop_description: "Un appartement de deux chambres lumineux et moderne situé au cœur de Torremolinos, à seulement deux minutes de la gare. Située dans une zone piétonne calme, cette charmante maison combine le style méditerranéen avec un design contemporain. Il est situé au deuxième étage d'un bâtiment (pas d'ascenseur) et a été récemment rénové avec des matériaux de haute qualité. Il dispose d'une cuisine équipée (four, micro-ondes, plaque vitrocéramique), d'un salon climatisé spacieux et d'un balcon donnant sur une place locale pittoresque.",
     amen_offers: "Ce que ce logement propose",
     amen_wifi: "Wi-Fi rapide",
     amen_tv: "Smart TV",
@@ -157,6 +167,8 @@ const translations: Record<Language, Labels> = {
     hero_title: "Torremolinos Retreat",
     prop_about: "Over deze plek",
     prop_host_prefix: "Host",
+    prop_location: "Nabij Plaza de Andalucía, Torremolinos, Málaga",
+    prop_description: "Een licht en modern appartement met twee slaapkamers gelegen in het hart van Torremolinos, op slechts twee minuten van het treinstation. Gelegen in een rustig voetgangersgebied, combineert dit charmante huis een mediterrane stijl met een eigentijds design. Het bevindt zich op de tweede verdieping van een gebouw (geen lift) en is onlangs gerenoveerd met hoogwaardige materialen. Het beschikt over een uitgeruste keuken (oven, magnetron, keramische kookplaat), een ruime woonkamer met airconditioning en een balkon met uitzicht op een schilderachtig lokaal plein.",
     amen_offers: "Wat deze plek biedt",
     amen_wifi: "Snelle wifi",
     amen_tv: "Smart-tv",
@@ -185,6 +197,26 @@ export class TranslationService {
   private static _currentLang: Language = 'es';
   private static _listeners: Array<(lang: Language) => void> = [];
 
+  static init() {
+    // 1. Try to get from URL (?lang=en)
+    const urlParams = new URLSearchParams(window.location.search);
+    const langParam = urlParams.get('lang') as Language;
+    
+    // 2. Try to detect from browser
+    const browserLang = navigator.language.split('-')[0] as Language;
+    
+    const supported = this.getSupportedLanguages().map(l => l.code);
+    
+    let targetLang: Language = 'es';
+    if (supported.includes(langParam)) {
+      targetLang = langParam;
+    } else if (supported.includes(browserLang)) {
+      targetLang = browserLang;
+    }
+
+    this.setLanguage(targetLang, false); // false to avoid redundant URL push on init
+  }
+
   static get l() {
     return translations[this._currentLang];
   }
@@ -193,10 +225,16 @@ export class TranslationService {
     return this._currentLang;
   }
 
-  static setLanguage(lang: Language) {
+  static setLanguage(lang: Language, updateUrl: boolean = true) {
     this._currentLang = lang;
+    
+    if (updateUrl) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', lang);
+      window.history.pushState({}, '', url.toString());
+    }
+
     this._listeners.forEach(cb => cb(lang));
-    // Trigger a global theme/state refresh if using reactive framework like Lit
     window.dispatchEvent(new CustomEvent('language-changed', { detail: lang }));
   }
 
