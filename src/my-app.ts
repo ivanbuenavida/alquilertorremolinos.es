@@ -29,8 +29,16 @@ export class MyApp extends LitElement {
 
   constructor() {
     super();
+    // Initialize language from URL or browser
+    TranslationService.init();
+    
     // Re-render when language changes
     window.addEventListener('language-changed', () => this.requestUpdate());
+    
+    // Update language when user uses browser back/forward buttons
+    window.addEventListener('popstate', () => {
+      TranslationService.init();
+    });
   }
 
   // Configuration for external booking

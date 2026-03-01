@@ -17,18 +17,22 @@ export class LanguageSelector extends LitElement {
     this._isOpen = !this._isOpen;
   }
 
-  private _selectLang(code: any) {
-    TranslationService.setLanguage(code);
-    this._currentLang = code;
-    this._isOpen = false;
-  }
-
   constructor() {
     super();
     // Close on click outside
     window.addEventListener('click', () => {
       this._isOpen = false;
     });
+
+    // Sync state when language changes globally
+    window.addEventListener('language-changed', () => {
+      this._currentLang = TranslationService.currentLang;
+    });
+  }
+
+  private _selectLang(code: any) {
+    TranslationService.setLanguage(code);
+    this._isOpen = false;
   }
 
   render() {
