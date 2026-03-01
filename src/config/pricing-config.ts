@@ -39,7 +39,7 @@ export interface PricingConfig {
 
 export const pricingConfig: PricingConfig = {
   // Default price during low season (Mon-Thu)
-  basePrice: 85,
+  basePrice: 80,
 
   // Weekend implies a 20% increase over the seasonal price
   weekendMultiplier: 1.20,
