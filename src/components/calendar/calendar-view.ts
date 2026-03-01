@@ -226,22 +226,31 @@ export class CalendarView extends LitElement {
                   const isSelected = this._isDateSelected(day.date);
                   const isInRange = this._isDateInRange(day.date);
                   
+                  // Use conditional classes to avoid background conflicts
+                  let bgClass = 'bg-white';
+                  if (day.isBusy) {
+                    bgClass = 'bg-light-subtle text-decoration-line-through text-muted';
+                  } else if (isSelected) {
+                    bgClass = 'bg-primary text-white shadow-sm z-1';
+                  } else if (isInRange) {
+                    bgClass = 'bg-primary-subtle z-0';
+                  }
+
                   return html`
-                    <div class="bg-white aspect-ratio-1 d-flex flex-column align-items-center justify-content-center p-1 
+                    <div class="aspect-ratio-1 d-flex flex-column align-items-center justify-content-center p-1 
                                 ${!day.isCurrentMonth ? 'opacity-25' : ''} 
-                                ${day.isBusy ? 'bg-light-subtle text-decoration-line-through text-muted' : 'cursor-pointer'}
-                                ${isSelected ? 'bg-primary text-white' : ''}
-                                ${isInRange ? 'bg-primary-subtle' : ''}
+                                ${!day.isBusy ? 'cursor-pointer' : ''}
+                                ${bgClass}
                                 position-relative"
-                         style="min-height: 50px;"
+                         style="min-height: 50px; ${isSelected ? 'border-radius: 8px;' : ''}"
                          @click="${() => this._handleDayClick(day.date, day.isBusy)}">
                       
-                      <span class="small fw-bold ${day.isToday && !isSelected ? 'text-primary' : ''}">
+                      <span class="small fw-bold ${day.isToday && !isSelected ? 'text-primary border-bottom border-2 border-primary' : ''}">
                         ${day.date.getDate()}
                       </span>
                       
                       ${!day.isBusy && day.isCurrentMonth 
-                        ? html`<span class="${isSelected ? 'text-white' : 'text-muted'}" style="font-size: 0.65rem;">${day.price}€</span>` 
+                        ? html`<span class="${isSelected ? 'text-white' : 'text-muted'}" style="font-size: 0.62rem;">${day.price}€</span>` 
                         : ''
                       }
 
