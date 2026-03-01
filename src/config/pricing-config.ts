@@ -1,62 +1,76 @@
 export interface PricingConfig {
-  /** Precio base por noche en temporada baja */
+  /** Base price per night during low season */
   basePrice: number;
 
-  /** Porcentaje de incremento para fines de semana (viernes, sábado, domingo). Ej: 1.20 = +20% */
+  /** Percentage increase for weekends (Friday, Saturday, Sunday). Ex: 1.20 = +20% */
   weekendMultiplier: number;
 
-  /** Porcentaje de incremento para temporada media. Ej: 1.30 = +30% respecto al base */
+  /** Percentage increase for mid season. Ex: 1.30 = +30% over base */
   midSeasonMultiplier: number;
 
-  /** Porcentaje de incremento para temporada alta. Ej: 1.80 = +80% respecto al base */
+  /** Percentage increase for high season. Ex: 1.80 = +80% over base */
   highSeasonMultiplier: number;
 
+  /** Minimum nights required. [Low, Mid, High] */
+  minNights: {
+    low: number;
+    mid: number;
+    high: number;
+  };
+
   /** 
-   * Meses de temporada baja (0 = Enero, 11 = Diciembre).
-   * Los meses que no estén en mid o high se consideran temporada baja.
+   * Low season months (0 = January, 11 = December).
+   * Months not in mid or high are considered low season.
    */
   lowSeasonMonths: number[];
 
-  /** Meses de temporada media (0 = Enero, 11 = Diciembre). */
+  /** Mid season months (0 = January, 11 = December). */
   midSeasonMonths: number[];
 
-  /** Meses de temporada alta (0 = Enero, 11 = Diciembre). */
+  /** High season months (0 = January, 11 = December). */
   highSeasonMonths: number[];
 
   /**
-   * Días festivos (se cobrarán como fin de semana de temporada alta).
-   * Formato: 'YYYY-MM-DD' o 'MM-DD' (si se aplica todos los años).
+   * Holidays (charged as high season weekend).
+   * Format: 'YYYY-MM-DD' or 'MM-DD' (if applies every year).
    */
   holidays: string[];
 }
 
 export const pricingConfig: PricingConfig = {
-  // Precio por defecto en temporada baja (lu-ju)
+  // Default price during low season (Mon-Thu)
   basePrice: 85,
 
-  // Fin de semana implica un 20% más sobre el precio de la temporada
+  // Weekend implies a 20% increase over the seasonal price
   weekendMultiplier: 1.20,
 
-  // La temporada media base cuesta un 30% más que la temporada baja base
+  // Base mid season costs 30% more than base low season
   midSeasonMultiplier: 1.30, 
 
-  // La temporada alta base cuesta un 80% más que la temporada baja base
+  // Base high season costs 80% more than base low season
   highSeasonMultiplier: 1.80,
 
-  // Temporada baja: Noviembre, Diciembre, Enero, Febrero, Marzo (excepto indicados abajo)
+  // Minimum nights depending on the season of the start date
+  minNights: {
+    low: 3,
+    mid: 4,
+    high: 7
+  },
+
+  // Low season: November, December, January, February, March (except indicated below)
   lowSeasonMonths: [0, 1, 2, 10, 11],
 
-  // Temporada media: Abril, Mayo, Octubre
+  // Mid season: April, May, October
   midSeasonMonths: [3, 4, 9],
 
-  // Temporada alta: Junio, Julio, Agosto, Septiembre
+  // High season: June, July, August, September
   highSeasonMonths: [5, 6, 7, 8],
 
-  // Días festivos específicos que se cobran a precio de fin de semana + temporada alta
+  // Specific holidays charged at high season weekend price
   holidays: [
-    '02-28', // Día de Andalucía
-    '12-25', // Navidad
-    '01-01', // Año nuevo
-    // Puedes añadir fechas específicas como '2026-04-02' (Semana Santa)
+    '02-28', // Andalusia Day
+    '12-25', // Christmas
+    '01-01', // New Year
+    // You can add specific dates like '2026-04-02' (Holy Week)
   ]
 };

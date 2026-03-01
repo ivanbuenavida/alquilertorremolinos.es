@@ -2,6 +2,7 @@ import { LitElement, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { CalendarService, type DayInfo, type CalendarEvent } from '../../services/calendar-service';
 import { TranslationService } from '../../services/translation-service';
+import { pricingConfig } from '../../config/pricing-config';
 
 @customElement('calendar-view')
 export class CalendarView extends LitElement {
@@ -26,8 +27,9 @@ export class CalendarView extends LitElement {
     this._minDate = new Date(now.getFullYear(), now.getMonth(), 1);
     this._minDate.setHours(0, 0, 0, 0);
     
+    // Max booking distance is 3 months from current month
     this._maxDate = new Date(this._minDate);
-    this._maxDate.setMonth(this._maxDate.getMonth() + 24); 
+    this._maxDate.setMonth(this._maxDate.getMonth() + 3); 
     
     this._currentDate = new Date(this._minDate);
 
@@ -141,10 +143,19 @@ export class CalendarView extends LitElement {
           return;
         }
 
-        // Enforce min 3 nights
-        if (diffDays < 3) {
+        // Determine min nights based on start date's season
+        const startMonth = this._startDate!.getMonth();
+        let requiredMinNights = pricingConfig.minNights.low;
+        if (pricingConfig.highSeasonMonths.includes(startMonth)) {
+          requiredMinNights = pricingConfig.minNights.high;
+        } else if (pricingConfig.midSeasonMonths.includes(startMonth)) {
+          requiredMinNights = pricingConfig.minNights.mid;
+        }
+
+        // Enforce dynamic min nights
+        if (diffDays < requiredMinNights) {
           this.dispatchEvent(new CustomEvent('selection-error', {
-            detail: { message: TranslationService.l.cal_err_min_nights },
+            detail: { message: TranslationService.l.cal_err_min_nights(requiredMinNights) },
             bubbles: true,
             composed: true
           }));

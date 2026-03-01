@@ -34,7 +34,7 @@ interface Labels {
   cal_summary_total: string;
   cal_summary_title: string;
   cal_summary_dates: string;
-  cal_err_min_nights: string;
+  cal_err_min_nights: (min: number) => string;
   // Footer
   footer_rights: string;
   footer_whatsapp: string;
@@ -84,7 +84,7 @@ const translations: Record<Language, Labels> = {
     cal_summary_total: "Precio total",
     cal_summary_title: "Resumen de reserva",
     cal_summary_dates: "Fechas",
-    cal_err_min_nights: "La reserva mínima es de 3 noches",
+    cal_err_min_nights: (min) => `La reserva mínima en estas fechas es de ${min} noches`,
     footer_rights: "Todos los derechos reservados.",
     footer_whatsapp: "Contacta por WhatsApp",
     footer_whatsapp_msg: "Hola, escribo para solicitar información sobre el piso en Centro comercial España",
@@ -122,7 +122,7 @@ const translations: Record<Language, Labels> = {
     cal_summary_total: "Total price",
     cal_summary_title: "Booking summary",
     cal_summary_dates: "Dates",
-    cal_err_min_nights: "Minimum stay is 3 nights",
+    cal_err_min_nights: (min) => `Minimum stay for these dates is ${min} nights`,
     footer_rights: "All rights reserved.",
     footer_whatsapp: "Contact via WhatsApp",
     footer_whatsapp_msg: "Hello, I am writing to request information about the apartment at Centro comercial España",
@@ -160,7 +160,7 @@ const translations: Record<Language, Labels> = {
     cal_summary_total: "Gesamtpreis",
     cal_summary_title: "Buchungsübersicht",
     cal_summary_dates: "Daten",
-    cal_err_min_nights: "Mindestaufenthalt beträgt 3 Nächte",
+    cal_err_min_nights: (min) => `Der Mindestaufenthalt für diese Daten beträgt ${min} Nächte`,
     footer_rights: "Alle Rechte vorbehalten.",
     footer_whatsapp: "Kontakt über WhatsApp",
     footer_whatsapp_msg: "Hallo, ich schreibe, um Informationen über die Wohnung im Centro comercial España anzufordern",
@@ -198,7 +198,7 @@ const translations: Record<Language, Labels> = {
     cal_summary_total: "Prix total",
     cal_summary_title: "Résumé de la réservation",
     cal_summary_dates: "Dates",
-    cal_err_min_nights: "Le séjour minimum est de 3 nuits",
+    cal_err_min_nights: (min) => `Le séjour minimum à ces dates est de ${min} nuits`,
     footer_rights: "Tous droits réservés.",
     footer_whatsapp: "Contactez sur WhatsApp",
     footer_whatsapp_msg: "Bonjour, je vous écris pour demander des informations sur l'appartement au Centro comercial España",
@@ -236,7 +236,7 @@ const translations: Record<Language, Labels> = {
     cal_summary_total: "Totale prijs",
     cal_summary_title: "Boekingssamenvatting",
     cal_summary_dates: "Data",
-    cal_err_min_nights: "Minimum verblijf is 3 nachten",
+    cal_err_min_nights: (min) => `Minimum verblijf voor deze data is ${min} nachten`,
     footer_rights: "Alle rechten voorbehouden.",
     footer_whatsapp: "Contact via WhatsApp",
     footer_whatsapp_msg: "Hallo, ik schrijf om informatie op te vragen over het appartement in Centro comercial España",
