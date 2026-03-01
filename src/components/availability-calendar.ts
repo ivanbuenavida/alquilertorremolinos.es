@@ -1,16 +1,14 @@
 import { LitElement, html } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import './calendar/calendar-view.ts';
 import { TranslationService } from '../services/translation-service';
+import { contactConfig } from '../config/contact-config';
 
 @customElement('availability-calendar')
 export class AvailabilityCalendar extends LitElement {
   createRenderRoot() {
     return this;
   }
-
-  @property({ type: String })
-  whatsappNumber = '';
 
   @state() private _startDate: Date | null = null;
   @state() private _endDate: Date | null = null;
@@ -78,7 +76,7 @@ export class AvailabilityCalendar extends LitElement {
           </div>
         ` : ''}
 
-        <div class="d-grid gap-3">
+        <div class="d-grid gap-3 mb-4">
           ${(() => {
             const startStr = this._startDate ? this._startDate.toLocaleDateString('es-ES') : '';
             const endStr = this._endDate ? this._endDate.toLocaleDateString('es-ES') : '';
@@ -89,7 +87,7 @@ export class AvailabilityCalendar extends LitElement {
             }
             
             const encodedMsg = encodeURIComponent(message);
-            const waUrl = `https://wa.me/${this.whatsappNumber}?text=${encodedMsg}`;
+            const waUrl = `https://wa.me/${contactConfig.whatsapp}?text=${encodedMsg}`;
             
             return html`
               <a 
@@ -103,6 +101,64 @@ export class AvailabilityCalendar extends LitElement {
               </a>
             `;
           })()}
+        </div>
+
+        <!-- Booking Policies Accordion -->
+        <h6 class="fw-bold mb-3 d-flex align-items-center gap-2">
+          <i class="bi bi-info-circle text-primary"></i> 
+          ${TranslationService.l.pol_title}
+        </h6>
+        
+        <div class="accordion accordion-flush bg-light rounded shadow-sm border" id="policiesAccordion">
+          <!-- Cancellation Policy -->
+          <div class="accordion-item bg-transparent">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed bg-transparent shadow-none fw-medium small py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCancel">
+                <i class="bi bi-shield-check me-2 text-primary"></i> ${TranslationService.l.pol_cancellation_title}
+              </button>
+            </h2>
+            <div id="collapseCancel" class="accordion-collapse collapse" data-bs-parent="#policiesAccordion">
+              <div class="accordion-body small text-muted pt-0 pb-3">
+                ${TranslationService.l.pol_cancellation_desc}
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Policy -->
+          <div class="accordion-item bg-transparent">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed bg-transparent shadow-none fw-medium small py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePayment">
+                <i class="bi bi-credit-card me-2 text-primary"></i> ${TranslationService.l.pol_payment_title}
+              </button>
+            </h2>
+            <div id="collapsePayment" class="accordion-collapse collapse" data-bs-parent="#policiesAccordion">
+              <div class="accordion-body small text-muted pt-0 pb-3">
+                ${TranslationService.l.pol_payment_desc}
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Options -->
+          <div class="accordion-item bg-transparent">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed bg-transparent shadow-none fw-medium small py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContact">
+                <i class="bi bi-chat-dots me-2 text-primary"></i> ${TranslationService.l.pol_contact_title}
+              </button>
+            </h2>
+            <div id="collapseContact" class="accordion-collapse collapse" data-bs-parent="#policiesAccordion">
+              <div class="accordion-body small text-muted pt-0 pb-3">
+                <p class="mb-2">${TranslationService.l.pol_contact_desc}</p>
+                <div class="d-flex flex-column gap-2">
+                  <a href="https://wa.me/${contactConfig.whatsapp}" target="_blank" class="text-decoration-none text-success d-flex align-items-center gap-2">
+                    <i class="bi bi-whatsapp"></i> WhatsApp
+                  </a>
+                  <a href="mailto:${contactConfig.email}" class="text-decoration-none d-flex align-items-center gap-2">
+                    <i class="bi bi-envelope"></i> ${contactConfig.email}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     `;

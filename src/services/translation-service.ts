@@ -35,6 +35,14 @@ interface Labels {
   cal_summary_title: string;
   cal_summary_dates: string;
   cal_err_min_nights: (min: number) => string;
+  // Policies (Accordion)
+  pol_title: string;
+  pol_cancellation_title: string;
+  pol_cancellation_desc: string;
+  pol_payment_title: string;
+  pol_payment_desc: string;
+  pol_contact_title: string;
+  pol_contact_desc: string;
   // Footer
   footer_rights: string;
   footer_whatsapp: string;
@@ -85,6 +93,13 @@ const translations: Record<Language, Labels> = {
     cal_summary_title: "Resumen de reserva",
     cal_summary_dates: "Fechas",
     cal_err_min_nights: (min) => `La reserva mínima en estas fechas es de ${min} noches`,
+    pol_title: "Condiciones de reserva",
+    pol_cancellation_title: "Política de cancelación",
+    pol_cancellation_desc: "Cancelación gratuita hasta 14 días antes de la llegada. Si cancelas posteriormente, se retendrá el depósito de reserva.",
+    pol_payment_title: "Pago y Reserva",
+    pol_payment_desc: "La reserva se bloquea durante 24 horas. Si no se ha efectuado el pago en ese plazo, se liberarán las fechas y se anulará cualquier oferta que se hubiera aplicado.",
+    pol_contact_title: "¿Tienes alguna duda?",
+    pol_contact_desc: "Ponte en contacto con nosotros para cualquier consulta antes de reservar.",
     footer_rights: "Todos los derechos reservados.",
     footer_whatsapp: "Contacta por WhatsApp",
     footer_whatsapp_msg: "Hola, escribo para solicitar información sobre el piso en Centro comercial España",
@@ -123,6 +138,13 @@ const translations: Record<Language, Labels> = {
     cal_summary_title: "Booking summary",
     cal_summary_dates: "Dates",
     cal_err_min_nights: (min) => `Minimum stay for these dates is ${min} nights`,
+    pol_title: "Booking Conditions",
+    pol_cancellation_title: "Cancellation Policy",
+    pol_cancellation_desc: "Free cancellation up to 14 days before arrival. If you cancel later, the booking deposit will be retained.",
+    pol_payment_title: "Payment and Reservation",
+    pol_payment_desc: "The reservation is held for 24 hours. If payment is not made within this period, the dates will be released and any applied offers will be canceled.",
+    pol_contact_title: "Do you have any doubts?",
+    pol_contact_desc: "Contact us for any questions before booking.",
     footer_rights: "All rights reserved.",
     footer_whatsapp: "Contact via WhatsApp",
     footer_whatsapp_msg: "Hello, I am writing to request information about the apartment at Centro comercial España",
@@ -161,6 +183,13 @@ const translations: Record<Language, Labels> = {
     cal_summary_title: "Buchungsübersicht",
     cal_summary_dates: "Daten",
     cal_err_min_nights: (min) => `Der Mindestaufenthalt für diese Daten beträgt ${min} Nächte`,
+    pol_title: "Buchungsbedingungen",
+    pol_cancellation_title: "Stornierungsbedingungen",
+    pol_cancellation_desc: "Kostenlose Stornierung bis 14 Tage vor Anreise. Bei späterer Stornierung wird die Buchungskaution einbehalten.",
+    pol_payment_title: "Zahlung und Reservierung",
+    pol_payment_desc: "Die Reservierung wird für 24 Stunden gehalten. Wenn die Zahlung nicht innerhalb dieses Zeitraums erfolgt, werden die Daten freigegeben und alle angewendeten Angebote storniert.",
+    pol_contact_title: "Haben Sie Fragen?",
+    pol_contact_desc: "Kontaktieren Sie uns bei Fragen, bevor Sie buchen.",
     footer_rights: "Alle Rechte vorbehalten.",
     footer_whatsapp: "Kontakt über WhatsApp",
     footer_whatsapp_msg: "Hallo, ich schreibe, um Informationen über die Wohnung im Centro comercial España anzufordern",
@@ -199,6 +228,13 @@ const translations: Record<Language, Labels> = {
     cal_summary_title: "Résumé de la réservation",
     cal_summary_dates: "Dates",
     cal_err_min_nights: (min) => `Le séjour minimum à ces dates est de ${min} nuits`,
+    pol_title: "Conditions de réservation",
+    pol_cancellation_title: "Conditions d'annulation",
+    pol_cancellation_desc: "Annulation gratuite jusqu'à 14 jours avant l'arrivée. Si vous annulez plus tard, l'acompte de réservation sera conservé.",
+    pol_payment_title: "Paiement et Réservation",
+    pol_payment_desc: "La réservation est bloquée pendant 24 heures. Si le paiement n'est pas effectué pendant cette période, les dates seront libérées et toute offre appliquée sera annulée.",
+    pol_contact_title: "Vous avez des doutes ?",
+    pol_contact_desc: "Contactez-nous pour toute question avant de réserver.",
     footer_rights: "Tous droits réservés.",
     footer_whatsapp: "Contactez sur WhatsApp",
     footer_whatsapp_msg: "Bonjour, je vous écris pour demander des informations sur l'appartement au Centro comercial España",
@@ -237,6 +273,13 @@ const translations: Record<Language, Labels> = {
     cal_summary_title: "Boekingssamenvatting",
     cal_summary_dates: "Data",
     cal_err_min_nights: (min) => `Minimum verblijf voor deze data is ${min} nachten`,
+    pol_title: "Boekingsvoorwaarden",
+    pol_cancellation_title: "Annuleringsvoorwaarden",
+    pol_cancellation_desc: "Gratis annuleren tot 14 dagen voor aankomst. Als u later annuleert, wordt de boekingsaanbetaling ingehouden.",
+    pol_payment_title: "Betaling en Reservering",
+    pol_payment_desc: "De reservering wordt 24 uur vastgehouden. Als de betaling niet binnen deze periode is voldaan, worden de data vrijgegeven en worden eventueel toegepaste aanbiedingen geannuleerd.",
+    pol_contact_title: "Heeft u nog vragen?",
+    pol_contact_desc: "Neem voor het boeken contact met ons op voor eventuele vragen.",
     footer_rights: "Alle rechten voorbehouden.",
     footer_whatsapp: "Contact via WhatsApp",
     footer_whatsapp_msg: "Hallo, ik schrijf om informatie op te vragen over het appartement in Centro comercial España",

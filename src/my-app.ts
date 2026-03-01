@@ -12,6 +12,7 @@ import { propertyData } from './data/mock-data';
 
 import { TranslationService } from './services/translation-service';
 import './components/language-selector';
+import { contactConfig } from './config/contact-config';
 
 /**
  * Main application component.
@@ -35,20 +36,16 @@ export class MyApp extends LitElement {
     // Re-render when language changes
     window.addEventListener('language-changed', () => this.requestUpdate());
     
-    // Update language when user uses browser back/forward buttons
     window.addEventListener('popstate', () => {
       TranslationService.init();
     });
   }
 
-  // Configuration for external booking
-  private whatsappNumber = '34617293504'; 
-
   render() {
     if (!this.data) return html`<div>Loading...</div>`;
 
     const footerWaMsg = encodeURIComponent(TranslationService.l.footer_whatsapp_msg);
-    const footerWaUrl = `https://wa.me/${this.whatsappNumber}?text=${footerWaMsg}`;
+    const footerWaUrl = `https://wa.me/${contactConfig.whatsapp}?text=${footerWaMsg}`;
 
     return html`
       <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,9 +73,7 @@ export class MyApp extends LitElement {
           </div>
           <div class="col-lg-4">
             <div class="sticky-top" style="top: 80px; z-index: 10;">
-              <availability-calendar 
-                .whatsappNumber="${this.whatsappNumber}">
-              </availability-calendar>
+              <availability-calendar></availability-calendar>
             </div>
           </div>
         </div>
