@@ -43,10 +43,12 @@ export class MyApp extends LitElement {
 
   // Configuration for external booking
   private whatsappNumber = '34617293504'; 
-  private paypalLink = ''; // Replace with real link
 
   render() {
     if (!this.data) return html`<div>Loading...</div>`;
+
+    const footerWaMsg = encodeURIComponent(TranslationService.l.footer_whatsapp_msg);
+    const footerWaUrl = `https://wa.me/${this.whatsappNumber}?text=${footerWaMsg}`;
 
     return html`
       <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -75,8 +77,7 @@ export class MyApp extends LitElement {
           <div class="col-lg-4">
             <div class="sticky-top" style="top: 80px; z-index: 10;">
               <availability-calendar 
-                .whatsappNumber="${this.whatsappNumber}" 
-                .paypalLink="${this.paypalLink}">
+                .whatsappNumber="${this.whatsappNumber}">
               </availability-calendar>
             </div>
           </div>
@@ -85,7 +86,12 @@ export class MyApp extends LitElement {
 
       <footer class="bg-dark text-white text-center py-4 mt-5">
         <div class="container">
-          <p class="mb-0">&copy; ${new Date().getFullYear()} ${TranslationService.l.nav_brand}. ${TranslationService.l.footer_rights}</p>
+          <div class="mb-3">
+            <a href="${footerWaUrl}" target="_blank" class="text-white text-decoration-none d-inline-flex align-items-center gap-2" style="opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+              <i class="bi bi-whatsapp fs-5"></i> ${TranslationService.l.footer_whatsapp}
+            </a>
+          </div>
+          <p class="mb-0 text-white-50 small">&copy; ${new Date().getFullYear()} ${TranslationService.l.nav_brand}. ${TranslationService.l.footer_rights}</p>
         </div>
       </footer>
     `;

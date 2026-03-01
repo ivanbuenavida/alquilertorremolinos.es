@@ -12,9 +12,6 @@ export class AvailabilityCalendar extends LitElement {
   @property({ type: String })
   whatsappNumber = '';
 
-  @property({ type: String })
-  paypalLink = '';
-
   @state() private _startDate: Date | null = null;
   @state() private _endDate: Date | null = null;
 
@@ -31,10 +28,6 @@ export class AvailabilityCalendar extends LitElement {
 
   private _handleWhatsAppClick() {
     console.log('WhatsApp booking clicked');
-  }
-
-  private _handlePayPalClick() {
-    console.log('PayPal booking clicked');
   }
 
   render() {
@@ -69,13 +62,6 @@ export class AvailabilityCalendar extends LitElement {
               </a>
             `;
           })()}
-          <button 
-            class="btn btn-primary btn-lg d-flex align-items-center justify-content-center gap-2 fw-bold rounded-pill shadow-sm" 
-            type="button"
-            @click="${this._handlePayPalClick}"
-          >
-            <i class="bi bi-paypal fs-5"></i> ${TranslationService.l.cal_btn_paypal}
-          </button>
         </div>
       </div>
     `;

@@ -15,7 +15,7 @@ export interface PropertyData {
 
 export const propertyData: PropertyData = {
   title: "Moderno Apartamento de 2 Dormitorios en el Centro",
-  location: "Cerca de Plaza de Andalucía, Torremolinos, Málaga",
+  location: "Junto a calle San miguel, Torremolinos, Málaga",
   host: {
     name: "Iván",
     description: "Anfitrión verificado · Respuesta rápida"
