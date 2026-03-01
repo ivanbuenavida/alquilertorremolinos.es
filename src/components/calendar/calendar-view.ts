@@ -141,6 +141,16 @@ export class CalendarView extends LitElement {
           return;
         }
 
+        // Enforce min 3 nights
+        if (diffDays < 3) {
+          this.dispatchEvent(new CustomEvent('selection-error', {
+            detail: { message: TranslationService.l.cal_err_min_nights },
+            bubbles: true,
+            composed: true
+          }));
+          return;
+        }
+
         // Check for busy days in between
         const hasBusyDaysBetween = this._days.some(d => {
           const t = d.date.getTime();
@@ -156,8 +166,50 @@ export class CalendarView extends LitElement {
       }
     }
 
+    // Clear error if there's no error at this point
+    this.dispatchEvent(new CustomEvent('selection-error', {
+      detail: { message: '' },
+      bubbles: true,
+      composed: true
+    }));
+
+    // Calculate total price if both dates are selected
+    let totalPrice = 0;
+    if (this._startDate && this._endDate) {
+      const pStart = this._startDate.getTime();
+      const pEnd = this._endDate.getTime();
+      this._days.forEach(d => {
+        const t = d.date.getTime();
+        if (t >= pStart && t < pEnd) {
+          totalPrice += d.price;
+        }
+      });
+      // Fallback calculation for days outside loaded month (if navigating)
+      // Since days array contains at least the current view, we might need a more robust way 
+      // but assuming they select within loaded or nearby days. Actually let's use a loop.
+    }
+
+    // A better way to calculate total price for the range
+    if (this._startDate && this._endDate) {
+      totalPrice = 0;
+      let curr = new Date(this._startDate);
+      while (curr < this._endDate) {
+        totalPrice += CalendarService.getPriceForDate(curr);
+        curr.setDate(curr.getDate() + 1);
+      }
+    }
+
+    const diffDays = this._startDate && this._endDate 
+      ? Math.ceil((this._endDate.getTime() - this._startDate.getTime()) / (1000 * 60 * 60 * 24)) 
+      : 0;
+
     this.dispatchEvent(new CustomEvent('range-selected', {
-      detail: { start: this._startDate, end: this._endDate },
+      detail: { 
+        start: this._startDate, 
+        end: this._endDate,
+        nights: diffDays,
+        totalPrice: totalPrice
+      },
       bubbles: true,
       composed: true
     }));
@@ -237,12 +289,12 @@ export class CalendarView extends LitElement {
                   }
 
                   return html`
-                    <div class="aspect-ratio-1 d-flex flex-column align-items-center justify-content-center p-1 
+                    <div class="aspect-ratio-1 d-flex flex-column align-items-center justify-content-center p-1 user-select-none
                                 ${!day.isCurrentMonth ? 'opacity-25' : ''} 
                                 ${!day.isBusy ? 'cursor-pointer' : ''}
                                 ${bgClass}
                                 position-relative"
-                         style="min-height: 50px; ${isSelected ? 'border-radius: 8px;' : ''}"
+                         style="min-height: 50px; cursor: pointer; ${isSelected ? 'border-radius: 8px;' : ''}"
                          @click="${() => this._handleDayClick(day.date, day.isBusy)}">
                       
                       <span class="small fw-bold ${day.isToday && !isSelected ? 'text-primary border-bottom border-2 border-primary' : ''}">

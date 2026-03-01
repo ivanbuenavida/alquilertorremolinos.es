@@ -14,6 +14,9 @@ export class AvailabilityCalendar extends LitElement {
 
   @state() private _startDate: Date | null = null;
   @state() private _endDate: Date | null = null;
+  @state() private _nights: number = 0;
+  @state() private _totalPrice: number = 0;
+  @state() private _selectionError: string = '';
 
   constructor() {
     super();
@@ -23,6 +26,13 @@ export class AvailabilityCalendar extends LitElement {
     this.addEventListener('range-selected', (e: any) => {
       this._startDate = e.detail.start;
       this._endDate = e.detail.end;
+      this._nights = e.detail.nights || 0;
+      this._totalPrice = e.detail.totalPrice || 0;
+      this._selectionError = '';
+    });
+
+    this.addEventListener('selection-error', (e: any) => {
+      this._selectionError = e.detail.message || '';
     });
   }
 
@@ -42,11 +52,42 @@ export class AvailabilityCalendar extends LitElement {
           <calendar-view></calendar-view>
         </div>
 
+        ${this._selectionError ? html`
+          <div class="alert alert-danger py-2 small mb-4" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> ${this._selectionError}
+          </div>
+        ` : ''}
+
+        ${this._startDate && this._endDate && !this._selectionError ? html`
+          <div class="bg-light p-3 rounded mb-4 shadow-sm border">
+            <h6 class="fw-bold mb-3 border-bottom pb-2">${TranslationService.l.cal_summary_title}</h6>
+            <div class="d-flex justify-content-between mb-2 small">
+              <span class="text-muted">${TranslationService.l.cal_summary_dates}:</span>
+              <span class="fw-medium">
+                ${this._startDate.toLocaleDateString(TranslationService.currentLang)} - ${this._endDate.toLocaleDateString(TranslationService.currentLang)}
+              </span>
+            </div>
+            <div class="d-flex justify-content-between mb-2 small">
+              <span class="text-muted">${TranslationService.l.cal_summary_nights}:</span>
+              <span class="fw-medium">${this._nights}</span>
+            </div>
+            <div class="d-flex justify-content-between pt-2 mt-2 border-top">
+              <span class="fw-bold">${TranslationService.l.cal_summary_total}:</span>
+              <span class="fw-bold fs-5 text-primary">${this._totalPrice}€</span>
+            </div>
+          </div>
+        ` : ''}
+
         <div class="d-grid gap-3">
           ${(() => {
             const startStr = this._startDate ? this._startDate.toLocaleDateString('es-ES') : '';
             const endStr = this._endDate ? this._endDate.toLocaleDateString('es-ES') : '';
-            const message = `Hola, se ha solicitado la reserva de los días ${startStr} a ${endStr} para el alojamiento en Plaza de Andalucía en Torremolinos.`;
+            
+            let message = `Hola, se ha solicitado la reserva para el alojamiento ubicado en: ${TranslationService.l.prop_location}.`;
+            if (this._startDate && this._endDate) {
+              message = `Hola, me gustaría reservar el alojamiento en ${TranslationService.l.prop_location}\n\nResumen de reserva:\nFechas: ${startStr} a ${endStr}\nNoches: ${this._nights}\nPrecio total: ${this._totalPrice}€`;
+            }
+            
             const encodedMsg = encodeURIComponent(message);
             const waUrl = `https://wa.me/${this.whatsappNumber}?text=${encodedMsg}`;
             
