@@ -45,7 +45,7 @@ export class MyApp extends LitElement {
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
 
-      <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+      <nav class="navbar navbar-expand-lg navbar-light sticky-top bg-white border-bottom shadow-sm">
         <div class="container d-flex justify-content-between align-items-center">
           <a class="navbar-brand d-flex align-items-center gap-2" href="#">
             <img src="/logo.svg" alt="Logo" style="height: 40px; width: auto;">
