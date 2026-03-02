@@ -98,7 +98,7 @@ export class ImageCarousel extends LitElement {
                     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
                   }}">
                     <img src="${img}" class="img-fluid rounded mb-1 w-100 object-fit-cover" style="height: 80px;" alt="Thumbnail ${index + 1}">
-                    <div class="small text-truncate text-center">${TranslationService.l.img_gallery_photo} ${index + 1}</div>
+                    <div class="small text-truncate text-center">${(TranslationService.l as any)['img_title_' + (index + 1)]}</div>
                   </a>
                 `)}
               </div>

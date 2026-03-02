@@ -90,6 +90,14 @@ interface Labels {
   app_property_title: string;
   app_property_specs: string;
   app_report_listing: string;
+  img_title_1: string;
+  img_title_2: string;
+  img_title_3: string;
+  img_title_4: string;
+  img_title_5: string;
+  img_title_6: string;
+  img_title_7: string;
+  img_title_8: string;
 }
 
 const translations: Record<Language, Labels> = {
@@ -166,7 +174,15 @@ const translations: Record<Language, Labels> = {
     know_more_info: "Más información",
     app_property_title: "Alojamiento entero: apartamento en Torremolinos, España",
     app_property_specs: "3 viajeros · 2 dormitorios · 2 camas · 1 baño",
-    app_report_listing: "Denunciar este anuncio"
+    app_report_listing: "Denunciar este anuncio",
+    img_title_1: "Salón principal",
+    img_title_2: "Baño moderno",
+    img_title_3: "Vistas exteriores",
+    img_title_4: "Cocina equipada",
+    img_title_5: "Detalle baño",
+    img_title_6: "Zona de salón",
+    img_title_7: "Dormitorio acogedor",
+    img_title_8: "Dormitorio principal"
   },
   en: {
     nav_brand: "Torremolinos Rental",
@@ -241,7 +257,15 @@ const translations: Record<Language, Labels> = {
     know_more_info: "Show more",
     app_property_title: "Entire rental unit in Torremolinos, Spain",
     app_property_specs: "3 guests · 2 bedrooms · 2 beds · 1 bath",
-    app_report_listing: "Report this listing"
+    app_report_listing: "Report this listing",
+    img_title_1: "Main lounge",
+    img_title_2: "Modern bathroom",
+    img_title_3: "Exterior views",
+    img_title_4: "Equipped kitchen",
+    img_title_5: "Bathroom detail",
+    img_title_6: "Living area",
+    img_title_7: "Cozy bedroom",
+    img_title_8: "Master bedroom"
   },
   de: {
     nav_brand: "Ferienwohnung Torremolinos",
@@ -316,7 +340,15 @@ const translations: Record<Language, Labels> = {
     know_more_info: "Mehr anzeigen",
     app_property_title: "Ganze Mieteinheit in Torremolinos, Spanien",
     app_property_specs: "3 Gäste · 2 Schlafzimmer · 2 Betten · 1 Badezimmer",
-    app_report_listing: "Dieses Inserat melden"
+    app_report_listing: "Dieses Inserat melden",
+    img_title_1: "Hauptwohnzimmer",
+    img_title_2: "Modernes Bad",
+    img_title_3: "Außenansicht",
+    img_title_4: "Ausgestattete Küche",
+    img_title_5: "Badezimmer-Detail",
+    img_title_6: "Wohnbereich",
+    img_title_7: "Gemütliches Zimmer",
+    img_title_8: "Hauptschlafzimmer"
   },
   fr: {
     nav_brand: "Location Torremolinos",
@@ -391,7 +423,15 @@ const translations: Record<Language, Labels> = {
     know_more_info: "En savoir plus",
     app_property_title: "Logement entier à Torremolinos, Espagne",
     app_property_specs: "3 voyageurs · 2 chambres · 2 lits · 1 salle de bain",
-    app_report_listing: "Signaler cette annonce"
+    app_report_listing: "Signaler cette annonce",
+    img_title_1: "Salon principal",
+    img_title_2: "Salle de bain",
+    img_title_3: "Vues extérieures",
+    img_title_4: "Cuisine équipée",
+    img_title_5: "Détail salle de bain",
+    img_title_6: "Espace salon",
+    img_title_7: "Chambre douillette",
+    img_title_8: "Chambre principale"
   },
   nl: {
     nav_brand: "Verhuur Torremolinos",
@@ -466,7 +506,15 @@ const translations: Record<Language, Labels> = {
     know_more_info: "Meer informatie",
     app_property_title: "Gehele huurwoning in Torremolinos, Spanje",
     app_property_specs: "3 gasten · 2 slaapkamers · 2 bedden · 1 badkamer",
-    app_report_listing: "Deze advertentie rapporteren"
+    app_report_listing: "Deze advertentie rapporteren",
+    img_title_1: "Woonkamer",
+    img_title_2: "Moderne badkamer",
+    img_title_3: "Uitzicht buiten",
+    img_title_4: "Keuken",
+    img_title_5: "Detail badkamer",
+    img_title_6: "Zithoek",
+    img_title_7: "Gezellige kamer",
+    img_title_8: "Hoofdslaapkamer"
   }
 };
 
