@@ -64,33 +64,60 @@ export class ImageCarousel extends LitElement {
 
       <!-- Fullscreen Modal Gallery -->
       ${this._showModal ? html`
-        <div class="position-fixed top-0 start-0 w-100 h-100 bg-white" style="z-index: 1050; overflow-y: auto;">
+        <div class="position-fixed top-0 start-0 w-100 h-100" style="z-index: 1050; background-color: rgba(255, 255, 255, 0.95);">
           
-          <!-- Modal Top Bar -->
-          <div class="sticky-top bg-white px-4 py-3 d-flex justify-content-between align-items-center" style="box-shadow: 0 1px 0 rgba(0,0,0,0.1);">
-            <button class="btn btn-light rounded-circle p-2 d-flex align-items-center justify-content-center border" style="width: 40px; height: 40px;" @click="${this._toggleModal}">
-              <i class="bi bi-chevron-left"></i>
-            </button>
-            <div class="d-flex gap-3">
-              <button class="btn btn-link text-dark text-decoration-underline fw-medium d-flex align-items-center gap-2 px-0">
-                <i class="bi bi-box-arrow-up"></i> Compartir
+          <!-- Sticky Header Area (Top Bar + Thumbnails) -->
+          <div class="sticky-top w-100" style="background-color: transparent;">
+            
+            <!-- Modal Top Bar -->
+            <div class="px-4 py-3 d-flex justify-content-between align-items-center bg-white bg-opacity-75" style="backdrop-filter: blur(10px);">
+              <button class="btn btn-light rounded-circle p-2 d-flex align-items-center justify-content-center border" style="width: 40px; height: 40px;" @click="${this._toggleModal}">
+                <i class="bi bi-chevron-left"></i>
               </button>
-              <button class="btn btn-link text-dark text-decoration-underline fw-medium d-flex align-items-center gap-2 px-0">
-                <i class="bi bi-heart"></i> Guardar
-              </button>
+              
+              <div class="fw-bold fs-5 d-none d-md-block">Ruta fotográfica</div>
+
+              <div class="d-flex gap-3">
+                <button class="btn btn-link text-dark text-decoration-underline fw-medium d-flex align-items-center gap-2 px-0">
+                  <i class="bi bi-box-arrow-up"></i> Compartir
+                </button>
+                <button class="btn btn-link text-dark text-decoration-underline fw-medium d-flex align-items-center gap-2 px-0">
+                  <i class="bi bi-heart"></i> Guardar
+                </button>
+              </div>
+            </div>
+
+            <!-- Thumbnail Bar -->
+            <div class="w-100 bg-white bg-opacity-75 border-bottom py-3 overflow-auto" style="backdrop-filter: blur(10px); white-space: nowrap;">
+              <div class="container d-flex gap-3 px-4">
+                ${this.images.map((img, index) => html`
+                  <a href="#gallery-img-${index}" class="text-decoration-none text-dark d-inline-block" style="width: 120px;" @click="${(e: Event) => {
+                    e.preventDefault();
+                    const target = this.renderRoot.querySelector(`#gallery-img-${index}`);
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }}">
+                    <img src="${img}" class="img-fluid rounded mb-1 w-100 object-fit-cover" style="height: 80px;" alt="Thumbnail ${index + 1}">
+                    <div class="small text-truncate text-center">Foto ${index + 1}</div>
+                  </a>
+                `)}
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Scrollable Gallery Content -->
+          <div class="overflow-auto pb-5" style="height: calc(100vh - 180px);">
+            <div class="container py-4 max-w-lg" style="max-width: 800px;">
+              <div class="d-flex flex-column gap-5">
+                ${this.images.map((img, index) => html`
+                  <div class="w-100" id="gallery-img-${index}">
+                    <img src="${img}" class="img-fluid rounded-4 w-100 shadow-sm border border-light" alt="Gallery image ${index + 1}">
+                  </div>
+                `)}
+              </div>
             </div>
           </div>
 
-          <!-- Gallery Content -->
-          <div class="container py-5 max-w-lg" style="max-width: 800px;">
-            <div class="d-flex flex-column gap-4">
-              ${this.images.map((img, index) => html`
-                <div class="w-100">
-                  <img src="${img}" class="img-fluid rounded-4 w-100" alt="Gallery image ${index + 1}">
-                </div>
-              `)}
-            </div>
-          </div>
         </div>
       ` : ''}
     `;
