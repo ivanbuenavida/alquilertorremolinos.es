@@ -94,25 +94,7 @@ export class MyApp extends LitElement {
           
           <div class="col-lg-4">
             <div class="sticky-top" style="top: 80px; z-index: 10;">
-              <!-- Reservation Widget Card -->
-              <div class="card rounded-4 shadow-lg border-opacity-25 p-4 mb-4">
-                <div class="d-flex align-items-baseline mb-4 gap-2">
-                   <span class="fs-4 fw-bold">211 €</span>
-                   <span class="text-body fw-medium">en total</span>
-                </div>
-
-                <div class="border rounded-3 p-1 mb-3 bg-white">
-                   <!-- Keep existing calendar as requested by the user -->
-                   <availability-calendar></availability-calendar>
-                </div>
-
-                <div class="bg-light rounded-3 p-2 mb-3 text-center small text-muted">
-                    <i class="bi bi-info-circle text-primary"></i> 0 € hoy · Cancelación gratuita
-                </div>
-
-                <button class="btn btn-danger w-100 rounded-3 py-3 fs-5 fw-bold mb-3">Reservar</button>
-                <div class="text-center text-body small">No se te cobrará nada aún</div>
-              </div>
+              <availability-calendar style="display: block; min-width: 350px;"></availability-calendar>
               
               <!-- Report listing banner -->
               <div class="text-center mb-5">

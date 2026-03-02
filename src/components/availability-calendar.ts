@@ -40,7 +40,7 @@ export class AvailabilityCalendar extends LitElement {
 
   render() {
     return html`
-      <div class="card p-4 border-primary border-opacity-25 shadow-sm">
+      <div class="card p-4 rounded-4 shadow-lg border-opacity-25 border mb-4">
         <h4 class="fw-bold d-flex align-items-center gap-2 mb-4">
           <i class="bi bi-calendar-check text-primary"></i> 
           ${TranslationService.l.cal_title}
