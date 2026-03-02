@@ -60,6 +60,36 @@ interface Labels {
   month_oct: string;
   month_nov: string;
   month_dec: string;
+  badge_recommendation: string;
+  badge_reviews: string;
+  img_btn_show_all: string;
+  img_gallery_title: string;
+  img_btn_share: string;
+  img_btn_save: string;
+  img_gallery_photo: string;
+  map_title: string;
+  host_title: string;
+  host_superhost: string;
+  host_study: string;
+  host_work: string;
+  host_is_superhost: string;
+  host_superhost_desc: string;
+  host_info_title: string;
+  host_response_rate: string;
+  host_response_time: string;
+  host_contact_btn: string;
+  host_protection: string;
+  know_title: string;
+  know_cancel_title: string;
+  know_cancel_desc: string;
+  know_rules_title: string;
+  know_rules_desc: string;
+  know_safety_title: string;
+  know_safety_desc: string;
+  know_more_info: string;
+  app_property_title: string;
+  app_property_specs: string;
+  app_report_listing: string;
 }
 
 const translations: Record<Language, Labels> = {
@@ -106,7 +136,37 @@ const translations: Record<Language, Labels> = {
     month_jan: "Enero", month_feb: "Febrero", month_mar: "Marzo",
     month_apr: "Abril", month_may: "Mayo", month_jun: "Junio",
     month_jul: "Julio", month_aug: "Agosto", month_sep: "Septiembre",
-    month_oct: "Octubre", month_nov: "Noviembre", month_dec: "Diciembre"
+    month_oct: "Octubre", month_nov: "Noviembre", month_dec: "Diciembre",
+    badge_recommendation: "Recomendación\ndel viajero",
+    badge_reviews: "evaluaciones",
+    img_btn_show_all: "Mostrar todas las fotos",
+    img_gallery_title: "Ruta fotográfica",
+    img_btn_share: "Compartir",
+    img_btn_save: "Guardar",
+    img_gallery_photo: "Foto",
+    map_title: "¿Dónde dormirás?",
+    host_title: "Conoce a tu anfitrión",
+    host_superhost: "Superanfitrión",
+    host_study: "Estudió en: Universidad",
+    host_work: "Trabajo: Hostelería",
+    host_is_superhost: "es Superanfitrión",
+    host_superhost_desc: "Los Superanfitriones son anfitriones con experiencia y valoraciones excelentes que se esfuerzan al máximo por ofrecer estancias inolvidables a sus viajeros.",
+    host_info_title: "Información sobre el anfitrión",
+    host_response_rate: "Índice de respuesta: 100%.",
+    host_response_time: "Responde en menos de una hora.",
+    host_contact_btn: "Escribe al anfitrión",
+    host_protection: "Para proteger tus pagos, utiliza siempre canales seguros para transferir dinero y comunicarte con nosotros.",
+    know_title: "Qué debes saber",
+    know_cancel_title: "Política de cancelación",
+    know_cancel_desc: "Cancelación gratuita antes de 48h. Si cancelas antes de la fecha de llegada (20 de noviembre), recibirás un reembolso parcial. Consulta la rápida gestión de esta política.",
+    know_rules_title: "Normas de la casa",
+    know_rules_desc: "Llegada a partir de las 15:00<br>Salida antes de las 11:00<br>Máximo 4 viajeros",
+    know_safety_title: "Seguridad y propiedad",
+    know_safety_desc: "Detector de monóxido de carbono<br>Detector de humo<br>Botiquín de primeros auxilios",
+    know_more_info: "Más información",
+    app_property_title: "Alojamiento entero: apartamento en Torremolinos, España",
+    app_property_specs: "3 viajeros · 2 dormitorios · 2 camas · 1 baño",
+    app_report_listing: "Denunciar este anuncio"
   },
   en: {
     nav_brand: "Torremolinos Rental",
@@ -151,7 +211,37 @@ const translations: Record<Language, Labels> = {
     month_jan: "January", month_feb: "February", month_mar: "March",
     month_apr: "April", month_may: "May", month_jun: "June",
     month_jul: "July", month_aug: "August", month_sep: "September",
-    month_oct: "October", month_nov: "November", month_dec: "December"
+    month_oct: "October", month_nov: "November", month_dec: "December",
+    badge_recommendation: "Traveler's\nChoice",
+    badge_reviews: "reviews",
+    img_btn_show_all: "Show all photos",
+    img_gallery_title: "Photo Tour",
+    img_btn_share: "Share",
+    img_btn_save: "Save",
+    img_gallery_photo: "Photo",
+    map_title: "Where you'll sleep",
+    host_title: "Meet your host",
+    host_superhost: "Superhost",
+    host_study: "Studied at: University",
+    host_work: "Work: Hospitality",
+    host_is_superhost: "is a Superhost",
+    host_superhost_desc: "Superhosts are experienced, highly rated hosts who are committed to providing great stays for guests.",
+    host_info_title: "Host details",
+    host_response_rate: "Response rate: 100%.",
+    host_response_time: "Responds within an hour.",
+    host_contact_btn: "Message host",
+    host_protection: "To protect your payment, never transfer money or communicate outside of the Airbnb website.",
+    know_title: "Things to know",
+    know_cancel_title: "Cancellation policy",
+    know_cancel_desc: "Free cancellation before 48h. If you cancel before check-in (Nov 20), you'll get a partial refund.",
+    know_rules_title: "House rules",
+    know_rules_desc: "Check-in after 15:00<br>Checkout before 11:00<br>4 guests maximum",
+    know_safety_title: "Safety & property",
+    know_safety_desc: "Carbon monoxide alarm<br>Smoke alarm<br>First aid kit",
+    know_more_info: "Show more",
+    app_property_title: "Entire rental unit in Torremolinos, Spain",
+    app_property_specs: "3 guests · 2 bedrooms · 2 beds · 1 bath",
+    app_report_listing: "Report this listing"
   },
   de: {
     nav_brand: "Ferienwohnung Torremolinos",
@@ -196,7 +286,37 @@ const translations: Record<Language, Labels> = {
     month_jan: "Januar", month_feb: "Februar", month_mar: "März",
     month_apr: "April", month_may: "Mai", month_jun: "Juni",
     month_jul: "Juli", month_aug: "August", month_sep: "September",
-    month_oct: "Oktober", month_nov: "November", month_dec: "Dezember"
+    month_oct: "Oktober", month_nov: "November", month_dec: "Dezember",
+    badge_recommendation: "Gäste\nFavorit",
+    badge_reviews: "Bewertungen",
+    img_btn_show_all: "Alle Fotos anzeigen",
+    img_gallery_title: "Fototour",
+    img_btn_share: "Teilen",
+    img_btn_save: "Speichern",
+    img_gallery_photo: "Foto",
+    map_title: "Wo du schlafen wirst",
+    host_title: "Lerne deinen Gastgeber kennen",
+    host_superhost: "Superhost",
+    host_study: "Hat studiert an: Universität",
+    host_work: "Arbeit: Gastgewerbe",
+    host_is_superhost: "ist ein Superhost",
+    host_superhost_desc: "Superhosts sind erfahrene, sehr gut bewertete Gastgeber, die alles geben, um ihren Gästen großartige Aufenthalte zu bieten.",
+    host_info_title: "Informationen zum Gastgeber",
+    host_response_rate: "Antwortrate: 100%.",
+    host_response_time: "Antwortet innerhalb einer Stunde.",
+    host_contact_btn: "Nachricht an den Gastgeber",
+    host_protection: "Um deine Zahlungen zu schützen, solltest du niemals außerhalb der Website kommunizieren oder Geld überweisen.",
+    know_title: "Was du wissen solltest",
+    know_cancel_title: "Stornierungsbedingungen",
+    know_cancel_desc: "Kostenlose Stornierung bis 48 Std. Bei einer Stornierung vor dem Check-in (20. Nov.) erhältst du eine teilweise Rückerstattung.",
+    know_rules_title: "Hausregeln",
+    know_rules_desc: "Check-in ab 15:00<br>Check-out vor 11:00<br>Maximal 4 Gäste",
+    know_safety_title: "Sicherheit & Unterkunft",
+    know_safety_desc: "Kohlenmonoxid-Melder<br>Rauchmelder<br>Erste-Hilfe-Set",
+    know_more_info: "Mehr anzeigen",
+    app_property_title: "Ganze Mieteinheit in Torremolinos, Spanien",
+    app_property_specs: "3 Gäste · 2 Schlafzimmer · 2 Betten · 1 Badezimmer",
+    app_report_listing: "Dieses Inserat melden"
   },
   fr: {
     nav_brand: "Location Torremolinos",
@@ -241,7 +361,37 @@ const translations: Record<Language, Labels> = {
     month_jan: "Janvier", month_feb: "Février", month_mar: "Mars",
     month_apr: "Avril", month_may: "Mai", month_jun: "Juin",
     month_jul: "Juillet", month_aug: "Août", month_sep: "Septembre",
-    month_oct: "Octobre", month_nov: "Novembre", month_dec: "Décembre"
+    month_oct: "Octobre", month_nov: "Novembre", month_dec: "Décembre",
+    badge_recommendation: "Coup de\ncœur voyageurs",
+    badge_reviews: "évaluations",
+    img_btn_show_all: "Afficher toutes les photos",
+    img_gallery_title: "Visite en photos",
+    img_btn_share: "Partager",
+    img_btn_save: "Enregistrer",
+    img_gallery_photo: "Photo",
+    map_title: "Où vous dormirez",
+    host_title: "Rencontrez votre hôte",
+    host_superhost: "Superhôte",
+    host_study: "A étudié : Université",
+    host_work: "Travail : Hôtellerie",
+    host_is_superhost: "est Superhôte",
+    host_superhost_desc: "Les Superhôtes sont des hôtes expérimentés et très bien notés, qui s'engagent à offrir d'excellents séjours aux voyageurs.",
+    host_info_title: "Informations sur l'hôte",
+    host_response_rate: "Taux de réponse : 100 %.",
+    host_response_time: "Répond dans l'heure.",
+    host_contact_btn: "Contacter l'hôte",
+    host_protection: "Pour protéger vos paiements, ne transférez jamais d'argent en dehors du site.",
+    know_title: "À savoir",
+    know_cancel_title: "Conditions d'annulation",
+    know_cancel_desc: "Annulation gratuite avant 48 h. Si vous annulez avant l'arrivée (20 nov.), vous recevrez un remboursement partiel.",
+    know_rules_title: "Règlement intérieur",
+    know_rules_desc: "Arrivée après 15:00<br>Départ avant 11:00<br>4 voyageurs maximum",
+    know_safety_title: "Sécurité et propriété",
+    know_safety_desc: "Détecteur de monoxyde de carbone<br>Détecteur de fumée<br>Trousse de premiers secours",
+    know_more_info: "En savoir plus",
+    app_property_title: "Logement entier à Torremolinos, Espagne",
+    app_property_specs: "3 voyageurs · 2 chambres · 2 lits · 1 salle de bain",
+    app_report_listing: "Signaler cette annonce"
   },
   nl: {
     nav_brand: "Verhuur Torremolinos",
@@ -286,7 +436,37 @@ const translations: Record<Language, Labels> = {
     month_jan: "Januari", month_feb: "Februari", month_mar: "Maart",
     month_apr: "April", month_may: "Mei", month_jun: "Juni",
     month_jul: "Juli", month_aug: "Augustus", month_sep: "September",
-    month_oct: "Oktober", month_nov: "November", month_dec: "December"
+    month_oct: "Oktober", month_nov: "November", month_dec: "December",
+    badge_recommendation: "Gasten\nfavoriet",
+    badge_reviews: "recensies",
+    img_btn_show_all: "Alle foto's bekijken",
+    img_gallery_title: "Fototour",
+    img_btn_share: "Delen",
+    img_btn_save: "Opslaan",
+    img_gallery_photo: "Foto",
+    map_title: "Waar je zult slapen",
+    host_title: "Maak kennis met je host",
+    host_superhost: "Superhost",
+    host_study: "Heeft gestudeerd: Universiteit",
+    host_work: "Werk: Horeca",
+    host_is_superhost: "is een Superhost",
+    host_superhost_desc: "Superhosts zijn ervaren, hooggewaardeerde hosts die zich inzetten om gasten een geweldig verblijf te bieden.",
+    host_info_title: "Hostgegevens",
+    host_response_rate: "Reactiegraad: 100%.",
+    host_response_time: "Reageert binnen een uur.",
+    host_contact_btn: "Contact met de host",
+    host_protection: "Om je betaling te beschermen, raden we je aan om altijd via de website te communiceren en te betalen.",
+    know_title: "Wat je moet weten",
+    know_cancel_title: "Annuleringsvoorwaarden",
+    know_cancel_desc: "Gratis annuleren tot 48 uur. Als je voor het inchecken (20 nov.) annuleert, krijg je een gedeeltelijke terugbetaling.",
+    know_rules_title: "Huisregels",
+    know_rules_desc: "Inchecken na 15:00<br>Uitchecken voor 11:00<br>Maximaal 4 gasten",
+    know_safety_title: "Veiligheid en eigendom",
+    know_safety_desc: "Koolmonoxidemelder<br>Rookmelder<br>EHBO-doos",
+    know_more_info: "Meer informatie",
+    app_property_title: "Gehele huurwoning in Torremolinos, Spanje",
+    app_property_specs: "3 gasten · 2 slaapkamers · 2 bedden · 1 badkamer",
+    app_report_listing: "Deze advertentie rapporteren"
   }
 };
 

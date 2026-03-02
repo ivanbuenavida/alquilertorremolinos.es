@@ -24,7 +24,7 @@ export class PropertyHeader extends LitElement {
           </a>
           <span class="mx-1 d-none d-sm-inline">·</span>
           <span class="d-flex align-items-center gap-1 fw-bold"><i class="bi bi-star-fill text-dark"></i> 4,92</span>
-          <span class="text-decoration-underline mx-1">104 evaluaciones</span>
+          <span class="text-decoration-underline mx-1">104 ${TranslationService.l.badge_reviews}</span>
         </div>
       </div>
     `;

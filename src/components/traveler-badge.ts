@@ -1,5 +1,6 @@
 import { LitElement, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { TranslationService } from '../services/translation-service';
 
 @customElement('traveler-badge')
 export class TravelerBadge extends LitElement {
@@ -20,7 +21,7 @@ export class TravelerBadge extends LitElement {
           <div class="text-center d-flex align-items-center gap-2">
             <i class="bi bi-award fs-1 text-warning"></i>
             <div class="text-start">
-              <span class="fw-bold text-dark d-block" style="line-height:1.2;">Recomendación<br>del viajero</span>
+              <span class="fw-bold text-dark d-block" style="line-height:1.2; white-space: pre-line;">${TranslationService.l.badge_recommendation}</span>
             </div>
           </div>
           <div class="text-center border-start border-end px-4">
@@ -31,7 +32,7 @@ export class TravelerBadge extends LitElement {
           </div>
           <div class="text-center px-4">
             <span class="fw-bold fs-3">${this.reviews}</span>
-            <span class="text-dark small d-block text-decoration-underline">evaluaciones</span>
+            <span class="text-dark small d-block text-decoration-underline">${TranslationService.l.badge_reviews}</span>
           </div>
         </div>
       </div>

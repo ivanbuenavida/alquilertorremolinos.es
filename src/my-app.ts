@@ -80,8 +80,8 @@ export class MyApp extends LitElement {
             <!-- Property summary line (Airbnb style) -->
             <div class="d-flex justify-content-between align-items-start mb-4 pb-4 border-bottom">
                <div>
-                 <h2 class="fs-4 fw-semibold mb-1">Alojamiento entero: apartamento en Torremolinos, España</h2>
-                 <p class="text-body mb-0">3 viajeros · 2 dormitorios · 2 camas · 1 baño</p>
+                 <h2 class="fs-4 fw-semibold mb-1">${TranslationService.l.app_property_title}</h2>
+                 <p class="text-body mb-0">${TranslationService.l.app_property_specs}</p>
                </div>
                <img src="${this.data.host.image || '/logo.svg'}" alt="Host" class="rounded-circle border" width="56" height="56">
             </div>
@@ -98,7 +98,7 @@ export class MyApp extends LitElement {
               
               <!-- Report listing banner -->
               <div class="text-center mb-5">
-                <a href="#" class="text-muted text-decoration-underline small"><i class="bi bi-flag-fill"></i> Denunciar este anuncio</a>
+                <a href="#" class="text-muted text-decoration-underline small"><i class="bi bi-flag-fill"></i> ${TranslationService.l.app_report_listing}</a>
               </div>
             </div>
           </div>

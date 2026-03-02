@@ -1,5 +1,6 @@
 import { LitElement, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { TranslationService } from '../services/translation-service';
 
 @customElement('image-carousel')
 export class ImageCarousel extends LitElement {
@@ -58,7 +59,7 @@ export class ImageCarousel extends LitElement {
         
         <!-- Optional: "Show all photos" button -->
         <button class="btn btn-light position-absolute bottom-0 end-0 m-3 shadow-sm d-flex align-items-center gap-2 border border-dark border-opacity-25" style="z-index: 2;" @click="${this._toggleModal}">
-          <i class="bi bi-grid-3x3-gap-fill"></i> Mostrar todas las fotos
+          <i class="bi bi-grid-3x3-gap-fill"></i> ${TranslationService.l.img_btn_show_all}
         </button>
       </div>
 
@@ -75,14 +76,14 @@ export class ImageCarousel extends LitElement {
                 <i class="bi bi-chevron-left"></i>
               </button>
               
-              <div class="fw-bold fs-5 d-none d-md-block">Ruta fotográfica</div>
+              <div class="fw-bold fs-5 d-none d-md-block">${TranslationService.l.img_gallery_title}</div>
 
               <div class="d-flex gap-3">
                 <button class="btn btn-link text-dark text-decoration-underline fw-medium d-flex align-items-center gap-2 px-0">
-                  <i class="bi bi-box-arrow-up"></i> Compartir
+                  <i class="bi bi-box-arrow-up"></i> ${TranslationService.l.img_btn_share}
                 </button>
                 <button class="btn btn-link text-dark text-decoration-underline fw-medium d-flex align-items-center gap-2 px-0">
-                  <i class="bi bi-heart"></i> Guardar
+                  <i class="bi bi-heart"></i> ${TranslationService.l.img_btn_save}
                 </button>
               </div>
             </div>
@@ -97,7 +98,7 @@ export class ImageCarousel extends LitElement {
                     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
                   }}">
                     <img src="${img}" class="img-fluid rounded mb-1 w-100 object-fit-cover" style="height: 80px;" alt="Thumbnail ${index + 1}">
-                    <div class="small text-truncate text-center">Foto ${index + 1}</div>
+                    <div class="small text-truncate text-center">${TranslationService.l.img_gallery_photo} ${index + 1}</div>
                   </a>
                 `)}
               </div>
