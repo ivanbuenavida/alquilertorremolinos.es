@@ -3,6 +3,7 @@ import { customElement, state } from 'lit/decorators.js';
 import './calendar/calendar-view.ts';
 import { TranslationService } from '../services/translation-service';
 import { contactConfig } from '../config/contact-config';
+import { pricingConfig } from '../config/pricing-config';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 @customElement('availability-calendar')
@@ -70,10 +71,49 @@ export class AvailabilityCalendar extends LitElement {
               <span class="text-muted">${TranslationService.l.cal_summary_nights}:</span>
               <span class="fw-medium">${this._nights}</span>
             </div>
-            <div class="d-flex justify-content-between pt-2 mt-2 border-top">
-              <span class="fw-bold">${TranslationService.l.cal_summary_total}:</span>
-              <span class="fw-bold fs-5 text-primary">${this._totalPrice}€</span>
-            </div>
+
+            ${(() => {
+              let discountLabel = '';
+              let discountMultiplier = 1;
+
+              if (this._nights >= 30) {
+                discountLabel = TranslationService.l.cal_summary_discount_monthly;
+                discountMultiplier = pricingConfig.discounts.monthly;
+              } else if (this._nights >= 14) {
+                discountLabel = TranslationService.l.cal_summary_discount_monthly;
+                discountMultiplier = pricingConfig.discounts.biweekly;
+              } else if (this._nights >= 7) {
+                discountLabel = TranslationService.l.cal_summary_discount_weekly;
+                discountMultiplier = pricingConfig.discounts.weekly;
+              }
+
+              if (discountMultiplier < 1) {
+                const discountAmount = Math.round(this._totalPrice * (1 - discountMultiplier));
+                const finalPrice = this._totalPrice - discountAmount;
+
+                return html`
+                  <div class="d-flex justify-content-between mb-2 small">
+                    <span class="text-muted">${TranslationService.l.cal_summary_subtotal}:</span>
+                    <span class="fw-medium font-monospace">${this._totalPrice}€</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-2 small text-success fw-bold">
+                    <span>${discountLabel}:</span>
+                    <span>-${discountAmount}€</span>
+                  </div>
+                  <div class="d-flex justify-content-between pt-2 mt-2 border-top">
+                    <span class="fw-bold">${TranslationService.l.cal_summary_total}:</span>
+                    <span class="fw-bold fs-5 text-primary">${finalPrice}€</span>
+                  </div>
+                `;
+              }
+
+              return html`
+                <div class="d-flex justify-content-between pt-2 mt-2 border-top">
+                  <span class="fw-bold">${TranslationService.l.cal_summary_total}:</span>
+                  <span class="fw-bold fs-5 text-primary">${this._totalPrice}€</span>
+                </div>
+              `;
+            })()}
           </div>
         ` : ''}
 
@@ -82,9 +122,16 @@ export class AvailabilityCalendar extends LitElement {
             const startStr = this._startDate ? this._startDate.toLocaleDateString('es-ES') : '';
             const endStr = this._endDate ? this._endDate.toLocaleDateString('es-ES') : '';
             
+            let discountMultiplier = 1;
+            if (this._nights >= 30) discountMultiplier = pricingConfig.discounts.monthly;
+            else if (this._nights >= 14) discountMultiplier = pricingConfig.discounts.biweekly;
+            else if (this._nights >= 7) discountMultiplier = pricingConfig.discounts.weekly;
+
+            const finalPrice = Math.round(this._totalPrice * discountMultiplier);
+
             let message = `Hola, se ha solicitado la reserva para el alojamiento ubicado en: ${TranslationService.l.prop_location}.`;
             if (this._startDate && this._endDate) {
-              message = `Hola, me gustaría reservar el alojamiento en ${TranslationService.l.prop_location}\n\nResumen de reserva:\nFechas: ${startStr} a ${endStr}\nNoches: ${this._nights}\nPrecio total: ${this._totalPrice}€`;
+              message = `Hola, me gustaría reservar el alojamiento en ${TranslationService.l.prop_location}\n\nResumen de reserva:\nFechas: ${startStr} a ${endStr}\nNoches: ${this._nights}\nPrecio total: ${finalPrice}€`;
             }
             
             const encodedMsg = encodeURIComponent(message);

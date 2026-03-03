@@ -35,6 +35,16 @@ export interface PricingConfig {
    * Format: 'YYYY-MM-DD' or 'MM-DD' (if applies every year).
    */
   holidays: string[];
+
+  /**
+   * Discounts based on stay duration.
+   * Format: { [days]: multiplier } where 0.80 = -20%
+   */
+  discounts: {
+    weekly: number;      // 7 days
+    biweekly: number;    // 14 days
+    monthly: number;     // 30 days
+  };
 }
 
 export const pricingConfig: PricingConfig = {
@@ -72,5 +82,12 @@ export const pricingConfig: PricingConfig = {
     '12-25', // Christmas
     '01-01', // New Year
     // You can add specific dates like '2026-04-02' (Holy Week)
-  ]
+  ],
+
+  // Discounts: 7d = 20%, 14d = 30%, 30d = 40%
+  discounts: {
+    weekly: 0.80,
+    biweekly: 0.75,
+    monthly: 0.70
+  }
 };

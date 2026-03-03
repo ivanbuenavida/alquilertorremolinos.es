@@ -36,6 +36,9 @@ interface Labels {
   cal_summary_title: string;
   cal_summary_dates: string;
   cal_err_min_nights: (min: number) => string;
+  cal_summary_subtotal: string;
+  cal_summary_discount_weekly: string;
+  cal_summary_discount_monthly: string;
   // Policies (Accordion)
   pol_title: string;
   pol_cancellation_title: string;
@@ -118,6 +121,9 @@ const translations: Record<Language, Labels> = {
     cal_summary_title: "Resumen de reserva",
     cal_summary_dates: "Fechas",
     cal_err_min_nights: (min) => `La reserva mínima en estas fechas es de ${min} noches`,
+    cal_summary_subtotal: "Subtotal",
+    cal_summary_discount_weekly: "Descuento semanal",
+    cal_summary_discount_monthly: "Descuento de larga estancia",
     pol_title: "Condiciones de reserva",
     pol_cancellation_title: "Política de cancelación",
     pol_cancellation_desc: "Cancelación gratuita hasta 14 días antes de la llegada. Si cancelas posteriormente, se retendrá el depósito de reserva.",
@@ -187,6 +193,9 @@ const translations: Record<Language, Labels> = {
     cal_summary_title: "Booking summary",
     cal_summary_dates: "Dates",
     cal_err_min_nights: (min) => `Minimum stay for these dates is ${min} nights`,
+    cal_summary_subtotal: "Subtotal",
+    cal_summary_discount_weekly: "Weekly discount",
+    cal_summary_discount_monthly: "Long stay discount",
     pol_title: "Booking Conditions",
     pol_cancellation_title: "Cancellation Policy",
     pol_cancellation_desc: "Free cancellation up to 14 days before arrival. If you cancel later, the booking deposit will be retained.",
@@ -256,6 +265,9 @@ const translations: Record<Language, Labels> = {
     cal_summary_title: "Buchungsübersicht",
     cal_summary_dates: "Daten",
     cal_err_min_nights: (min) => `Der Mindestaufenthalt für diese Daten beträgt ${min} Nächte`,
+    cal_summary_subtotal: "Zwischensumme",
+    cal_summary_discount_weekly: "Wochenrabatt",
+    cal_summary_discount_monthly: "Langzeitrabatt",
     pol_title: "Buchungsbedingungen",
     pol_cancellation_title: "Stornierungsbedingungen",
     pol_cancellation_desc: "Kostenlose Stornierung bis 14 Tage vor Anreise. Bei späterer Stornierung wird die Buchungskaution einbehalten.",
@@ -325,6 +337,9 @@ const translations: Record<Language, Labels> = {
     cal_summary_title: "Résumé de la réservation",
     cal_summary_dates: "Dates",
     cal_err_min_nights: (min) => `Le séjour minimum à ces dates est de ${min} nuits`,
+    cal_summary_subtotal: "Sous-total",
+    cal_summary_discount_weekly: "Remise hebdomadaire",
+    cal_summary_discount_monthly: "Remise longue durée",
     pol_title: "Conditions de réservation",
     pol_cancellation_title: "Conditions d'annulation",
     pol_cancellation_desc: "Annulation gratuite jusqu'à 14 jours avant l'arrivée. Si vous annulez plus tard, l'acompte de réservation sera conservé.",
@@ -394,6 +409,9 @@ const translations: Record<Language, Labels> = {
     cal_summary_title: "Boekingssamenvatting",
     cal_summary_dates: "Data",
     cal_err_min_nights: (min) => `Minimum verblijf voor deze data is ${min} nachten`,
+    cal_summary_subtotal: "Subtotaal",
+    cal_summary_discount_weekly: "Weekkorting",
+    cal_summary_discount_monthly: "Lange verblijfskorting",
     pol_title: "Boekingsvoorwaarden",
     pol_cancellation_title: "Annuleringsvoorwaarden",
     pol_cancellation_desc: "Gratis annuleren tot 14 dagen voor aankomst. Als u later annuleert, wordt de boekingsaanbetaling ingehouden.",
