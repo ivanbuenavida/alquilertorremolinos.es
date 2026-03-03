@@ -123,16 +123,30 @@ export class AvailabilityCalendar extends LitElement {
             const startStr = this._startDate ? this._startDate.toLocaleDateString('es-ES') : '';
             const endStr = this._endDate ? this._endDate.toLocaleDateString('es-ES') : '';
             
+            let discountLabel = '';
             let discountMultiplier = 1;
-            if (this._nights >= 30) discountMultiplier = pricingConfig.discounts.monthly;
-            else if (this._nights >= 14) discountMultiplier = pricingConfig.discounts.biweekly;
-            else if (this._nights >= 7) discountMultiplier = pricingConfig.discounts.weekly;
 
-            const finalPrice = Math.round(this._totalPrice * discountMultiplier);
+            if (this._nights >= 30) {
+              discountLabel = TranslationService.l.cal_summary_discount_monthly;
+              discountMultiplier = pricingConfig.discounts.monthly;
+            } else if (this._nights >= 14) {
+              discountLabel = TranslationService.l.cal_summary_discount_monthly;
+              discountMultiplier = pricingConfig.discounts.biweekly;
+            } else if (this._nights >= 7) {
+              discountLabel = TranslationService.l.cal_summary_discount_weekly;
+              discountMultiplier = pricingConfig.discounts.weekly;
+            }
+
+            const discountAmount = Math.round(this._totalPrice * (1 - discountMultiplier));
+            const finalPrice = this._totalPrice - discountAmount;
 
             let message = `Hola, se ha solicitado la reserva para el alojamiento ubicado en: ${TranslationService.l.prop_location}.`;
             if (this._startDate && this._endDate) {
-              message = `Hola, me gustaría reservar el alojamiento en ${TranslationService.l.prop_location}\n\nResumen de reserva:\nFechas: ${startStr} a ${endStr}\nNoches: ${this._nights}\nPrecio total: ${finalPrice}€`;
+              const discountStr = discountMultiplier < 1 
+                ? `\nSubtotal: ${this._totalPrice}€\n${discountLabel} (-${Math.round((1-discountMultiplier)*100)}%): -${discountAmount}€` 
+                : '';
+              
+              message = `Hola, me gustaría reservar el alojamiento en ${TranslationService.l.prop_location}\n\nResumen de reserva:\nFechas: ${startStr} a ${endStr}\nNoches: ${this._nights}${discountStr}\nPrecio total: ${finalPrice}€`;
             }
             
             const encodedMsg = encodeURIComponent(message);
