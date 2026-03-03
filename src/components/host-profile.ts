@@ -27,7 +27,6 @@ export class HostProfile extends LitElement {
             <div class="mt-4 px-2">
               <ul class="list-unstyled text-body fs-6 gap-3 d-flex flex-column">
                 <li><i class="bi bi-mortarboard me-3 fs-5"></i> ${TranslationService.l.host_study}</li>
-                <li><i class="bi bi-briefcase me-3 fs-5"></i> ${TranslationService.l.host_work}</li>
                 <li><i class="bi bi-chat-quote me-3 fs-5"></i> ${this.host.name === 'Iván Benavides' ? 'Alegre, cuidadoso, atento' : 'Alegre, puntual, simpática'}</li>
               </ul>
             </div>
@@ -35,6 +34,9 @@ export class HostProfile extends LitElement {
           <div class="col-md-8">
             <p class="text-body mb-0" style="font-size: 1.1rem; line-height: 1.6; white-space: pre-line;">
               ${TranslationService.l.prop_host_description}
+            </p>
+            <p class="text-secondary mt-3 fst-italic">
+              ${TranslationService.l.host_languages}
             </p>
           </div>
         </div>

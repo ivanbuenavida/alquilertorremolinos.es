@@ -9,6 +9,7 @@ interface Labels {
   prop_about: string;
   prop_host_prefix: string;
   prop_host_description: string;
+  host_languages: string;
   prop_read_more: string;
   prop_show_less: string;
   prop_location: string;
@@ -69,7 +70,6 @@ interface Labels {
   host_title: string;
   host_superhost: string;
   host_study: string;
-  host_work: string;
   host_contact_btn: string;
   host_protection: string;
   app_property_title: string;
@@ -92,7 +92,8 @@ const translations: Record<Language, Labels> = {
     hero_title: "Escapada en Torremolinos",
     prop_about: "Sobre este lugar",
     prop_host_prefix: "Anfitrión",
-    prop_host_description: "¡Hola! Soy Iván, ingeniero de profesión, deportista y amante de viajar. Hace poco decidí reformar y preparar mis alojamientos con mucho cariño para embarcarme en el mundo del alquiler turístico y ofrecer estancias de calidad. Soy una persona extrovertida, risueña y con sentido del humor. Estoy disponible para ayudarte a que tu estancia supere tus expectativas y sea lo más placentera posible. ¡Espero recibirte pronto!\nIdiomas que habla: Inglés, Español",
+    prop_host_description: "¡Hola! Soy Iván, ingeniero de profesión, deportista y amante de viajar. Hace poco decidí reformar y preparar mis alojamientos con mucho cariño para embarcarme en el mundo del alquiler turístico y ofrecer estancias de calidad. Soy una persona extrovertida, risueña y con sentido del humor. Estoy disponible para ayudarte a que tu estancia supere tus expectativas y sea lo más placentera posible. ¡Espero recibirte pronto!",
+    host_languages: "Idiomas que habla: Inglés, Español, Alemán",
     prop_read_more: "Leer más",
     prop_show_less: "Mostrar menos",
     prop_location: "Junto a calle San miguel, Torremolinos, Málaga",
@@ -140,7 +141,6 @@ const translations: Record<Language, Labels> = {
     host_title: "Conoce a tu anfitrión",
     host_superhost: "Superanfitrión",
     host_study: "Estudió en: Universidad",
-    host_work: "Trabajo: Hostelería",
     host_contact_btn: "Escribe al anfitrión",
     host_protection: "Para proteger tus pagos, utiliza siempre canales seguros para transferir dinero y comunicarte con nosotros.",
     app_property_title: "Alojamiento entero: apartamento en Torremolinos, España",
@@ -161,7 +161,8 @@ const translations: Record<Language, Labels> = {
     hero_title: "Torremolinos Retreat",
     prop_about: "About this place",
     prop_host_prefix: "Host",
-    prop_host_description: "Hello! I'm Iván, an engineer by profession, athlete, and travel lover. I recently decided to renovate and prepare my accommodations with great care to embark on the world of tourist rentals and offer quality stays. I am an outgoing, cheerful person with a sense of humor. I am available to help make your stay exceed your expectations and be as pleasant as possible. I look forward to hosting you soon!\nLanguages spoken: English, Spanish",
+    prop_host_description: "Hello! I'm Iván, an engineer by profession, athlete, and travel lover. I recently decided to renovate and prepare my accommodations with great care to embark on the world of tourist rentals and offer quality stays. I am an outgoing, cheerful person with a sense of humor. I am available to help make your stay exceed your expectations and be as pleasant as possible. I look forward to hosting you soon!",
+    host_languages: "Languages spoken: English, Spanish, German",
     prop_read_more: "Read more",
     prop_show_less: "Show less",
     prop_location: "Next to San Miguel street, Torremolinos, Málaga",
@@ -209,7 +210,6 @@ const translations: Record<Language, Labels> = {
     host_title: "Meet your host",
     host_superhost: "Superhost",
     host_study: "Studied at: University",
-    host_work: "Work: Hospitality",
     host_contact_btn: "Message host",
     host_protection: "To protect your payment, never transfer money or communicate outside of the Airbnb website.",
     app_property_title: "Entire rental unit in Torremolinos, Spain",
@@ -230,7 +230,8 @@ const translations: Record<Language, Labels> = {
     hero_title: "Rückzugsort in Torremolinos",
     prop_about: "Über diesen Ort",
     prop_host_prefix: "Gastgeber",
-    prop_host_description: "Hallo! Ich bin Iván, von Beruf Ingenieur, Sportler und reiselustig. Ich habe vor kurzem beschlossen, meine Unterkünfte mit viel Liebe zu renovieren und vorzubereiten, um in die Welt der Ferienvermietung einzusteigen und Qualitätsaufenthalte anzubieten. Ich bin ein aufgeschlossener, fröhlicher Mensch mit Sinn für Humor. Ich stehe Ihnen zur Verfügung, um Ihnen zu helfen, dass Ihr Aufenthalt Ihre Erwartungen übertrifft und so angenehm wie möglich ist. Ich freue mich darauf, Sie bald begrüßen zu dürfen!\nGesprochene Sprachen: Englisch, Spanisch",
+    prop_host_description: "Hallo! Ich bin Iván, von Beruf Ingenieur, Sportler und reiselustig. Ich habe vor kurzem beschlossen, meine Unterkünfte mit viel Liebe zu renovieren und vorzubereiten, um in die Welt der Ferienvermietung einzusteigen und Qualitätsaufenthalte anzubieten. Ich bin ein aufgeschlossener, fröhlicher Mensch mit Sinn für Humor. Ich stehe Ihnen zur Verfügung, um Ihnen zu helfen, dass Ihr Aufenthalt Ihre Erwartungen übertrifft und so angenehm wie möglich ist. Ich freue mich darauf, Sie bald begrüßen zu dürfen!",
+    host_languages: "Gesprochene Sprachen: Englisch, Spanisch, Deutsch",
     prop_read_more: "Mehr lesen",
     prop_show_less: "Weniger anzeigen",
     prop_location: "Neben der Straße San Miguel, Torremolinos, Málaga",
@@ -278,7 +279,6 @@ const translations: Record<Language, Labels> = {
     host_title: "Lerne deinen Gastgeber kennen",
     host_superhost: "Superhost",
     host_study: "Hat studiert an: Universität",
-    host_work: "Arbeit: Gastgewerbe",
     host_contact_btn: "Nachricht an den Gastgeber",
     host_protection: "Um deine Zahlungen zu schützen, solltest du niemals außerhalb der Website kommunizieren oer Geld überweisen.",
     app_property_title: "Ganze Mieteinheit in Torremolinos, Spanien",
@@ -299,7 +299,8 @@ const translations: Record<Language, Labels> = {
     hero_title: "Retraite à Torremolinos",
     prop_about: "À propos de ce logement",
     prop_host_prefix: "Hôte",
-    prop_host_description: "Bonjour ! Je suis Iván, ingénieur de profession, sportif et amateur de voyages. J'ai récemment décidé de rénover et de préparer mes logements avec beaucoup d'affection pour me lancer dans le monde de la location touristique et proposer des séjours de qualité. Je suis une personne extravertie, souriante et avec le sens de l'humour. Je suis disponible pour vous aider à ce que votre séjour dépasse vos attentes et soit le plus agréable possible. J'espère vous recevoir bientôt !\nLangues parlées : Anglais, Espagnol",
+    prop_host_description: "Bonjour ! Je suis Iván, ingénieur de profession, sportif et amateur de voyages. J'ai récemment décidé de rénover et de préparer mes logements avec beaucoup d'affection pour me lancer dans le monde de la location touristique et proposer des séjours de qualité. Je suis une personne extravertie, souriante et avec le sens de l'humour. Je suis disponible pour vous aider à ce que votre séjour dépasse vos attentes et soit le plus agréable possible. J'espère vous recevoir bientôt !",
+    host_languages: "Langues parlées : Anglais, Espagnol, Allemand",
     prop_read_more: "Lire la suite",
     prop_show_less: "Afficher moins",
     prop_location: "À côté de la rue San Miguel, Torremolinos, Málaga",
@@ -347,7 +348,6 @@ const translations: Record<Language, Labels> = {
     host_title: "Rencontrez votre hôte",
     host_superhost: "Superhôte",
     host_study: "A étudié : Université",
-    host_work: "Travail : Hôtellerie",
     host_contact_btn: "Contacter l'hôte",
     host_protection: "Pour protéger vos paiements, ne transférez jamais d'argent en dehors du site.",
     app_property_title: "Logement entier à Torremolinos, Espagne",
@@ -368,7 +368,8 @@ const translations: Record<Language, Labels> = {
     hero_title: "Torremolinos Retreat",
     prop_about: "Over deze plek",
     prop_host_prefix: "Host",
-    prop_host_description: "Hallo! Ik ben Iván, ingenieur van beroep, atleet en reisliefhebber. Ik heb onlangs besloten om mijn accommodaties met veel liefde te renoveren en voor te bereiden om de wereld van de toeristische verhuur te betreden en kwaliteitsverblijven aan te bieden. Ik ben een extravert, vrolijk persoon met gevoel voor humor. Ik ben beschikbaar om je verblijf je verwachtingen te laten overtreffen en het zo aangenaam mogelijk te maken. Ik hoop je snel te mogen verwelkomen!\nGesproken talen: Engels, Spaans",
+    prop_host_description: "Hallo! Ik ben Iván, ingenieur van beroep, atleet en reisliefhebber. Ik heb onlangs besloten om mijn accommodaties met veel liefde te renoveren en voor te bereiden om de wereld van de toeristische verhuur te betreden en kwaliteitsverblijven aan te bieden. Ik ben een extravert, vrolijk persoon met gevoel voor humor. Ik ben beschikbaar om je verblijf je verwachtingen te laten overtreffen en het zo aangenaam mogelijk te maken. Ik hoop je snel te mogen verwelkomen!",
+    host_languages: "Gesproken talen: Engels, Spaans, Duits",
     prop_read_more: "Lees meer",
     prop_show_less: "Toon minder",
     prop_location: "Naast de straat San Miguel, Torremolinos, Málaga",
@@ -402,7 +403,7 @@ const translations: Record<Language, Labels> = {
     pol_contact_desc: "Neem voor het boeken contact met ons op voor eventuele vragen.",
     footer_rights: "Alle rechten voorbehouden.",
     footer_whatsapp: "Contact via WhatsApp",
-    footer_whatsapp_msg: "Hallo, ik schrijf om informatie op te vragen over het appartement in Centro comercial España",
+    footer_whatsapp_msg: "Hallo, ik schrijf om informatie op te vragen over het vakantiehuis",
     month_jan: "Januari", month_feb: "Februari", month_mar: "Maart",
     month_apr: "April", month_may: "Mei", month_jun: "Juni",
     month_jul: "Juli", month_aug: "Augustus", month_sep: "September",
@@ -416,7 +417,6 @@ const translations: Record<Language, Labels> = {
     host_title: "Maak kennis met je host",
     host_superhost: "Superhost",
     host_study: "Heeft gestudeerd: Universiteit",
-    host_work: "Werk: Horeca",
     host_contact_btn: "Contact met de host",
     host_protection: "Om je betaling te beschermen, raden we je aan om altijd via de website te communiceren en te betalen.",
     app_property_title: "Gehele huurwoning in Torremolinos, Spanje",
