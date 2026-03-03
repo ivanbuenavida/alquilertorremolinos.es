@@ -70,16 +70,10 @@ interface Labels {
   host_superhost: string;
   host_study: string;
   host_work: string;
-  host_is_superhost: string;
-  host_superhost_desc: string;
-  host_info_title: string;
-  host_response_rate: string;
-  host_response_time: string;
   host_contact_btn: string;
   host_protection: string;
   app_property_title: string;
   app_property_specs: string;
-  app_report_listing: string;
   pol_rules_title: string;
   pol_rules_desc: string;
   img_title_1: string;
@@ -147,16 +141,10 @@ const translations: Record<Language, Labels> = {
     host_superhost: "Superanfitrión",
     host_study: "Estudió en: Universidad",
     host_work: "Trabajo: Hostelería",
-    host_is_superhost: "es Superanfitrión",
-    host_superhost_desc: "Los Superanfitriones son anfitriones con experiencia y valoraciones excelentes que se esfuerzan al máximo por ofrecer estancias inolvidables a sus viajeros.",
-    host_info_title: "Información sobre el anfitrión",
-    host_response_rate: "Índice de respuesta: 100%.",
-    host_response_time: "Responde en menos de una hora.",
     host_contact_btn: "Escribe al anfitrión",
     host_protection: "Para proteger tus pagos, utiliza siempre canales seguros para transferir dinero y comunicarte con nosotros.",
     app_property_title: "Alojamiento entero: apartamento en Torremolinos, España",
     app_property_specs: "3 viajeros · 2 dormitorios · 2 camas · 1 baño",
-    app_report_listing: "Denunciar este anuncio",
     pol_rules_title: "Normas de la casa",
     pol_rules_desc: "Llegada a partir de las 15:00<br>Salida antes de las 12:00<br>Máximo 4 viajeros",
     img_title_1: "Salón principal",
@@ -222,16 +210,10 @@ const translations: Record<Language, Labels> = {
     host_superhost: "Superhost",
     host_study: "Studied at: University",
     host_work: "Work: Hospitality",
-    host_is_superhost: "is a Superhost",
-    host_superhost_desc: "Superhosts are experienced, highly rated hosts who are committed to providing great stays for guests.",
-    host_info_title: "Host details",
-    host_response_rate: "Response rate: 100%.",
-    host_response_time: "Responds within an hour.",
     host_contact_btn: "Message host",
     host_protection: "To protect your payment, never transfer money or communicate outside of the Airbnb website.",
     app_property_title: "Entire rental unit in Torremolinos, Spain",
     app_property_specs: "3 guests · 2 bedrooms · 2 beds · 1 bath",
-    app_report_listing: "Report this listing",
     pol_rules_title: "House rules",
     pol_rules_desc: "Check-in after 15:00<br>Checkout before 12:00<br>4 guests maximum",
     img_title_1: "Main lounge",
@@ -297,16 +279,10 @@ const translations: Record<Language, Labels> = {
     host_superhost: "Superhost",
     host_study: "Hat studiert an: Universität",
     host_work: "Arbeit: Gastgewerbe",
-    host_is_superhost: "ist ein Superhost",
-    host_superhost_desc: "Superhosts sind erfahrene, sehr gut bewertete Gastgeber, die alles geben, um ihren Gästen großartige Aufenthalte zu bieten.",
-    host_info_title: "Informationen zum Gastgeber",
-    host_response_rate: "Antwortrate: 100%.",
-    host_response_time: "Antwortet innerhalb einer Stunde.",
     host_contact_btn: "Nachricht an den Gastgeber",
     host_protection: "Um deine Zahlungen zu schützen, solltest du niemals außerhalb der Website kommunizieren oer Geld überweisen.",
     app_property_title: "Ganze Mieteinheit in Torremolinos, Spanien",
     app_property_specs: "3 Gäste · 2 Schlafzimmer · 2 Betten · 1 Badezimmer",
-    app_report_listing: "Dieses Inserat melden",
     pol_rules_title: "Hausregeln",
     pol_rules_desc: "Check-in ab 15:00<br>Check-out vor 12:00<br>Maximal 4 Gäste",
     img_title_1: "Hauptwohnzimmer",
@@ -372,16 +348,10 @@ const translations: Record<Language, Labels> = {
     host_superhost: "Superhôte",
     host_study: "A étudié : Université",
     host_work: "Travail : Hôtellerie",
-    host_is_superhost: "est Superhôte",
-    host_superhost_desc: "Les Superhôtes sont des hôtes expérimentés et très bien notés, qui s'engagent à offrir d'excellents séjours aux voyageurs.",
-    host_info_title: "Informations sur l'hôte",
-    host_response_rate: "Taux de réponse : 100 %.",
-    host_response_time: "Répond dans l'heure.",
     host_contact_btn: "Contacter l'hôte",
     host_protection: "Pour protéger vos paiements, ne transférez jamais d'argent en dehors du site.",
     app_property_title: "Logement entier à Torremolinos, Espagne",
     app_property_specs: "3 voyageurs · 2 chambres · 2 lits · 1 salle de bain",
-    app_report_listing: "Signaler cette annonce",
     pol_rules_title: "Règlement intérieur",
     pol_rules_desc: "Arrivée après 15:00<br>Départ avant 12:00<br>4 voyageurs maximum",
     img_title_1: "Salon principal",
@@ -447,16 +417,10 @@ const translations: Record<Language, Labels> = {
     host_superhost: "Superhost",
     host_study: "Heeft gestudeerd: Universiteit",
     host_work: "Werk: Horeca",
-    host_is_superhost: "is een Superhost",
-    host_superhost_desc: "Superhosts zijn ervaren, hooggewaardeerde hosts die zich inzetten om gasten een geweldig verblijf te bieden.",
-    host_info_title: "Hostgegevens",
-    host_response_rate: "Reactiegraad: 100%.",
-    host_response_time: "Reageert binnen een uur.",
     host_contact_btn: "Contact met de host",
     host_protection: "Om je betaling te beschermen, raden we je aan om altijd via de website te communiceren en te betalen.",
     app_property_title: "Gehele huurwoning in Torremolinos, Spanje",
     app_property_specs: "3 gasten · 2 slaapkamers · 2 bedden · 1 badkamer",
-    app_report_listing: "Deze advertentie rapporteren",
     pol_rules_title: "Huisregels",
     pol_rules_desc: "Inchecken na 15:00<br>Uitchecken voor 12:00<br>Maximaal 4 gasten",
     img_title_1: "Woonkamer",

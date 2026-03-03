@@ -33,19 +33,9 @@ export class HostProfile extends LitElement {
             </div>
           </div>
           <div class="col-md-8">
-            <h4 class="fw-bold mb-3">${this.host.name} ${TranslationService.l.host_is_superhost}</h4>
-            <p class="text-body mb-4 text-justify" style="font-size: 1.1rem; line-height: 1.6;">${TranslationService.l.host_superhost_desc}</p>
-            
-            <h5 class="fw-bold mb-2">${TranslationService.l.host_info_title}</h5>
-            <p class="text-body mb-4">${TranslationService.l.host_response_rate}<br>${TranslationService.l.host_response_time}</p>
-
-            <button class="btn btn-dark px-4 py-3 rounded-3 fw-semibold mb-4 fs-6">${TranslationService.l.host_contact_btn}</button>
-
-            <!-- Protection block -->
-            <div class="d-flex gap-3 align-items-center mt-2 pt-4 border-top">
-              <i class="bi bi-shield-check text-primary fs-3"></i>
-              <p class="text-muted small mb-0 w-75">${TranslationService.l.host_protection}</p>
-            </div>
+            <p class="text-body mb-0" style="font-size: 1.1rem; line-height: 1.6; white-space: pre-line;">
+              ${TranslationService.l.prop_host_description}
+            </p>
           </div>
         </div>
       </section>

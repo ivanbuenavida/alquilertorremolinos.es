@@ -95,10 +95,7 @@ export class MyApp extends LitElement {
             <div class="sticky-top" style="top: 80px; z-index: 10;">
               <availability-calendar style="display: block; min-width: 350px;"></availability-calendar>
               
-              <!-- Report listing banner -->
-              <div class="text-center mb-5">
-                <a href="#" class="text-muted text-decoration-underline small"><i class="bi bi-flag-fill"></i> ${TranslationService.l.app_report_listing}</a>
-              </div>
+
             </div>
           </div>
         </div>
