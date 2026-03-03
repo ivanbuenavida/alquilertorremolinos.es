@@ -124,7 +124,11 @@ export class CalendarView extends LitElement {
   }
 
   private _handleDayClick(date: Date, isBusy: boolean) {
-    if (isBusy) return;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    // Block selection of past dates and today
+    if (isBusy || date.getTime() <= today.getTime()) return;
 
     const clickedTime = date.getTime();
 
@@ -307,16 +311,18 @@ export class CalendarView extends LitElement {
                     bgClass = 'bg-primary-subtle z-0';
                   }
 
+                  const isSelectable = !day.isBusy && !day.isPast && !day.isToday;
+                  
                   return html`
                     <div class="aspect-ratio-1 d-flex flex-column align-items-center justify-content-center p-1 user-select-none
-                                ${!day.isCurrentMonth ? 'opacity-25' : ''} 
-                                ${!day.isBusy ? 'cursor-pointer' : ''}
+                                ${!day.isCurrentMonth || !isSelectable ? 'opacity-25' : ''} 
+                                ${isSelectable ? 'cursor-pointer' : ''}
                                 ${bgClass}
                                 position-relative"
-                         style="min-height: 50px; cursor: pointer; ${isSelected ? 'border-radius: 8px;' : ''}"
+                         style="min-height: 50px; ${isSelectable ? 'cursor: pointer;' : 'cursor: default;'} ${isSelected ? 'border-radius: 8px;' : ''}"
                          @click="${() => this._handleDayClick(day.date, day.isBusy)}">
                       
-                      <span class="small fw-bold ${day.isToday && !isSelected ? 'text-primary border-bottom border-2 border-primary' : ''}">
+                      <span class="small fw-bold">
                         ${day.date.getDate()}
                       </span>
                       
@@ -325,7 +331,7 @@ export class CalendarView extends LitElement {
                         : ''
                       }
 
-                      ${!isSelected && !isInRange ? html`
+                      ${!isSelected && !isInRange && isSelectable ? html`
                         <div class="rounded-circle position-absolute bottom-0 mb-1 ${day.isBusy ? 'bg-danger' : 'bg-primary'}" 
                              style="width: 4px; height: 4px;"></div>
                       ` : ''}

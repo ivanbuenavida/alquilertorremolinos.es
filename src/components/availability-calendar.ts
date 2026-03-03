@@ -3,6 +3,7 @@ import { customElement, state } from 'lit/decorators.js';
 import './calendar/calendar-view.ts';
 import { TranslationService } from '../services/translation-service';
 import { contactConfig } from '../config/contact-config';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 @customElement('availability-calendar')
 export class AvailabilityCalendar extends LitElement {
@@ -134,6 +135,20 @@ export class AvailabilityCalendar extends LitElement {
             <div id="collapsePayment" class="accordion-collapse collapse" data-bs-parent="#policiesAccordion">
               <div class="accordion-body small text-muted pt-0 pb-3">
                 ${TranslationService.l.pol_payment_desc}
+              </div>
+            </div>
+          </div>
+
+          <!-- House Rules -->
+          <div class="accordion-item bg-transparent">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed bg-transparent shadow-none fw-medium small py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRules">
+                <i class="bi bi-house-check me-2 text-primary"></i> ${TranslationService.l.pol_rules_title}
+              </button>
+            </h2>
+            <div id="collapseRules" class="accordion-collapse collapse" data-bs-parent="#policiesAccordion">
+              <div class="accordion-body small text-muted pt-0 pb-3">
+                ${unsafeHTML(TranslationService.l.pol_rules_desc)}
               </div>
             </div>
           </div>

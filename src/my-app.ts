@@ -10,7 +10,6 @@ import './components/about-place.ts';
 import './components/property-amenities.ts';
 import './components/property-map.ts';
 import './components/host-profile.ts';
-import './components/things-to-know.ts';
 import './components/app-footer.ts';
 import './components/availability-calendar.ts';
 
@@ -110,9 +109,6 @@ export class MyApp extends LitElement {
 
         <hr class="my-5 opacity-25">
         <host-profile .host="${this.data.host}"></host-profile>
-
-        <hr class="my-5 opacity-25">
-        <things-to-know></things-to-know>
 
       </main>
 

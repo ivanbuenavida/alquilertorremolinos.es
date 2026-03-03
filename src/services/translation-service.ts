@@ -77,17 +77,11 @@ interface Labels {
   host_response_time: string;
   host_contact_btn: string;
   host_protection: string;
-  know_title: string;
-  know_cancel_title: string;
-  know_cancel_desc: string;
-  know_rules_title: string;
-  know_rules_desc: string;
-  know_safety_title: string;
-  know_safety_desc: string;
-  know_more_info: string;
   app_property_title: string;
   app_property_specs: string;
   app_report_listing: string;
+  pol_rules_title: string;
+  pol_rules_desc: string;
   img_title_1: string;
   img_title_2: string;
   img_title_3: string;
@@ -160,17 +154,11 @@ const translations: Record<Language, Labels> = {
     host_response_time: "Responde en menos de una hora.",
     host_contact_btn: "Escribe al anfitrión",
     host_protection: "Para proteger tus pagos, utiliza siempre canales seguros para transferir dinero y comunicarte con nosotros.",
-    know_title: "Qué debes saber",
-    know_cancel_title: "Política de cancelación",
-    know_cancel_desc: "Cancelación gratuita antes de 48h. Si cancelas antes de la fecha de llegada (20 de noviembre), recibirás un reembolso parcial. Consulta la rápida gestión de esta política.",
-    know_rules_title: "Normas de la casa",
-    know_rules_desc: "Llegada a partir de las 15:00<br>Salida antes de las 11:00<br>Máximo 4 viajeros",
-    know_safety_title: "Seguridad y propiedad",
-    know_safety_desc: "Detector de monóxido de carbono<br>Detector de humo<br>Botiquín de primeros auxilios",
-    know_more_info: "Más información",
     app_property_title: "Alojamiento entero: apartamento en Torremolinos, España",
     app_property_specs: "3 viajeros · 2 dormitorios · 2 camas · 1 baño",
     app_report_listing: "Denunciar este anuncio",
+    pol_rules_title: "Normas de la casa",
+    pol_rules_desc: "Llegada a partir de las 15:00<br>Salida antes de las 12:00<br>Máximo 4 viajeros",
     img_title_1: "Salón principal",
     img_title_2: "Baño moderno",
     img_title_3: "Vistas exteriores",
@@ -241,17 +229,11 @@ const translations: Record<Language, Labels> = {
     host_response_time: "Responds within an hour.",
     host_contact_btn: "Message host",
     host_protection: "To protect your payment, never transfer money or communicate outside of the Airbnb website.",
-    know_title: "Things to know",
-    know_cancel_title: "Cancellation policy",
-    know_cancel_desc: "Free cancellation before 48h. If you cancel before check-in (Nov 20), you'll get a partial refund.",
-    know_rules_title: "House rules",
-    know_rules_desc: "Check-in after 15:00<br>Checkout before 11:00<br>4 guests maximum",
-    know_safety_title: "Safety & property",
-    know_safety_desc: "Carbon monoxide alarm<br>Smoke alarm<br>First aid kit",
-    know_more_info: "Show more",
     app_property_title: "Entire rental unit in Torremolinos, Spain",
     app_property_specs: "3 guests · 2 bedrooms · 2 beds · 1 bath",
     app_report_listing: "Report this listing",
+    pol_rules_title: "House rules",
+    pol_rules_desc: "Check-in after 15:00<br>Checkout before 12:00<br>4 guests maximum",
     img_title_1: "Main lounge",
     img_title_2: "Modern bathroom",
     img_title_3: "Exterior views",
@@ -321,18 +303,12 @@ const translations: Record<Language, Labels> = {
     host_response_rate: "Antwortrate: 100%.",
     host_response_time: "Antwortet innerhalb einer Stunde.",
     host_contact_btn: "Nachricht an den Gastgeber",
-    host_protection: "Um deine Zahlungen zu schützen, solltest du niemals außerhalb der Website kommunizieren oder Geld überweisen.",
-    know_title: "Was du wissen solltest",
-    know_cancel_title: "Stornierungsbedingungen",
-    know_cancel_desc: "Kostenlose Stornierung bis 48 Std. Bei einer Stornierung vor dem Check-in (20. Nov.) erhältst du eine teilweise Rückerstattung.",
-    know_rules_title: "Hausregeln",
-    know_rules_desc: "Check-in ab 15:00<br>Check-out vor 11:00<br>Maximal 4 Gäste",
-    know_safety_title: "Sicherheit & Unterkunft",
-    know_safety_desc: "Kohlenmonoxid-Melder<br>Rauchmelder<br>Erste-Hilfe-Set",
-    know_more_info: "Mehr anzeigen",
+    host_protection: "Um deine Zahlungen zu schützen, solltest du niemals außerhalb der Website kommunizieren oer Geld überweisen.",
     app_property_title: "Ganze Mieteinheit in Torremolinos, Spanien",
     app_property_specs: "3 Gäste · 2 Schlafzimmer · 2 Betten · 1 Badezimmer",
     app_report_listing: "Dieses Inserat melden",
+    pol_rules_title: "Hausregeln",
+    pol_rules_desc: "Check-in ab 15:00<br>Check-out vor 12:00<br>Maximal 4 Gäste",
     img_title_1: "Hauptwohnzimmer",
     img_title_2: "Modernes Bad",
     img_title_3: "Außenansicht",
@@ -403,17 +379,11 @@ const translations: Record<Language, Labels> = {
     host_response_time: "Répond dans l'heure.",
     host_contact_btn: "Contacter l'hôte",
     host_protection: "Pour protéger vos paiements, ne transférez jamais d'argent en dehors du site.",
-    know_title: "À savoir",
-    know_cancel_title: "Conditions d'annulation",
-    know_cancel_desc: "Annulation gratuite avant 48 h. Si vous annulez avant l'arrivée (20 nov.), vous recevrez un remboursement partiel.",
-    know_rules_title: "Règlement intérieur",
-    know_rules_desc: "Arrivée après 15:00<br>Départ avant 11:00<br>4 voyageurs maximum",
-    know_safety_title: "Sécurité et propriété",
-    know_safety_desc: "Détecteur de monoxyde de carbone<br>Détecteur de fumée<br>Trousse de premiers secours",
-    know_more_info: "En savoir plus",
     app_property_title: "Logement entier à Torremolinos, Espagne",
     app_property_specs: "3 voyageurs · 2 chambres · 2 lits · 1 salle de bain",
     app_report_listing: "Signaler cette annonce",
+    pol_rules_title: "Règlement intérieur",
+    pol_rules_desc: "Arrivée après 15:00<br>Départ avant 12:00<br>4 voyageurs maximum",
     img_title_1: "Salon principal",
     img_title_2: "Salle de bain",
     img_title_3: "Vues extérieures",
@@ -484,17 +454,11 @@ const translations: Record<Language, Labels> = {
     host_response_time: "Reageert binnen een uur.",
     host_contact_btn: "Contact met de host",
     host_protection: "Om je betaling te beschermen, raden we je aan om altijd via de website te communiceren en te betalen.",
-    know_title: "Wat je moet weten",
-    know_cancel_title: "Annuleringsvoorwaarden",
-    know_cancel_desc: "Gratis annuleren tot 48 uur. Als je voor het inchecken (20 nov.) annuleert, krijg je een gedeeltelijke terugbetaling.",
-    know_rules_title: "Huisregels",
-    know_rules_desc: "Inchecken na 15:00<br>Uitchecken voor 11:00<br>Maximaal 4 gasten",
-    know_safety_title: "Veiligheid en eigendom",
-    know_safety_desc: "Koolmonoxidemelder<br>Rookmelder<br>EHBO-doos",
-    know_more_info: "Meer informatie",
     app_property_title: "Gehele huurwoning in Torremolinos, Spanje",
     app_property_specs: "3 gasten · 2 slaapkamers · 2 bedden · 1 badkamer",
     app_report_listing: "Deze advertentie rapporteren",
+    pol_rules_title: "Huisregels",
+    pol_rules_desc: "Inchecken na 15:00<br>Uitchecken voor 12:00<br>Maximaal 4 gasten",
     img_title_1: "Woonkamer",
     img_title_2: "Moderne badkamer",
     img_title_3: "Uitzicht buiten",
