@@ -88,6 +88,7 @@ export class AvailabilityCalendar extends LitElement {
               }
 
               if (discountMultiplier < 1) {
+                const discountPercent = Math.round((1 - discountMultiplier) * 100);
                 const discountAmount = Math.round(this._totalPrice * (1 - discountMultiplier));
                 const finalPrice = this._totalPrice - discountAmount;
 
@@ -97,7 +98,7 @@ export class AvailabilityCalendar extends LitElement {
                     <span class="fw-medium font-monospace">${this._totalPrice}€</span>
                   </div>
                   <div class="d-flex justify-content-between mb-2 small text-success fw-bold">
-                    <span>${discountLabel}:</span>
+                    <span>${discountLabel} (-${discountPercent}%):</span>
                     <span>-${discountAmount}€</span>
                   </div>
                   <div class="d-flex justify-content-between pt-2 mt-2 border-top">
