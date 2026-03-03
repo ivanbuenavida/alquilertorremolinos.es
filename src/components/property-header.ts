@@ -22,9 +22,6 @@ export class PropertyHeader extends LitElement {
             <i class="bi bi-geo-alt-fill"></i> 
             <span>${TranslationService.l.prop_location}</span>
           </a>
-          <span class="mx-1 d-none d-sm-inline">·</span>
-          <span class="d-flex align-items-center gap-1 fw-bold"><i class="bi bi-star-fill text-dark"></i> 4,92</span>
-          <span class="text-decoration-underline mx-1">104 ${TranslationService.l.badge_reviews}</span>
         </div>
       </div>
     `;

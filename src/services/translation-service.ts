@@ -60,8 +60,6 @@ interface Labels {
   month_oct: string;
   month_nov: string;
   month_dec: string;
-  badge_recommendation: string;
-  badge_reviews: string;
   img_btn_show_all: string;
   img_gallery_title: string;
   img_btn_share: string;
@@ -145,8 +143,6 @@ const translations: Record<Language, Labels> = {
     month_apr: "Abril", month_may: "Mayo", month_jun: "Junio",
     month_jul: "Julio", month_aug: "Agosto", month_sep: "Septiembre",
     month_oct: "Octubre", month_nov: "Noviembre", month_dec: "Diciembre",
-    badge_recommendation: "Recomendación\ndel viajero",
-    badge_reviews: "evaluaciones",
     img_btn_show_all: "Mostrar todas las fotos",
     img_gallery_title: "Ruta fotográfica",
     img_btn_share: "Compartir",
@@ -228,8 +224,6 @@ const translations: Record<Language, Labels> = {
     month_apr: "April", month_may: "May", month_jun: "June",
     month_jul: "July", month_aug: "August", month_sep: "September",
     month_oct: "October", month_nov: "November", month_dec: "December",
-    badge_recommendation: "Traveler's\nChoice",
-    badge_reviews: "reviews",
     img_btn_show_all: "Show all photos",
     img_gallery_title: "Photo Tour",
     img_btn_share: "Share",
@@ -311,8 +305,6 @@ const translations: Record<Language, Labels> = {
     month_apr: "April", month_may: "Mai", month_jun: "Juni",
     month_jul: "Juli", month_aug: "August", month_sep: "September",
     month_oct: "Oktober", month_nov: "November", month_dec: "Dezember",
-    badge_recommendation: "Gäste\nFavorit",
-    badge_reviews: "Bewertungen",
     img_btn_show_all: "Alle Fotos anzeigen",
     img_gallery_title: "Fototour",
     img_btn_share: "Teilen",
@@ -394,8 +386,6 @@ const translations: Record<Language, Labels> = {
     month_apr: "Avril", month_may: "Mai", month_jun: "Juin",
     month_jul: "Juillet", month_aug: "Août", month_sep: "Septembre",
     month_oct: "Octobre", month_nov: "Novembre", month_dec: "Décembre",
-    badge_recommendation: "Coup de\ncœur voyageurs",
-    badge_reviews: "évaluations",
     img_btn_show_all: "Afficher toutes les photos",
     img_gallery_title: "Visite en photos",
     img_btn_share: "Partager",
@@ -477,8 +467,6 @@ const translations: Record<Language, Labels> = {
     month_apr: "April", month_may: "Mei", month_jun: "Juni",
     month_jul: "Juli", month_aug: "Augustus", month_sep: "September",
     month_oct: "Oktober", month_nov: "November", month_dec: "December",
-    badge_recommendation: "Gasten\nfavoriet",
-    badge_reviews: "recensies",
     img_btn_show_all: "Alle foto's bekijken",
     img_gallery_title: "Fototour",
     img_btn_share: "Delen",

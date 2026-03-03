@@ -5,7 +5,7 @@ import './index.css';
 // Import child components
 import './components/image-carousel.ts';
 import './components/property-header.ts';
-import './components/traveler-badge.ts';
+import './components/property-header.ts';
 import './components/about-place.ts';
 import './components/property-amenities.ts';
 import './components/property-map.ts';
@@ -86,7 +86,7 @@ export class MyApp extends LitElement {
                <img src="${this.data.host.image || '/logo.svg'}" alt="Host" class="rounded-circle border" width="56" height="56">
             </div>
 
-            <traveler-badge></traveler-badge>
+
 
             <about-place></about-place>
             <property-amenities .amenities="${this.data.amenities}"></property-amenities>

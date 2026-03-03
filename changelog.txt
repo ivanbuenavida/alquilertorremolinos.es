@@ -12,3 +12,15 @@ CHANGELOG - ALQUILER TORREMOLINOS
 * Created a .env.example for Google API configuration.
 * Refactored CSS to use a variable-based themes (:root).
 * All components updated to respect the new color palette (#1D7874, #CE7D55, #003D4D).
+
+[2026-03-02] UI COMPONENTIZATION & GLOBAL i18n
+-----------------------------------------------
+
+* Refactored monolithic HTML into modular Lit components (Header, Badge, Amenities, Map, HostProfile, Footer).
+* Implemented a full-screen "Airbnb-style" image gallery modal with thumbnail navigation and smooth scroll.
+* Completed a full i18n sweep, removing hardcoded Spanish and adding 30+ new translation keys for 5 languages.
+* Added descriptive, translated titles for all gallery photos (Salón, Baño, Dormitorios, etc.).
+* Enhanced Google Maps integration with precise coordinates, pin marker, and automatic locale detection.
+* Fixed calendar responsiveness and squishing issues on mobile/small screens.
+* Performed general code cleanup and fixed multiple TypeScript linting errors.
+
