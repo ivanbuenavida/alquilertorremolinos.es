@@ -90,7 +90,8 @@ export class CalendarView extends LitElement {
         price,
         season,
         isCurrentMonth: curr.getMonth() === month,
-        isToday: curr.getTime() === today.getTime()
+        isToday: curr.getTime() === today.getTime(),
+        isPast: curr.getTime() < today.getTime()
       });
       curr.setDate(curr.getDate() + 1);
     }
@@ -319,7 +320,7 @@ export class CalendarView extends LitElement {
                         ${day.date.getDate()}
                       </span>
                       
-                      ${!day.isBusy && day.isCurrentMonth 
+                      ${!day.isBusy && day.isCurrentMonth && !day.isPast 
                         ? html`<span class="${isSelected ? 'text-white' : 'text-muted'}" style="font-size: 0.62rem;">${day.price}€</span>` 
                         : ''
                       }

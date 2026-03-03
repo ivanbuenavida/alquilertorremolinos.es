@@ -13,6 +13,7 @@ export interface DayInfo {
   season: 'low' | 'mid' | 'high';
   isCurrentMonth: boolean;
   isToday: boolean;
+  isPast: boolean;
 }
 
 export class CalendarService {
