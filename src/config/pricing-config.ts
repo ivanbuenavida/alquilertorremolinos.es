@@ -51,8 +51,8 @@ export const pricingConfig: PricingConfig = {
   // Default price during low season (Mon-Thu)
   basePrice: 80,
 
-  // Weekend implies a 20% increase over the seasonal price
-  weekendMultiplier: 1.20,
+  // Weekend increase removed - prices are purely seasonal now
+  weekendMultiplier: 1.0,
 
   // Base mid season costs 30% more than base low season
   midSeasonMultiplier: 1.30, 

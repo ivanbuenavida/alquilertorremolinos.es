@@ -84,10 +84,8 @@ export class CalendarService {
       season = 'mid';
     }
 
-    // Weekend surcharge (or if holiday, charge as weekend)
-    if (isHoliday || dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6) {
-      price = price * pricingConfig.weekendMultiplier;
-    }
+    // Weekend/Holiday extra surcharge removed (multiplier is 1.0)
+    // price = price * pricingConfig.weekendMultiplier;
 
     return { price: Math.round(price), season };
   }
