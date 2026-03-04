@@ -64,7 +64,6 @@ export class CalendarService {
 
   static getPriceAndSeasonForDate(date: Date): { price: number, season: 'low' | 'mid' | 'high' } {
     const month = date.getMonth(); // 0-indexed
-    const dayOfWeek = date.getDay(); // 0 is Sunday
     
     // Check if it's a holiday
     const specificDateString = date.toISOString().split('T')[0]; // YYYY-MM-DD
