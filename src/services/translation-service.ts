@@ -54,6 +54,8 @@ interface Labels {
   cal_summary_subtotal: string;
   cal_summary_discount_weekly: string;
   cal_summary_discount_monthly: string;
+  cal_limit_reach_msg: (phone: string) => string;
+  cal_wa_limit_msg: (date: string) => string;
   // Policies (Accordion)
   pol_title: string;
   pol_cancellation_title: string;
@@ -154,6 +156,8 @@ const translations: Record<Language, Labels> = {
     cal_summary_subtotal: "Subtotal",
     cal_summary_discount_weekly: "Descuento semanal",
     cal_summary_discount_monthly: "Descuento de larga estancia",
+    cal_limit_reach_msg: (phone) => `No disponible para reservas a más de 4 meses vista por la web. Para estancias de larga duración o fechas lejanas, contacta directamente al +${phone}`,
+    cal_wa_limit_msg: (date) => `Hola, quiero reservar más allá de la fecha ${date}`,
     pol_title: "Condiciones de reserva",
     pol_cancellation_title: "Política de cancelación",
     pol_cancellation_desc: "Cancelación gratuita hasta 14 días antes de la llegada. Si cancelas posteriormente, se retendrá el depósito de reserva.",
@@ -241,6 +245,8 @@ const translations: Record<Language, Labels> = {
     cal_summary_subtotal: "Subtotal",
     cal_summary_discount_weekly: "Weekly discount",
     cal_summary_discount_monthly: "Long stay discount",
+    cal_limit_reach_msg: (phone) => `Not available for bookings more than 4 months in advance via the web. For long-term stays or future dates, please contact +${phone} directly`,
+    cal_wa_limit_msg: (date) => `Hello, I would like to book beyond the date ${date}`,
     pol_title: "Booking Conditions",
     pol_cancellation_title: "Cancellation Policy",
     pol_cancellation_desc: "Free cancellation up to 14 days before arrival. If you cancel later, the booking deposit will be retained.",
@@ -328,6 +334,8 @@ const translations: Record<Language, Labels> = {
     cal_summary_subtotal: "Zwischensumme",
     cal_summary_discount_weekly: "Wochenrabatt",
     cal_summary_discount_monthly: "Langzeitrabatt",
+    cal_limit_reach_msg: (phone) => `Buchungen, die mehr als 4 Monate im Voraus liegen, sind über die Website nicht verfügbar. Für Langzeitaufenthalte oder spätere Termine wenden Sie sich bitte direkt an +${phone}`,
+    cal_wa_limit_msg: (date) => `Hallo, ich möchte über das Datum ${date} hinaus buchen`,
     pol_title: "Buchungsbedingungen",
     pol_cancellation_title: "Stornierungsbedingungen",
     pol_cancellation_desc: "Kostenlose Stornierung bis 14 Tage vor Anreise. Bei späterer Stornierung wird die Buchungskaution einbehalten.",
@@ -415,6 +423,8 @@ const translations: Record<Language, Labels> = {
     cal_summary_subtotal: "Sous-total",
     cal_summary_discount_weekly: "Remise hebdomadaire",
     cal_summary_discount_monthly: "Remise longue durée",
+    cal_limit_reach_msg: (phone) => `Non disponible pour les réservations à plus de 4 mois via le web. Pour les longs séjours ou les dates futures, veuillez contacter directement le +${phone}`,
+    cal_wa_limit_msg: (date) => `Bonjour, je souhaite réserver au-delà de la date ${date}`,
     pol_title: "Conditions de réservation",
     pol_cancellation_title: "Conditions d'annulation",
     pol_cancellation_desc: "Annulation gratuite jusqu'à 14 jours avant l'arrivée. Si vous annulez plus tard, l'acompte de réservation sera conservé.",
@@ -502,6 +512,8 @@ const translations: Record<Language, Labels> = {
     cal_summary_subtotal: "Subtotaal",
     cal_summary_discount_weekly: "Weekkorting",
     cal_summary_discount_monthly: "Lange verblijfskorting",
+    cal_limit_reach_msg: (phone) => `Niet beschikbaar voor boekingen meer dan 4 maanden van tevoren via de website. Voor langdurige verblijven of toekomstige data kunt u rechtstreeks contact opnemen met +${phone}`,
+    cal_wa_limit_msg: (date) => `Hallo, ik wil graag boeken na de datum ${date}`,
     pol_title: "Boekingsvoorwaarden",
     pol_cancellation_title: "Annuleringsvoorwaarden",
     pol_cancellation_desc: "Gratis annuleren tot 14 dagen voor aankomst. Als u later annuleert, wordt de boekingsaanbetaling ingehouden.",

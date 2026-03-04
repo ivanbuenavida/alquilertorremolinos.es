@@ -3,6 +3,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { CalendarService, type DayInfo, type CalendarEvent } from '../../services/calendar-service';
 import { TranslationService } from '../../services/translation-service';
 import { pricingConfig } from '../../config/pricing-config';
+import { contactConfig } from '../../config/contact-config';
 
 @customElement('calendar-view')
 export class CalendarView extends LitElement {
@@ -27,9 +28,9 @@ export class CalendarView extends LitElement {
     this._minDate = new Date(now.getFullYear(), now.getMonth(), 1);
     this._minDate.setHours(0, 0, 0, 0);
     
-    // Max booking distance is 3 months from current month
-    this._maxDate = new Date(this._minDate);
-    this._maxDate.setMonth(this._maxDate.getMonth() + 3); 
+    // Max booking distance is 4 months from today
+    this._maxDate = new Date(now);
+    this._maxDate.setMonth(this._maxDate.getMonth() + 4); 
     
     this._currentDate = new Date(this._minDate);
 
@@ -127,8 +128,8 @@ export class CalendarView extends LitElement {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
-    // Block selection of past dates and today
-    if (isBusy || date.getTime() <= today.getTime()) return;
+    // Block selection of past dates, and dates beyond maxDate
+    if (isBusy || date.getTime() < today.getTime() || date.getTime() > this._maxDate.getTime()) return;
 
     const clickedTime = date.getTime();
 
@@ -305,17 +306,19 @@ export class CalendarView extends LitElement {
 
                   if (day.isBusy) {
                     bgClass = 'bg-light-subtle text-decoration-line-through text-muted';
+                  } else if (day.date.getTime() > this._maxDate.getTime()) {
+                    bgClass = 'bg-light-subtle text-muted opacity-50';
                   } else if (isSelected) {
                     bgClass = 'bg-primary text-white shadow-sm z-1';
                   } else if (isInRange) {
                     bgClass = 'bg-primary-subtle z-0';
                   }
 
-                  const isSelectable = !day.isBusy && !day.isPast && !day.isToday;
+                  const isSelectable = !day.isBusy && !day.isPast && day.date.getTime() <= this._maxDate.getTime();
                   
                   return html`
                     <div class="aspect-ratio-1 d-flex flex-column align-items-center justify-content-center p-1 user-select-none
-                                ${!day.isCurrentMonth || !isSelectable ? 'opacity-25' : ''} 
+                                ${(!day.isCurrentMonth || !isSelectable) && !day.isBusy ? 'opacity-25' : ''} 
                                 ${isSelectable ? 'cursor-pointer' : ''}
                                 ${bgClass}
                                 position-relative"
@@ -342,6 +345,22 @@ export class CalendarView extends LitElement {
             `
           }
         </div>
+
+        ${!this._canGoNext() ? html`
+          <div class="p-3 bg-light border-top border-bottom">
+            <div class="alert alert-info mb-0 py-2 small d-flex flex-column gap-2 border-0 bg-transparent">
+              <div class="d-flex align-items-start gap-2">
+                <i class="bi bi-info-circle-fill text-primary mt-1"></i>
+                <span>${TranslationService.l.cal_limit_reach_msg(contactConfig.phone)}</span>
+              </div>
+              <a href="https://wa.me/${contactConfig.whatsapp}?text=${encodeURIComponent(TranslationService.l.cal_wa_limit_msg(this._maxDate.toLocaleDateString(({ 'es': 'es-ES', 'en': 'en-US', 'de': 'de-DE', 'fr': 'fr-FR', 'nl': 'nl-NL' } as any)[TranslationService.currentLang] || 'es-ES')))}" 
+                 target="_blank" 
+                 class="btn btn-outline-success btn-sm align-self-start rounded-pill px-3 fw-bold">
+                <i class="bi bi-whatsapp me-1"></i> WhatsApp
+              </a>
+            </div>
+          </div>
+        ` : ''}
 
         <!-- Legend -->
         <div class="d-flex justify-content-center gap-4 p-3 bg-light border-top small fw-bold text-dark">
