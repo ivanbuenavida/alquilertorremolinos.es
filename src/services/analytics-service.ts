@@ -1,92 +1,122 @@
 /**
- * Service to handle Google Analytics tracking.
- * Provides a clean abstraction to avoid direct 'gtag' calls in components.
- * If you want to disable tracking, simply comment out the contents of the trackEvent method.
+ * Expert-level Analytics Service for Google Analytics 4.
+ * Uses standard GA4 events and custom engagement tracking.
  */
 export class AnalyticsService {
-
+  
   /**
-   * Tracks a custom event in GA4
-   * @param eventName Name of the event (e.g., 'generate_lead', 'share')
-   * @param params Additional parameters for the event
+   * Generic event tracker with safety check
    */
   static trackEvent(eventName: string, params: Record<string, any> = {}) {
     if ((window as any).gtag) {
-      (window as any).gtag('event', eventName, params);
+      // Add common parameters like timestamp or page context if needed
+      (window as any).gtag('event', eventName, {
+        ...params,
+        page_location: window.location.href,
+        send_to: 'G-5RT7VZETN8'
+      });
     }
   }
 
   /**
-   * Specifically tracks a lead generated from WhatsApp
-   * @param value Optional monetary value (e.g. total price)
+   * Track main conversion: WhatsApp Lead
+   * Uses 'generate_lead' (standard GA4)
    */
-  static trackLead(value: number = 0) {
+  static trackLead(value: number = 0, nights: number = 0) {
     this.trackEvent('generate_lead', {
-      'event_category': 'engagement',
-      'event_label': 'WhatsApp Booking',
-      'value': value,
-      'currency': 'EUR'
+      value: value,
+      currency: 'EUR',
+      nights: nights,
+      item_name: 'Estancia en Torremolinos Centro',
+      method: 'WhatsApp'
     });
   }
 
   /**
-   * Tracks social shares
-   * @param contentType Type of content shared
-   * @param itemId ID of the item shared
+   * Track when users see the property details
+   * Uses 'view_item' (standard GA4 for e-commerce/leads)
    */
-  static trackShare(contentType: string, itemId: string) {
-    this.trackEvent('share', {
-      'content_type': contentType,
-      'item_id': itemId
+  static trackPropertyView() {
+    this.trackEvent('view_item', {
+      currency: 'EUR',
+      value: 0,
+      items: [{
+        item_id: 'APT_TORREMOLINOS_1',
+        item_name: 'Apartamento Centro Torremolinos',
+        item_category: 'Vacation Rental'
+      }]
     });
   }
 
   /**
-   * Tracks general contact clicks
-   * @param method Method of contact (e.g. 'WhatsApp Footer')
+   * Track Date Interactivity
+   * Helps understand price sensitivity
+   */
+  static trackDateSelection(nights: number, price: number) {
+    this.trackEvent('select_content', {
+      content_type: 'date_range',
+      nights: nights,
+      price: price
+    });
+  }
+
+  /**
+   * Track High-Intent Clicks (Maps)
+   */
+  static trackMapClick() {
+    this.trackEvent('select_content', {
+      content_type: 'location_map',
+      item_id: 'google_maps_external'
+    });
+  }
+
+  /**
+   * Track Engagement: Photo Gallery
+   */
+  static trackGalleryView() {
+    this.trackEvent('view_item_list', {
+      item_list_name: 'Property Photo Gallery'
+    });
+  }
+
+  /**
+   * Track Friction: Availability Errors
+   * CRITICAL for identifying lost sales
+   */
+  static trackAvailabilityError(errorType: string, errorMsg: string) {
+    this.trackEvent('exception', {
+      description: `AvailError: ${errorType} - ${errorMsg}`,
+      fatal: false
+    });
+  }
+
+  /**
+   * Track Language Switch
+   */
+  static trackLanguageChange(newLang: string) {
+    this.trackEvent('select_content', {
+      content_type: 'language',
+      item_id: newLang
+    });
+  }
+
+  /**
+   * Track Shares
+   */
+  static trackShare(method: string) {
+    this.trackEvent('share', {
+      method: method,
+      content_type: 'property',
+      item_id: 'APT_TORREMOLINOS_1'
+    });
+  }
+
+  /**
+   * Track Contact clicks (Footer/Profile)
    */
   static trackContact(method: string) {
     this.trackEvent('contact', {
-      'method': method
-    });
-  }
-
-  /**
-   * Tracks when a user encounters an availability error (e.g. min nights, occupied)
-   * This is CRITICAL to know if you're losing customers due to your rules or full calendar.
-   */
-  static trackAvailabilityError(errorType: string, details: string) {
-    this.trackEvent('availability_error', {
-      'error_type': errorType,
-      'error_details': details
-    });
-  }
-
-  /**
-   * Tracks when users select a date range (interest)
-   */
-  static trackDateSelection(nights: number, price: number) {
-    this.trackEvent('date_selection', {
-      'nights': nights,
-      'price': price
-    });
-  }
-
-  /**
-   * Tracks when users open the photo gallery
-   */
-  static trackGalleryView() {
-    this.trackEvent('view_gallery', {
-      'item_id': 'property_main'
-    });
-  }
-
-  /**
-   * Tracks language switches
-   */
-  static trackLanguageChange(newLang: string) {
-    this.trackEvent('change_language', {
-      'language': newLang
+      method: method
     });
   }
 }

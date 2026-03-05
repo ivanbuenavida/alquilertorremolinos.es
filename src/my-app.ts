@@ -17,6 +17,7 @@ import './components/availability-calendar.ts';
 import { propertyData } from './data/mock-data';
 
 import { TranslationService } from './services/translation-service';
+import { AnalyticsService } from './services/analytics-service';
 import './components/language-selector';
 
 
@@ -38,6 +39,9 @@ export class MyApp extends LitElement {
     super();
     // Initialize language from URL or browser
     TranslationService.init();
+    
+    // Track initial property view
+    AnalyticsService.trackPropertyView();
     
     // Re-render when language changes
     window.addEventListener('language-changed', () => this.requestUpdate());
