@@ -410,14 +410,14 @@ export class CalendarView extends LitElement {
 
         ${!this._canGoNext() ? html`
           <div class="p-3 bg-light border-top border-bottom">
-            <div class="alert alert-info mb-0 py-2 small d-flex flex-column gap-2 border-0 bg-transparent">
-              <div class="d-flex align-items-start gap-2">
-                <i class="bi bi-info-circle-fill text-primary mt-1"></i>
+            <div class="alert alert-info mb-0 py-2 small d-flex flex-column align-items-center gap-2 border-0 bg-transparent text-center">
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-info-circle-fill text-primary"></i>
                 <span>${TranslationService.l.cal_limit_reach_msg(contactConfig.phone)}</span>
               </div>
               <a href="https://wa.me/${contactConfig.whatsapp}?text=${encodeURIComponent(TranslationService.l.cal_wa_limit_msg(this._maxDate.toLocaleDateString(({ 'es': 'es-ES', 'en': 'en-US', 'de': 'de-DE', 'fr': 'fr-FR', 'nl': 'nl-NL' } as any)[TranslationService.currentLang] || 'es-ES')))}" 
                  target="_blank" 
-                 class="btn btn-outline-success btn-sm align-self-start rounded-pill px-3 fw-bold">
+                 class="btn btn-outline-success btn-sm rounded-pill px-3 fw-bold mt-1">
                 <i class="bi bi-whatsapp me-1"></i> WhatsApp
               </a>
             </div>
