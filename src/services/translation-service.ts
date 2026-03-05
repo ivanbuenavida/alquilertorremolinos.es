@@ -105,6 +105,10 @@ interface Labels {
   img_title_6: string;
   img_title_7: string;
   img_title_8: string;
+  // SEO
+  seo_title: string;
+  seo_description: string;
+  seo_keywords: string;
 }
 
 const translations: Record<Language, Labels> = {
@@ -196,7 +200,10 @@ const translations: Record<Language, Labels> = {
     img_title_5: "Detalle baño",
     img_title_6: "Zona de salón",
     img_title_7: "Dormitorio acogedor",
-    img_title_8: "Dormitorio principal"
+    img_title_8: "Dormitorio principal",
+    seo_title: "Alquiler Torremolinos | Apartamento Vacacional en la Costa del Sol",
+    seo_description: "Reserva tu alquiler vacacional en Torremolinos. Apartamento moderno en el centro, cerca de la playa, con Wi-Fi, Aire Acondicionado y máxima comodidad. ¡Mejor precio garantizado!",
+    seo_keywords: "alquiler torremolinos, vacaciones torremolinos, apartamento vacacional costa del sol, alojamiento torremolinos centro, alquilar apartamento torremolinos playa"
   },
   en: {
     nav_brand: "Torremolinos Rental",
@@ -286,7 +293,10 @@ const translations: Record<Language, Labels> = {
     img_title_5: "Bathroom detail",
     img_title_6: "Living area",
     img_title_7: "Cozy bedroom",
-    img_title_8: "Master bedroom"
+    img_title_8: "Master bedroom",
+    seo_title: "Torremolinos Holiday Rental | Luxury Vacation Apartment",
+    seo_description: "Book your holiday rental in Torremolinos. Modern city center apartment near the beach, with Wi-Fi, AC, and premium comfort. Best price guaranteed!",
+    seo_keywords: "torremolinos holiday rental, torremolinos vacation apartment, holiday accommodation torremolinos, rent apartment torremolinos beach, costa del sol holiday"
   },
   de: {
     nav_brand: "Ferienwohnung Torremolinos",
@@ -376,7 +386,10 @@ const translations: Record<Language, Labels> = {
     img_title_5: "Badezimmer-Detail",
     img_title_6: "Wohnbereich",
     img_title_7: "Gemütliches Zimmer",
-    img_title_8: "Hauptschlafzimmer"
+    img_title_8: "Hauptschlafzimmer",
+    seo_title: "Ferienwohnung Torremolinos | Luxus-Urlaubsapartment mieten",
+    seo_description: "Buchen Sie Ihre Ferienwohnung in Torremolinos. Modernes Apartment im Zentrum nahe dem Strand, mit WLAN, Klimaanlage und höchstem Komfort. Bestpreis garantiert!",
+    seo_keywords: "ferienwohnung torremolinos, torremolinos urlaub, apartment mieten torremolinos, torremolinos ferienunterkunft, costa del sol urlaubsapartment"
   },
   fr: {
     nav_brand: "Location Torremolinos",
@@ -466,7 +479,10 @@ const translations: Record<Language, Labels> = {
     img_title_5: "Détail salle de bain",
     img_title_6: "Espace salon",
     img_title_7: "Chambre douillette",
-    img_title_8: "Chambre principale"
+    img_title_8: "Chambre principale",
+    seo_title: "Location Torremolinos | Appartement de Vacances de Luxe",
+    seo_description: "Réservez votre location de vacances à Torremolinos. Appartement moderne au centre-ville près de la plage, avec Wi-Fi, clim et confort premium. Meilleur prix garanti !",
+    seo_keywords: "location torremolinos, vacances torremolinos, appartement vacances torremolinos, louer appartement torremolinos plage, côte du soleil vacances"
   },
   nl: {
     nav_brand: "Verhuur Torremolinos",
@@ -556,7 +572,10 @@ const translations: Record<Language, Labels> = {
     img_title_5: "Detail badkamer",
     img_title_6: "Zithoek",
     img_title_7: "Gezellige kamer",
-    img_title_8: "Hoofdslaapkamer"
+    img_title_8: "Hoofdslaapkamer",
+    seo_title: "Vakantiehuis Torremolinos | Luxe Vakantieappartement huren",
+    seo_description: "Boek uw vakantiehuis in Torremolinos. Modern appartement in het centrum nabij het strand, met Wi-Fi, airconditioning en premium comfort. Beste prijs gegarandeerd!",
+    seo_keywords: "vakantiehuis torremolinos, torremolinos vakantie, appartement huren torremolinos, vakantie accommodatie torremolinos, costa del sol vakantie"
   }
 };
 
@@ -582,6 +601,7 @@ export class TranslationService {
     }
 
     this.setLanguage(targetLang, false); // false to avoid redundant URL push on init
+    this.updateMetadata();
   }
 
   static get l() {
@@ -602,7 +622,43 @@ export class TranslationService {
     }
 
     this._listeners.forEach(cb => cb(lang));
+    this.updateMetadata();
     window.dispatchEvent(new CustomEvent('language-changed', { detail: lang }));
+  }
+
+  static updateMetadata() {
+    const labels = this.l;
+    
+    // Update Title
+    document.title = labels.seo_title;
+    
+    // Update Description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', labels.seo_description);
+    }
+    
+    // Update Keywords
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    if (metaKeywords) {
+      metaKeywords.setAttribute('content', labels.seo_keywords);
+    }
+
+    // Update OG tags
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', labels.seo_title);
+
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) ogDescription.setAttribute('content', labels.seo_description);
+
+    const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+    if (twitterTitle) twitterTitle.setAttribute('content', labels.seo_title);
+
+    const twitterDescription = document.querySelector('meta[property="twitter:description"]');
+    if (twitterDescription) twitterDescription.setAttribute('content', labels.seo_description);
+
+    // Update HTML lang attribute
+    document.documentElement.lang = this._currentLang;
   }
 
   static onLanguageChange(cb: (lang: Language) => void) {
