@@ -61,7 +61,7 @@ export class AvailabilityCalendar extends LitElement {
   }
 
   private _handleWhatsAppClick() {
-    AnalyticsService.trackLead(this._totalPrice);
+    AnalyticsService.trackLead(this._totalPrice, this._nights);
     console.log('WhatsApp booking clicked');
   }
 
