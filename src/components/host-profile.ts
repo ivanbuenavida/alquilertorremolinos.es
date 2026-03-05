@@ -20,7 +20,7 @@ export class HostProfile extends LitElement {
         <div class="row g-5">
           <div class="col-md-4">
             <div class="card bg-white shadow-sm border rounded-4 text-center p-4">
-              <img src="${this.host.image || '/logo.svg'}" class="rounded-circle mx-auto mb-3" width="100" height="100" style="object-fit:cover;" alt="Host">
+              <img src="${this.host.image || '/logo.svg'}" class="rounded-circle mx-auto mb-3" width="100" height="100" style="object-fit:cover;" alt="Anfitrión - ${this.host.name}">
               <h4 class="fw-bold mb-1">${this.host.name}</h4>
               <p class="text-muted small mb-0"><i class="bi bi-award-fill text-dark"></i> ${TranslationService.l.host_superhost}</p>
             </div>

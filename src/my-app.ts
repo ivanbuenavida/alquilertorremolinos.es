@@ -53,14 +53,10 @@ export class MyApp extends LitElement {
 
 
     return html`
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
-
       <nav class="navbar navbar-expand-lg navbar-light sticky-top bg-white border-bottom shadow-sm px-3">
         <div class="container d-flex justify-content-between align-items-center">
           <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-            <img src="/logo.svg" alt="Logo" style="height: 40px; width: auto;">
+            <img src="/logo.svg" alt="Alquiler Torremolinos Logo" style="height: 40px; width: auto;">
             <span class="d-none d-md-inline">${TranslationService.l.nav_brand}</span>
           </a>
           <language-selector></language-selector>
@@ -82,7 +78,7 @@ export class MyApp extends LitElement {
                  <h2 class="fs-4 fw-semibold mb-1">${TranslationService.l.app_property_title}</h2>
                  <p class="text-body mb-0">${TranslationService.l.app_property_specs}</p>
                </div>
-               <img src="${this.data.host.image || '/logo.svg'}" alt="Host" class="rounded-circle border" width="56" height="56">
+               <img src="${this.data.host.image || '/logo.svg'}" alt="Anfitrión - ${this.data.host.name}" class="rounded-circle border" width="56" height="56">
             </div>
 
 
