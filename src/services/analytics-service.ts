@@ -119,4 +119,15 @@ export class AnalyticsService {
       method: method
     });
   }
+
+  /**
+   * Track content expansion (Read more / Show all)
+   * Helps identify which content is most engaging
+   */
+  static trackExpansion(contentType: string) {
+    this.trackEvent('select_content', {
+      content_type: 'expansion',
+      item_id: contentType
+    });
+  }
 }

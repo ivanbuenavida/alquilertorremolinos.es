@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { TranslationService } from '../services/translation-service';
+import { AnalyticsService } from '../services/analytics-service';
 
 @customElement('about-place')
 export class AboutPlace extends LitElement {
@@ -19,6 +20,9 @@ export class AboutPlace extends LitElement {
   toggleExpanded(e: Event) {
     e.preventDefault();
     this.isExpanded = !this.isExpanded;
+    if (this.isExpanded) {
+      AnalyticsService.trackExpansion('about_place');
+    }
   }
 
   render() {

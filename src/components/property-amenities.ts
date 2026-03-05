@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { TranslationService } from '../services/translation-service';
+import { AnalyticsService } from '../services/analytics-service';
 
 @customElement('property-amenities')
 export class PropertyAmenities extends LitElement {
@@ -56,6 +57,7 @@ export class PropertyAmenities extends LitElement {
     this._showModal = true;
     document.body.style.overflow = 'hidden';
     history.pushState({ amenities: true }, '');
+    AnalyticsService.trackExpansion('amenities_full_list');
   }
 
   private _closeModal() {
