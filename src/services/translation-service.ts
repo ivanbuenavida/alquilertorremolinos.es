@@ -84,7 +84,6 @@ interface Labels {
   img_btn_show_all: string;
   img_gallery_title: string;
   img_btn_share: string;
-  img_btn_save: string;
   img_gallery_photo: string;
   map_title: string;
   host_title: string;
@@ -175,7 +174,6 @@ const translations: Record<Language, Labels> = {
     img_btn_show_all: "Mostrar todas las fotos",
     img_gallery_title: "Ruta fotográfica",
     img_btn_share: "Compartir",
-    img_btn_save: "Guardar",
     img_gallery_photo: "Foto",
     map_title: "¿Dónde dormirás?",
     host_title: "Conoce a tu anfitrión",
@@ -264,7 +262,6 @@ const translations: Record<Language, Labels> = {
     img_btn_show_all: "Show all photos",
     img_gallery_title: "Photo Tour",
     img_btn_share: "Share",
-    img_btn_save: "Save",
     img_gallery_photo: "Photo",
     map_title: "Where you'll sleep",
     host_title: "Meet your host",
@@ -353,7 +350,6 @@ const translations: Record<Language, Labels> = {
     img_btn_show_all: "Alle Fotos anzeigen",
     img_gallery_title: "Fototour",
     img_btn_share: "Teilen",
-    img_btn_save: "Speichern",
     img_gallery_photo: "Foto",
     map_title: "Wo du schlafen wirst",
     host_title: "Lerne deinen Gastgeber kennen",
@@ -442,7 +438,6 @@ const translations: Record<Language, Labels> = {
     img_btn_show_all: "Afficher toutes les photos",
     img_gallery_title: "Visite en photos",
     img_btn_share: "Partager",
-    img_btn_save: "Enregistrer",
     img_gallery_photo: "Photo",
     map_title: "Où vous dormirez",
     host_title: "Rencontrez votre hôte",
@@ -531,7 +526,6 @@ const translations: Record<Language, Labels> = {
     img_btn_show_all: "Alle foto's bekijken",
     img_gallery_title: "Fototour",
     img_btn_share: "Delen",
-    img_btn_save: "Opslaan",
     img_gallery_photo: "Foto",
     map_title: "Waar je zult slapen",
     host_title: "Maak kennis met je host",
