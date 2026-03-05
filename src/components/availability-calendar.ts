@@ -54,6 +54,14 @@ export class AvailabilityCalendar extends LitElement {
   }
 
   private _handleWhatsAppClick() {
+    if ((window as any).gtag) {
+      (window as any).gtag('event', 'generate_lead', {
+        'event_category': 'engagement',
+        'event_label': 'WhatsApp Booking',
+        'value': this._totalPrice || 0,
+        'currency': 'EUR'
+      });
+    }
     console.log('WhatsApp booking clicked');
   }
 

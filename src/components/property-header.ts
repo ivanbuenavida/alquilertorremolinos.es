@@ -28,6 +28,13 @@ export class PropertyHeader extends LitElement {
         await navigator.clipboard.writeText(window.location.href);
         alert('Enlace copiado al portapapeles');
       }
+      
+      if ((window as any).gtag) {
+        (window as any).gtag('event', 'share', {
+          'content_type': 'property',
+          'item_id': 'alquiler_torremolinos'
+        });
+      }
     } catch (err) {
       console.log('Error sharing:', err);
     }

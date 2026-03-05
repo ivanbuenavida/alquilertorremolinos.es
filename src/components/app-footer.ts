@@ -13,6 +13,14 @@ export class AppFooter extends LitElement {
     super();
     window.addEventListener('language-changed', () => this.requestUpdate());
   }
+  
+  private _handleWaFooterClick() {
+    if ((window as any).gtag) {
+      (window as any).gtag('event', 'contact', {
+        'method': 'WhatsApp Footer'
+      });
+    }
+  }
 
   render() {
     const footerWaMsg = encodeURIComponent(TranslationService.l.footer_whatsapp_msg);
@@ -22,7 +30,7 @@ export class AppFooter extends LitElement {
       <footer class="bg-dark text-white text-center py-4 mt-5">
         <div class="container">
           <div class="mb-3">
-            <a href="${footerWaUrl}" target="_blank" class="text-white text-decoration-none d-inline-flex align-items-center gap-2" style="opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+            <a href="${footerWaUrl}" @click="${this._handleWaFooterClick}" target="_blank" class="text-white text-decoration-none d-inline-flex align-items-center gap-2" style="opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
               <i class="bi bi-whatsapp fs-5"></i> ${TranslationService.l.footer_whatsapp}
             </a>
           </div>
