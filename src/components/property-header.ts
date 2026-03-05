@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { TranslationService } from '../services/translation-service';
+import { AnalyticsService } from '../services/analytics-service';
 
 @customElement('property-header')
 export class PropertyHeader extends LitElement {
@@ -29,12 +30,7 @@ export class PropertyHeader extends LitElement {
         alert('Enlace copiado al portapapeles');
       }
       
-      if ((window as any).gtag) {
-        (window as any).gtag('event', 'share', {
-          'content_type': 'property',
-          'item_id': 'alquiler_torremolinos'
-        });
-      }
+      AnalyticsService.trackShare('property', 'alquiler_torremolinos');
     } catch (err) {
       console.log('Error sharing:', err);
     }

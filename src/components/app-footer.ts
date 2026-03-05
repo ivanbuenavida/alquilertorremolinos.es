@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { TranslationService } from '../services/translation-service';
+import { AnalyticsService } from '../services/analytics-service';
 import { contactConfig } from '../config/contact-config';
 
 @customElement('app-footer')
@@ -15,11 +16,7 @@ export class AppFooter extends LitElement {
   }
   
   private _handleWaFooterClick() {
-    if ((window as any).gtag) {
-      (window as any).gtag('event', 'contact', {
-        'method': 'WhatsApp Footer'
-      });
-    }
+    AnalyticsService.trackContact('WhatsApp Footer');
   }
 
   render() {

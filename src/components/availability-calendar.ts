@@ -2,6 +2,7 @@ import { LitElement, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import './calendar/calendar-view.ts';
 import { TranslationService } from '../services/translation-service';
+import { AnalyticsService } from '../services/analytics-service';
 import { contactConfig } from '../config/contact-config';
 import { pricingConfig } from '../config/pricing-config';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
@@ -54,14 +55,7 @@ export class AvailabilityCalendar extends LitElement {
   }
 
   private _handleWhatsAppClick() {
-    if ((window as any).gtag) {
-      (window as any).gtag('event', 'generate_lead', {
-        'event_category': 'engagement',
-        'event_label': 'WhatsApp Booking',
-        'value': this._totalPrice || 0,
-        'currency': 'EUR'
-      });
-    }
+    AnalyticsService.trackLead(this._totalPrice);
     console.log('WhatsApp booking clicked');
   }
 
