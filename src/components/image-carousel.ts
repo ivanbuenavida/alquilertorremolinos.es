@@ -83,7 +83,7 @@ export class ImageCarousel extends LitElement {
           <!-- Main Left Image -->
           <div class="col-12 col-md-6 h-100">
             <img src="${mainImg}" class="w-100 h-100 object-fit-cover" 
-                 alt="Main property image" style="cursor: pointer;" @click="${this._openModal}">
+                 alt="${(TranslationService.l as any).img_title_1} - Alquiler Torremolinos" style="cursor: pointer;" @click="${this._openModal}">
           </div>
           
           <!-- Right 4 Images Grid -->
@@ -92,7 +92,7 @@ export class ImageCarousel extends LitElement {
               ${sideImages.map((img, index) => html`
                 <div class="col-6 h-50">
                   <img src="${img}" class="w-100 h-100 object-fit-cover" 
-                       alt="Property image ${index + 2}" style="cursor: pointer;" @click="${this._openModal}">
+                       alt="${(TranslationService.l as any)['img_title_' + (index + 2)]} - Torremolinos" style="cursor: pointer;" @click="${this._openModal}">
                 </div>
               `)}
             </div>
@@ -132,7 +132,7 @@ export class ImageCarousel extends LitElement {
                     const target = this.renderRoot.querySelector(`#gallery-img-${index}`);
                     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
                   }}">
-                    <img src="${img}" class="img-fluid rounded mb-1 w-100 object-fit-cover" style="height: 80px;" alt="Thumbnail ${index + 1}">
+                    <img src="${img}" class="img-fluid rounded mb-1 w-100 object-fit-cover" style="height: 80px;" alt="${(TranslationService.l as any)['img_title_' + (index + 1)]}">
                     <div class="small text-truncate text-center">${(TranslationService.l as any)['img_title_' + (index + 1)]}</div>
                   </a>
                 `)}
@@ -147,7 +147,7 @@ export class ImageCarousel extends LitElement {
               <div class="d-flex flex-column gap-5">
                 ${this.images.map((img, index) => html`
                   <div class="w-100" id="gallery-img-${index}">
-                    <img src="${img}" class="img-fluid rounded-4 w-100 shadow-sm border border-light" alt="Gallery image ${index + 1}">
+                    <img src="${img}" class="img-fluid rounded-4 w-100 shadow-sm border border-light" alt="${(TranslationService.l as any)['img_title_' + (index + 1)]} - Alquiler Torremolinos">
                   </div>
                 `)}
               </div>

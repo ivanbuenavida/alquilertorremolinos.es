@@ -6,19 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Principal SEO -->
-    <title>Alquiler Vacacional en Torremolinos | Tu Estancia Ideal</title>
+    <title>
+      Alquiler Torremolinos | Apartamento Vacacional en la Costa del Sol
+    </title>
     <meta
       name="description"
-      content="Encuentra el mejor alquiler vacacional en Torremolinos. Apartamentos modernos, frente al mar y con todas las comodidades para unas vacaciones inolvidables en la Costa del Sol."
+      content="Reserva tu alquiler vacacional en Torremolinos. Apartamento moderno en el centro, cerca de la playa, con Wi-Fi, Aire Acondicionado y máxima comodidad. ¡Mejor precio garantizado!"
     />
     <meta
       name="keywords"
-      content="alquiler torremolinos, vacaciones torremolinos, apartamento vacacional, costa del sol, alquilar en torremolinos, alojamiento playa"
+      content="alquiler torremolinos, vacaciones torremolinos, apartamento vacacional costa del sol, alojamiento torremolinos centro, alquilar apartamento torremolinos playa"
     />
     <meta name="author" content="Alquiler Torremolinos" />
     <link rel="canonical" href="https://www.alquilertorremolinos.es/" />
 
-    <!-- Open Graph / Facebook / WhatsApp -->
+    <!-- Multilingual SEO -->
+    <link
+      rel="alternate"
+      hreflang="es"
+      href="https://www.alquilertorremolinos.es/?lang=es"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://www.alquilertorremolinos.es/?lang=en"
+    />
+    <link
+      rel="alternate"
+      hreflang="de"
+      href="https://www.alquilertorremolinos.es/?lang=de"
+    />
+    <link
+      rel="alternate"
+      hreflang="fr"
+      href="https://www.alquilertorremolinos.es/?lang=fr"
+    />
+    <link
+      rel="alternate"
+      hreflang="nl"
+      href="https://www.alquilertorremolinos.es/?lang=nl"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://www.alquilertorremolinos.es/"
+    />
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.alquilertorremolinos.es/" />
     <meta
@@ -27,13 +61,18 @@
     />
     <meta
       property="og:description"
-      content="Disfruta de Torremolinos en un alojamiento exclusivo. Reserva tu apartamento vacacional con nosotros."
+      content="Disfruta de Torremolinos en un alojamiento exclusivo. Apartamento renovado y céntrico. Reserva hoy mismo."
     />
     <meta
       property="og:image"
       content="https://www.alquilertorremolinos.es/og-image.png"
     />
     <meta property="og:site_name" content="Alquiler Torremolinos" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale:alternate" content="en_GB" />
+    <meta property="og:locale:alternate" content="de_DE" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:locale:alternate" content="nl_NL" />
 
     <!-- Twitter Card -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -47,30 +86,64 @@
     />
     <meta
       property="twitter:description"
-      content="Disfruta de Torremolinos en un alojamiento exclusivo. Reserva tu apartamento vacacional con nosotros."
+      content="El mejor alquiler turístico en Torremolinos. Reserva directa con el propietario."
     />
     <meta
       property="twitter:image"
       content="https://www.alquilertorremolinos.es/og-image.png"
     />
 
-    <!-- Structured Data (JSON-LD) -->
+    <!-- Structured Data (JSON-LD) - VacationRental -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "LodgingBusiness",
-        "name": "Alquiler Torremolinos",
-        "description": "Alquiler de apartamentos vacacionales de lujo en Torremolinos, Costa del Sol.",
+        "@type": "VacationRental",
+        "name": "Alquiler Torremolinos Centro",
+        "description": "Apartamento moderno de dos dormitorios recientemente renovado en el corazón de Torremolinos.",
         "url": "https://www.alquilertorremolinos.es/",
         "image": "https://www.alquilertorremolinos.es/og-image.png",
         "address": {
           "@type": "PostalAddress",
+          "streetAddress": "Junto a calle San Miguel",
           "addressLocality": "Torremolinos",
           "addressRegion": "Málaga",
+          "postalCode": "29620",
           "addressCountry": "ES"
         },
-        "priceRange": "$$",
-        "telephone": "+34645229342"
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "36.6240061",
+          "longitude": "-4.4986878"
+        },
+        "telephone": "+34645229342",
+        "priceRange": "€€",
+        "numberOfRooms": 2,
+        "occupancy": {
+          "@type": "QuantitativeValue",
+          "value": 4
+        },
+        "amenityFeature": [
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "Wi-Fi",
+            "value": true
+          },
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "Aire Acondicionado",
+            "value": true
+          },
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "Cocina Equipada",
+            "value": true
+          },
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "Cerca del Tren",
+            "value": true
+          }
+        ]
       }
     </script>
 

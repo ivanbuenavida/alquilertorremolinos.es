@@ -110,7 +110,7 @@ interface Labels {
 const translations: Record<Language, Labels> = {
   es: {
     nav_brand: "Alquiler Torremolinos",
-    hero_title: "Escapada en Torremolinos",
+    hero_title: "Alquiler Vacacional Torremolinos",
     prop_about: "Sobre este lugar",
     prop_host_prefix: "Anfitrión",
     prop_host_description: "¡Hola! Soy Iván, ingeniero de profesión, deportista y amante de viajar. Hace poco decidí reformar y preparar mis alojamientos con mucho cariño para embarcarme en el mundo del alquiler turístico y ofrecer estancias de calidad. Soy una persona extrovertida, risueña y con sentido del humor. Estoy disponible para ayudarte a que tu estancia supere tus expectativas y sea lo más placentera posible. ¡Espero recibirte pronto!",
@@ -200,7 +200,7 @@ const translations: Record<Language, Labels> = {
   },
   en: {
     nav_brand: "Torremolinos Rental",
-    hero_title: "Torremolinos Retreat",
+    hero_title: "Holiday Rental Torremolinos",
     prop_about: "About this place",
     prop_host_prefix: "Host",
     prop_host_description: "Hello! I'm Iván, an engineer by profession, athlete, and travel lover. I recently decided to renovate and prepare my accommodations with great care to embark on the world of tourist rentals and offer quality stays. I am an outgoing, cheerful person with a sense of humor. I am available to help make your stay exceed your expectations and be as pleasant as possible. I look forward to hosting you soon!",
@@ -290,7 +290,7 @@ const translations: Record<Language, Labels> = {
   },
   de: {
     nav_brand: "Ferienwohnung Torremolinos",
-    hero_title: "Rückzugsort in Torremolinos",
+    hero_title: "Ferienwohnung Torremolinos",
     prop_about: "Über diesen Ort",
     prop_host_prefix: "Gastgeber",
     prop_host_description: "Hallo! Ich bin Iván, von Beruf Ingenieur, Sportler und reiselustig. Ich habe vor kurzem beschlossen, meine Unterkünfte mit viel Liebe zu renovieren und vorzubereiten, um in die Welt der Ferienvermietung einzusteigen und Qualitätsaufenthalte anzubieten. Ich bin ein aufgeschlossener, fröhlicher Mensch mit Sinn für Humor. Ich stehe Ihnen zur Verfügung, um Ihnen zu helfen, dass Ihr Aufenthalt Ihre Erwartungen übertrifft und so angenehm wie möglich ist. Ich freue mich darauf, Sie bald begrüßen zu dürfen!",
@@ -380,7 +380,7 @@ const translations: Record<Language, Labels> = {
   },
   fr: {
     nav_brand: "Location Torremolinos",
-    hero_title: "Retraite à Torremolinos",
+    hero_title: "Location Vacances Torremolinos",
     prop_about: "À propos de ce logement",
     prop_host_prefix: "Hôte",
     prop_host_description: "Bonjour ! Je suis Iván, ingénieur de profession, sportif et amateur de voyages. J'ai récemment décidé de rénover et de préparer mes logements avec beaucoup d'affection pour me lancer dans le monde de la location touristique et proposer des séjours de qualité. Je suis une personne extravertie, souriante et avec le sens de l'humour. Je suis disponible pour vous aider à ce que votre séjour dépasse vos attentes et soit le plus agréable possible. J'espère vous recevoir bientôt !",
@@ -470,7 +470,7 @@ const translations: Record<Language, Labels> = {
   },
   nl: {
     nav_brand: "Verhuur Torremolinos",
-    hero_title: "Torremolinos Retreat",
+    hero_title: "Vakantiehuis Torremolinos",
     prop_about: "Over deze plek",
     prop_host_prefix: "Host",
     prop_host_description: "Hallo! Ik ben Iván, ingenieur van beroep, atleet en reisliefhebber. Ik heb onlangs besloten om mijn accommodaties met veel liefde te renoveren en voor te bereiden om de wereld van de toeristische verhuur te betreden en kwaliteitsverblijven aan te bieden. Ik ben een extravert, vrolijk persoon met gevoel voor humor. Ik ben beschikbaar om je verblijf je verwachtingen te laten overtreffen en het zo aangenaam mogelijk te maken. Ik hoop je snel te mogen verwelkomen!",
