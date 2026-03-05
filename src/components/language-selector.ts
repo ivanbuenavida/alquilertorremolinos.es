@@ -53,7 +53,7 @@ export class LanguageSelector extends LitElement {
         </button>
         
         <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-4 p-2 ${this._isOpen ? 'show' : ''}" 
-            style="margin-top: 10px; display: ${this._isOpen ? 'block' : 'none'};">
+            style="margin-top: 10px; right: 0; left: auto; min-width: 140px; display: ${this._isOpen ? 'block' : 'none'};">
           ${langs.map(l => html`
             <li>
               <a class="dropdown-item rounded-3 d-flex align-items-center justify-content-between gap-3 py-2 ${l.code === this._currentLang ? 'active bg-primary-subtle text-primary' : ''}" 
