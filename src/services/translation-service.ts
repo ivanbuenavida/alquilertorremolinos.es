@@ -51,6 +51,8 @@ interface Labels {
   cal_summary_title: string;
   cal_summary_dates: string;
   cal_err_min_nights: (min: number) => string;
+  cal_err_overlap: string;
+  cal_suggested_dates: string;
   cal_summary_subtotal: string;
   cal_summary_discount_weekly: string;
   cal_summary_discount_monthly: string;
@@ -152,6 +154,8 @@ const translations: Record<Language, Labels> = {
     cal_summary_title: "Resumen de reserva",
     cal_summary_dates: "Fechas",
     cal_err_min_nights: (min) => `La reserva mínima en estas fechas es de ${min} noches`,
+    cal_err_overlap: "Las fechas seleccionadas contienen días no disponibles.",
+    cal_suggested_dates: "Fechas alternativas sugeridas:",
     cal_summary_subtotal: "Subtotal",
     cal_summary_discount_weekly: "Descuento semanal",
     cal_summary_discount_monthly: "Descuento de larga estancia",
@@ -240,6 +244,8 @@ const translations: Record<Language, Labels> = {
     cal_summary_title: "Booking summary",
     cal_summary_dates: "Dates",
     cal_err_min_nights: (min) => `Minimum stay for these dates is ${min} nights`,
+    cal_err_overlap: "The selected dates contain unavailable days.",
+    cal_suggested_dates: "Suggested alternative dates:",
     cal_summary_subtotal: "Subtotal",
     cal_summary_discount_weekly: "Weekly discount",
     cal_summary_discount_monthly: "Long stay discount",
@@ -328,6 +334,8 @@ const translations: Record<Language, Labels> = {
     cal_summary_title: "Buchungsübersicht",
     cal_summary_dates: "Daten",
     cal_err_min_nights: (min) => `Der Mindestaufenthalt für diese Daten beträgt ${min} Nächte`,
+    cal_err_overlap: "Die ausgewählten Daten enthalten nicht verfügbare Tage.",
+    cal_suggested_dates: "Vorgeschlagene alternative Daten:",
     cal_summary_subtotal: "Zwischensumme",
     cal_summary_discount_weekly: "Wochenrabatt",
     cal_summary_discount_monthly: "Langzeitrabatt",
@@ -416,6 +424,8 @@ const translations: Record<Language, Labels> = {
     cal_summary_title: "Résumé de la réservation",
     cal_summary_dates: "Dates",
     cal_err_min_nights: (min) => `Le séjour minimum à ces dates est de ${min} nuits`,
+    cal_err_overlap: "Les dates sélectionnées contiennent des jours non disponibles.",
+    cal_suggested_dates: "Dates alternatives suggérées :",
     cal_summary_subtotal: "Sous-total",
     cal_summary_discount_weekly: "Remise hebdomadaire",
     cal_summary_discount_monthly: "Remise longue durée",
@@ -504,6 +514,8 @@ const translations: Record<Language, Labels> = {
     cal_summary_title: "Boekingssamenvatting",
     cal_summary_dates: "Data",
     cal_err_min_nights: (min) => `Minimum verblijf voor deze data is ${min} nachten`,
+    cal_err_overlap: "De geselecteerde data bevatten onbeschikbare dagen.",
+    cal_suggested_dates: "Voorgestelde alternatieve data:",
     cal_summary_subtotal: "Subtotaal",
     cal_summary_discount_weekly: "Weekkorting",
     cal_summary_discount_monthly: "Lange verblijfskorting",

@@ -17,6 +17,7 @@ export class AvailabilityCalendar extends LitElement {
   @state() private _nights: number = 0;
   @state() private _totalPrice: number = 0;
   @state() private _selectionError: string = '';
+  @state() private _alternatives: {start: Date, end: Date}[] = [];
 
   constructor() {
     super();
@@ -29,11 +30,27 @@ export class AvailabilityCalendar extends LitElement {
       this._nights = e.detail.nights || 0;
       this._totalPrice = e.detail.totalPrice || 0;
       this._selectionError = '';
+      this._alternatives = [];
     });
 
     this.addEventListener('selection-error', (e: any) => {
       this._selectionError = e.detail.message || '';
+      this._alternatives = e.detail.alternatives || [];
     });
+  }
+
+  private _applyAlternative(alt: {start: Date, end: Date}) {
+    const calendarView = this.renderRoot.querySelector('calendar-view') as any;
+    if (calendarView) {
+      calendarView._startDate = alt.start;
+      calendarView._endDate = null;
+      // We simulate clicks or just set the dates and trigger calculation
+      calendarView._handleDayClick(alt.end, false);
+      
+      // Update local state just in case event takes time or we want immediate feedback
+      this._selectionError = '';
+      this._alternatives = [];
+    }
   }
 
   private _handleWhatsAppClick() {
@@ -53,8 +70,26 @@ export class AvailabilityCalendar extends LitElement {
         </div>
 
         ${this._selectionError ? html`
-          <div class="alert alert-danger py-2 small mb-4" role="alert">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i> ${this._selectionError}
+          <div class="alert alert-danger py-3 small mb-4 shadow-sm border-0" role="alert">
+            <div class="d-flex align-items-center mb-2 fw-medium">
+              <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i> 
+              ${this._selectionError}
+            </div>
+            
+            ${this._alternatives && this._alternatives.length > 0 ? html`
+              <div class="mt-3 pt-3 border-top border-danger border-opacity-25">
+                <p class="mb-2 fw-bold text-dark"><i class="bi bi-magic me-1"></i> ${TranslationService.l.cal_suggested_dates}</p>
+                <div class="d-flex flex-wrap gap-2">
+                  ${this._alternatives.map(alt => html`
+                    <button class="btn btn-sm btn-outline-danger fw-medium rounded-pill hover-scale" 
+                            @click="${() => this._applyAlternative(alt)}">
+                      ${alt.start.toLocaleDateString(TranslationService.currentLang, {day: 'numeric', month: 'short'})} - 
+                      ${alt.end.toLocaleDateString(TranslationService.currentLang, {day: 'numeric', month: 'short'})}
+                    </button>
+                  `)}
+                </div>
+              </div>
+            ` : ''}
           </div>
         ` : ''}
 

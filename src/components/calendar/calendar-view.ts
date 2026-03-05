@@ -124,7 +124,7 @@ export class CalendarView extends LitElement {
     this._generateCalendar();
   }
 
-  private _handleDayClick(date: Date, isBusy: boolean) {
+  private async _handleDayClick(date: Date, isBusy: boolean) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
@@ -170,14 +170,18 @@ export class CalendarView extends LitElement {
           return;
         }
 
-        // Check for busy days in between
-        const hasBusyDaysBetween = this._days.some(d => {
-          const t = d.date.getTime();
-          return t > startTime && t < clickedTime && d.isBusy;
-        });
+        // Check for busy days in between using actual events
+        const busyEvents = await CalendarService.getBusyDays(new Date(startTime), new Date(clickedTime));
+        const hasBusyDaysBetween = this._checkIfBusyRange(new Date(startTime), diffDays, busyEvents);
 
         if (hasBusyDaysBetween) {
-          alert('El rango seleccionado contiene días ya reservados');
+          const alternatives = await this._findAlternativeDates(startTime, clickedTime, requiredMinNights);
+          this.dispatchEvent(new CustomEvent('selection-error', {
+            detail: { message: TranslationService.l.cal_err_overlap, alternatives },
+            bubbles: true,
+            composed: true
+          }));
+          this._endDate = null;
           return;
         }
 
@@ -232,6 +236,69 @@ export class CalendarView extends LitElement {
       bubbles: true,
       composed: true
     }));
+  }
+
+  private async _findAlternativeDates(startMillis: number, endMillis: number, minNights: number): Promise<{start: Date, end: Date}[]> {
+    const durationDays = Math.ceil((endMillis - startMillis) / (1000 * 60 * 60 * 24));
+    const targetDays = Math.max(durationDays, minNights);
+    
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const busyEvents = await CalendarService.getBusyDays(today, this._maxDate);
+    
+    const alternatives: {start: Date, end: Date}[] = [];
+    const baseStart = new Date(startMillis);
+
+    // Look forward
+    let curr = new Date(baseStart);
+    let attempts = 0;
+    while (alternatives.length < 2 && attempts < 90) {
+      if (!this._checkIfBusyRange(curr, targetDays, busyEvents)) {
+        const altEnd = new Date(curr);
+        altEnd.setDate(altEnd.getDate() + targetDays);
+        if (altEnd.getTime() <= this._maxDate.getTime()) {
+           alternatives.push({ start: new Date(curr), end: altEnd });
+        }
+      }
+      curr.setDate(curr.getDate() + 1);
+      attempts++;
+    }
+
+    // Look backward
+    curr = new Date(baseStart);
+    curr.setDate(curr.getDate() - 1);
+    attempts = 0;
+    while (alternatives.length < 3 && attempts < 90) {
+      if (curr.getTime() >= today.getTime()) {
+        if (!this._checkIfBusyRange(curr, targetDays, busyEvents)) {
+          const altEnd = new Date(curr);
+          altEnd.setDate(altEnd.getDate() + targetDays);
+          alternatives.unshift({ start: new Date(curr), end: altEnd });
+        }
+      }
+      curr.setDate(curr.getDate() - 1);
+      attempts++;
+    }
+    
+    return alternatives.slice(0, 3);
+  }
+
+  private _checkIfBusyRange(start: Date, days: number, events: CalendarEvent[]): boolean {
+    const startMs = start.getTime();
+    for (let i = 0; i < days; i++) {
+        const d = new Date(startMs + i * 24 * 60 * 60 * 1000);
+        d.setHours(0,0,0,0);
+        const dTime = d.getTime();
+        const isBusyDay = events.some(event => {
+          const es = new Date(event.start);
+          es.setHours(0, 0, 0, 0);
+          const ee = new Date(event.end);
+          ee.setHours(0, 0, 0, 0);
+          return dTime >= es.getTime() && dTime < ee.getTime();
+        });
+        if (isBusyDay) return true;
+    }
+    return false;
   }
 
   private _isDateSelected(date: Date) {
@@ -328,11 +395,6 @@ export class CalendarView extends LitElement {
                       <span class="small fw-bold">
                         ${day.date.getDate()}
                       </span>
-                      
-                      ${!day.isBusy && day.isCurrentMonth && !day.isPast 
-                        ? html`<span class="${isSelected ? 'text-white' : 'text-muted'}" style="font-size: 0.62rem;">${day.price}€</span>` 
-                        : ''
-                      }
 
                       ${!isSelected && !isInRange && isSelectable ? html`
                         <div class="rounded-circle position-absolute bottom-0 mb-1 ${day.isBusy ? 'bg-danger' : 'bg-primary'}" 
