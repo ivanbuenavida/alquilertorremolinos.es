@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { TranslationService } from '../services/translation-service';
+import { AnalyticsService } from '../services/analytics-service';
 
 @customElement('language-selector')
 export class LanguageSelector extends LitElement {
@@ -33,6 +34,7 @@ export class LanguageSelector extends LitElement {
   private _selectLang(code: any) {
     TranslationService.setLanguage(code);
     this._isOpen = false;
+    AnalyticsService.trackLanguageChange(code);
   }
 
   render() {

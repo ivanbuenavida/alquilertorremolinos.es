@@ -32,11 +32,17 @@ export class AvailabilityCalendar extends LitElement {
       this._totalPrice = e.detail.totalPrice || 0;
       this._selectionError = '';
       this._alternatives = [];
+      
+      // TRACKING: Interest in specific dates
+      AnalyticsService.trackDateSelection(this._nights, this._totalPrice);
     });
 
     this.addEventListener('selection-error', (e: any) => {
       this._selectionError = e.detail.message || '';
       this._alternatives = e.detail.alternatives || [];
+      
+      // TRACKING: Why aren't they booking? (Too few nights? Occupied?)
+      AnalyticsService.trackAvailabilityError('booking_restriction', this._selectionError);
     });
   }
 

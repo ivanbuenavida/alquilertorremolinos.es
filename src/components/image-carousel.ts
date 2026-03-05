@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { TranslationService } from '../services/translation-service';
+import { AnalyticsService } from '../services/analytics-service';
 
 @customElement('image-carousel')
 export class ImageCarousel extends LitElement {
@@ -53,6 +54,7 @@ export class ImageCarousel extends LitElement {
     this._showModal = true;
     document.body.style.overflow = 'hidden';
     history.pushState({ gallery: true }, '');
+    AnalyticsService.trackGalleryView();
   }
 
   private _closeModal() {

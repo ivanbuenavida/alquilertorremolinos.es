@@ -50,4 +50,43 @@ export class AnalyticsService {
       'method': method
     });
   }
+
+  /**
+   * Tracks when a user encounters an availability error (e.g. min nights, occupied)
+   * This is CRITICAL to know if you're losing customers due to your rules or full calendar.
+   */
+  static trackAvailabilityError(errorType: string, details: string) {
+    this.trackEvent('availability_error', {
+      'error_type': errorType,
+      'error_details': details
+    });
+  }
+
+  /**
+   * Tracks when users select a date range (interest)
+   */
+  static trackDateSelection(nights: number, price: number) {
+    this.trackEvent('date_selection', {
+      'nights': nights,
+      'price': price
+    });
+  }
+
+  /**
+   * Tracks when users open the photo gallery
+   */
+  static trackGalleryView() {
+    this.trackEvent('view_gallery', {
+      'item_id': 'property_main'
+    });
+  }
+
+  /**
+   * Tracks language switches
+   */
+  static trackLanguageChange(newLang: string) {
+    this.trackEvent('change_language', {
+      'language': newLang
+    });
+  }
 }
