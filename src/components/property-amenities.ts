@@ -19,12 +19,57 @@ export class PropertyAmenities extends LitElement {
     window.addEventListener('language-changed', () => this.requestUpdate());
   }
 
-  private _toggleModal() {
-    this._showModal = !this._showModal;
-    if (this._showModal) {
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener('keydown', this._handleKeyDown);
+    window.addEventListener('popstate', this._handlePopState);
+    if (history.state?.amenities) {
+      this._showModal = true;
       document.body.style.overflow = 'hidden';
-    } else {
+    }
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('keydown', this._handleKeyDown);
+    window.removeEventListener('popstate', this._handlePopState);
+    super.disconnectedCallback();
+  }
+
+  private _handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && this._showModal) {
+      this._closeModal();
+    }
+  };
+
+  private _handlePopState = () => {
+    const wasOpen = this._showModal;
+    this._showModal = !!history.state?.amenities;
+    
+    if (wasOpen && !this._showModal) {
       document.body.style.overflow = '';
+    } else if (!wasOpen && this._showModal) {
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  private _openModal() {
+    this._showModal = true;
+    document.body.style.overflow = 'hidden';
+    history.pushState({ amenities: true }, '');
+  }
+
+  private _closeModal() {
+    if (this._showModal) {
+      // Use history back to trigger popstate and close the modal
+      window.history.back();
+    }
+  }
+
+  private _toggleModal() {
+    if (this._showModal) {
+      this._closeModal();
+    } else {
+      this._openModal();
     }
   }
 
@@ -62,15 +107,15 @@ export class PropertyAmenities extends LitElement {
           <div 
             class="modal fade show d-block" 
             tabindex="-1" 
-            style="background: rgba(0,0,0,0.5); z-index: 1050;"
+            style="background: rgba(0,0,0,0.5); z-index: 1050; padding: 1rem;"
             @click="${(e: MouseEvent) => (e.target as HTMLElement).classList.contains('modal') && this._toggleModal()}"
           >
-            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-              <div class="modal-content border-0 rounded-4 shadow-lg">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable mx-auto my-3" style="max-width: 600px; height: auto; max-height: calc(100vh - 2rem);">
+              <div class="modal-content border-0 rounded-4 shadow-lg h-100 w-100">
                 <div class="modal-header border-0 p-4 pb-0">
                   <button type="button" class="btn-close" @click="${this._toggleModal}" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4 pt-2">
+                <div class="modal-body p-4 pt-2 overflow-auto">
                   <h2 class="fw-bold mb-4 text-dark fs-3">${TranslationService.l.amen_modal_title}</h2>
                   <div class="row g-4">
                     ${this.amenities.map((amenity: any) => html`
