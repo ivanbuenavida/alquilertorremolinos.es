@@ -30,7 +30,7 @@ export class PropertyHeader extends LitElement {
         alert('Enlace copiado al portapapeles');
       }
       
-      AnalyticsService.trackShare('property', 'alquiler_torremolinos');
+      AnalyticsService.trackShare(!!navigator.share ? 'Web Share API' : 'Link Copy');
     } catch (err) {
       console.log('Error sharing:', err);
     }

@@ -3,29 +3,19 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.alquilertorremolinos.es/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.alquilertorremolinos.es/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.alquilertorremolinos.es/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.alquilertorremolinos.es/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.alquilertorremolinos.es/?lang=de"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.alquilertorremolinos.es/?lang=fr"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.alquilertorremolinos.es/?lang=nl"/>
-    <lastmod>2026-03-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.alquilertorremolinos.es/"/>
+    <lastmod>2026-03-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.alquilertorremolinos.es/?lang=es</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.alquilertorremolinos.es/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.alquilertorremolinos.es/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.alquilertorremolinos.es/?lang=de"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.alquilertorremolinos.es/?lang=fr"/>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://www.alquilertorremolinos.es/?lang=nl"/>
-    <lastmod>2026-03-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://www.alquilertorremolinos.es/?lang=en</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.alquilertorremolinos.es/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.alquilertorremolinos.es/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.alquilertorremolinos.es/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.alquilertorremolinos.es/?lang=de"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.alquilertorremolinos.es/?lang=fr"/>
@@ -36,7 +26,7 @@
   </url>
   <url>
     <loc>https://www.alquilertorremolinos.es/?lang=de</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.alquilertorremolinos.es/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.alquilertorremolinos.es/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.alquilertorremolinos.es/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.alquilertorremolinos.es/?lang=de"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.alquilertorremolinos.es/?lang=fr"/>
@@ -47,7 +37,7 @@
   </url>
   <url>
     <loc>https://www.alquilertorremolinos.es/?lang=fr</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.alquilertorremolinos.es/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.alquilertorremolinos.es/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.alquilertorremolinos.es/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.alquilertorremolinos.es/?lang=de"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.alquilertorremolinos.es/?lang=fr"/>
@@ -58,7 +48,7 @@
   </url>
   <url>
     <loc>https://www.alquilertorremolinos.es/?lang=nl</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.alquilertorremolinos.es/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.alquilertorremolinos.es/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.alquilertorremolinos.es/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.alquilertorremolinos.es/?lang=de"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.alquilertorremolinos.es/?lang=fr"/>

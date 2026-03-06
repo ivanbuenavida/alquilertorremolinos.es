@@ -82,7 +82,7 @@ export class MyApp extends LitElement {
                  <h2 class="fs-4 fw-semibold mb-1">${TranslationService.l.app_property_title}</h2>
                  <p class="text-body mb-0">${TranslationService.l.app_property_specs}</p>
                </div>
-               <img src="${this.data.host.image || '/logo.svg'}" alt="Anfitrión - ${this.data.host.name}" class="rounded-circle border" width="56" height="56">
+               <img src="${this.data.host.image || '/logo.svg'}" alt="${TranslationService.l.prop_host_prefix} - ${this.data.host.name}" class="rounded-circle border" width="56" height="56">
             </div>
 
 
