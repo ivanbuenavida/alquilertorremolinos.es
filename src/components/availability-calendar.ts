@@ -308,8 +308,11 @@ export class AvailabilityCalendar extends LitElement {
                   <a href="https://wa.me/${contactConfig.whatsapp}" target="_blank" class="text-decoration-none text-success d-flex align-items-center gap-2">
                     <i class="bi bi-whatsapp"></i> WhatsApp
                   </a>
-                  <a href="mailto:${contactConfig.email}" class="text-decoration-none d-flex align-items-center gap-2">
-                    <i class="bi bi-envelope"></i> ${contactConfig.email}
+                  <a href="#" 
+                     class="text-decoration-none d-flex align-items-center gap-2"
+                     @click="${(e: Event) => { e.preventDefault(); window.location.href = `mailto:${contactConfig.emailUser}@${contactConfig.emailDomain}`; }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>${contactConfig.emailUser}<span style="display:none">robots</span>@${contactConfig.emailDomain}</span>
                   </a>
                 </div>
               </div>

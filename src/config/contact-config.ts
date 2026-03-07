@@ -1,16 +1,18 @@
 export interface ContactConfig {
   phone: string;
   whatsapp: string;
-  email: string;
+  emailUser: string;
+  emailDomain: string;
 }
 
 export const contactConfig: ContactConfig = {
-  // Número principal de contacto
-  phone: '34645229342', // Asumiendo este basado en conversaciones anteriores
+  // Número principal de contacto (formato legible)
+  phone: '+34 617 29 35 04',
   
-  // Número para enlaces de WhatsApp (debe contener el código de país sin el '+')
-  whatsapp: '34645229342',
+  // Número para enlaces de WhatsApp (limpio sin '+')
+  whatsapp: '34617293504',
   
-  // Correo electrónico de información general
-  email: 'info@alquilertorremolinos.es'
+  // Correo electrónico de contacto (dividido para dificultar recolección automática)
+  emailUser: 'ivanbenavides',
+  emailDomain: 'alquilertorremolinos.es'
 };
