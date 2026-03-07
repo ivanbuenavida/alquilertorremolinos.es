@@ -102,3 +102,59 @@ body {
   visibility: visible;
   opacity: 1;
 }
+
+/* 
+ * Layout: Property Grid
+ * Responsive grid that moves the calendar under the specs on mobile,
+ * but keeps it in the sidebar on desktop.
+ */
+.property-grid {
+  display: flex !important;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.calendar-area {
+  order: 2;
+}
+
+.summary-area {
+  order: 1;
+}
+
+.details-area {
+  order: 3;
+}
+
+@media (min-width: 992px) {
+  .property-grid {
+    display: grid !important;
+    grid-template-columns: 8fr 4fr;
+    grid-template-rows: auto 1fr;
+    gap: 3rem;
+    grid-template-areas: 
+      "summary calendar"
+      "details calendar";
+  }
+  
+  .summary-area { 
+    grid-area: summary; 
+    order: initial;
+  }
+  
+  .calendar-area { 
+    grid-area: calendar; 
+    order: initial;
+  }
+  
+  .details-area { 
+    grid-area: details; 
+    order: initial;
+  }
+
+  .sticky-top-lg {
+    position: sticky;
+    top: 100px;
+    z-index: 10;
+  }
+}

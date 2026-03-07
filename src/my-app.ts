@@ -74,9 +74,9 @@ export class MyApp extends LitElement {
           <image-carousel .images="${this.data.images}"></image-carousel>
         </section>
 
-        <div class="row g-4 g-lg-5">
-          <div class="col-lg-8">
-            <!-- Property summary line (Airbnb style) -->
+        <div class="property-grid mb-5">
+          <!-- Area Summary Line (Specs & Host) -->
+          <div class="summary-area">
             <div class="d-flex justify-content-between align-items-start mb-4 pb-4 border-bottom">
                <div>
                  <h2 class="fs-4 fw-semibold mb-1">${TranslationService.l.app_property_title}</h2>
@@ -84,23 +84,27 @@ export class MyApp extends LitElement {
                </div>
                <img src="${this.data.host.image || '/logo.svg'}" alt="${TranslationService.l.prop_host_prefix} - ${this.data.host.name}" class="rounded-circle border" width="56" height="56">
             </div>
+          </div>
 
+          <!-- Area Calendar Widget (Sidebar on LG, under summary on mobile) -->
+          <div class="calendar-area">
+            <div class="sticky-top-lg">
+              <availability-calendar style="display: block;"></availability-calendar>
+            </div>
+          </div>
 
-
+          <!-- Area Full details & description -->
+          <div class="details-area">
             <about-place></about-place>
             <property-amenities .amenities="${this.data.amenities}"></property-amenities>
             
             <hr class="my-5 opacity-25">
             <property-map></property-map>
             
-            <hr class="d-md-none" />
-          </div>
-          <div class="col-lg-4">
-            <div class="sticky-top" style="top: 80px; z-index: 10;">
-              <availability-calendar style="display: block;"></availability-calendar>
-            </div>
+            <hr class="d-lg-none" />
           </div>
         </div>
+
         <div>
             <hr class="my-5 opacity-25">
             <host-profile .host="${this.data.host}"></host-profile>
