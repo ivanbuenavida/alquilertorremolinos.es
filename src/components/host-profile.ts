@@ -39,8 +39,9 @@ export class HostProfile extends LitElement {
                 <i class="bi bi-chat-quote me-2 fs-5"></i>
                 <span>${this.host.name === 'Iván Benavides' ? 'Alegre, cuidadoso, atento' : 'Alegre, puntual, simpática'}</span>
               </div>
-              <div class="col-md-12 text-secondary fst-italic small mt-1 mt-md-0">
-                ${TranslationService.l.host_languages}
+              <div class="col-md-12 d-flex align-items-center text-body fs-6 mt-1 mt-md-0">
+                <i class="bi bi-translate me-2 fs-5"></i>
+                <span>${TranslationService.l.host_languages}</span>
               </div>
             </div>
           </div>
