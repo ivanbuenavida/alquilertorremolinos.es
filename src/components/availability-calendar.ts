@@ -82,16 +82,9 @@ export class AvailabilityCalendar extends LitElement {
   render() {
     return html`
       <div class="card p-4 rounded-4 shadow-lg border-opacity-25 border mb-4">
-        <h4 class="fw-bold d-flex align-items-center justify-content-between mb-4">
-          <span class="d-flex align-items-center gap-2">
-            <i class="bi bi-calendar-check text-primary"></i> 
-            ${TranslationService.l.cal_title}
-          </span>
-          ${this._startDate ? html`
-            <button class="btn btn-sm btn-outline-danger border-0 rounded-pill px-3 fw-bold small" @click="${this._resetSelection}">
-              <i class="bi bi-x-lg me-1"></i> ${TranslationService.l.cal_summary_reset}
-            </button>
-          ` : ''}
+        <h4 class="fw-bold d-flex align-items-center gap-2 mb-4">
+          <i class="bi bi-calendar-check text-primary"></i> 
+          ${TranslationService.l.cal_title}
         </h4>
         
         <div class="mb-4">
@@ -124,9 +117,14 @@ export class AvailabilityCalendar extends LitElement {
 
         ${this._startDate ? html`
           <div class="bg-light p-3 rounded mb-4 shadow-sm border animate-fade-in">
-            <h6 class="fw-bold mb-3 border-bottom pb-2 d-flex align-items-center gap-2">
-              <i class="bi bi-info-circle-fill text-primary"></i>
-              ${TranslationService.l.cal_summary_title}
+            <h6 class="fw-bold mb-3 border-bottom pb-2 d-flex align-items-center justify-content-between">
+              <span class="d-flex align-items-center gap-2">
+                <i class="bi bi-info-circle-fill text-primary"></i>
+                ${TranslationService.l.cal_summary_title}
+              </span>
+              <button class="btn btn-sm btn-link text-danger p-0 border-0 shadow-none" @click="${this._resetSelection}" title="${TranslationService.l.cal_summary_reset}">
+                <i class="bi bi-x-circle-fill fs-5"></i>
+              </button>
             </h6>
             
             <div class="row g-2 mb-2">
