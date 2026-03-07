@@ -122,7 +122,7 @@ export class AvailabilityCalendar extends LitElement {
           </div>
         ` : ''}
 
-        ${this._startDate && !this._selectionError ? html`
+        ${this._startDate ? html`
           <div class="bg-light p-3 rounded mb-4 shadow-sm border animate-fade-in">
             <h6 class="fw-bold mb-3 border-bottom pb-2 d-flex align-items-center gap-2">
               <i class="bi bi-info-circle-fill text-primary"></i>
