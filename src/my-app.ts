@@ -89,24 +89,20 @@ export class MyApp extends LitElement {
 
             <about-place></about-place>
             <property-amenities .amenities="${this.data.amenities}"></property-amenities>
+            
+            <hr class="my-5 opacity-25">
+            <property-map></property-map>
+            
+            <hr class="my-5 opacity-25">
+            <host-profile .host="${this.data.host}"></host-profile>
           </div>
           
           <div class="col-lg-4">
             <div class="sticky-top" style="top: 80px; z-index: 10;">
               <availability-calendar style="display: block; min-width: 350px;"></availability-calendar>
-              
-
             </div>
           </div>
         </div>
-
-        <!-- Extra single-property sections that mimic Airbnb -->
-        <hr class="my-5 opacity-25">
-        <property-map></property-map>
-
-        <hr class="my-5 opacity-25">
-        <host-profile .host="${this.data.host}"></host-profile>
-
       </main>
 
       <app-footer></app-footer>
