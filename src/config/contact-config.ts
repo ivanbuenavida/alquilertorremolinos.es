@@ -3,6 +3,7 @@ export interface ContactConfig {
   whatsapp: string;
   emailUser: string;
   emailDomain: string;
+  googleMapsUrl: string;
 }
 
 export const contactConfig: ContactConfig = {
@@ -14,5 +15,8 @@ export const contactConfig: ContactConfig = {
   
   // Correo electrónico de contacto (dividido para dificultar recolección automática)
   emailUser: 'ivanbenavides',
-  emailDomain: 'alquilertorremolinos.es'
+  emailDomain: 'alquilertorremolinos.es',
+  
+  // Enlace a Google Maps para ver la ubicación del alojamiento
+  googleMapsUrl: 'https://maps.app.goo.gl/pjxcoY85eUZZqP8H7'
 };

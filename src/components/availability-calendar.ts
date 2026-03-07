@@ -308,7 +308,7 @@ export class AvailabilityCalendar extends LitElement {
             const startStr = this._startDate ? this._startDate.toLocaleDateString(locale) : '';
             const endStr = this._endDate ? this._endDate.toLocaleDateString(locale) : '';
             
-            let message = `${TranslationService.l.wa_hello}, ${TranslationService.l.wa_request_prefix}: ${TranslationService.l.prop_location}.`;
+            let message = `${TranslationService.l.wa_hello}, ${TranslationService.l.wa_request_prefix}: ${TranslationService.l.prop_location} (${contactConfig.googleMapsUrl}).`;
             if (this._startDate && this._endDate) {
               let discountSection = '';
               if (priceDetails.longStayDiscountAmount > 0) {
@@ -320,7 +320,7 @@ export class AvailabilityCalendar extends LitElement {
 
               const discountStr = discountSection ? `\n${TranslationService.l.cal_summary_subtotal}: ${priceDetails.subtotal}€${discountSection}` : '';
               
-              message = `${TranslationService.l.wa_hello}, ${TranslationService.l.wa_would_like} ${TranslationService.l.prop_location}\n\n${TranslationService.l.cal_summary_title}:\n${TranslationService.l.cal_summary_dates}: ${startStr} ${TranslationService.l.wa_date_to} ${endStr}\n${TranslationService.l.cal_summary_nights}: ${this._nights}${discountStr}\n${TranslationService.l.cal_summary_total}: ${priceDetails.finalPrice}€`;
+              message = `${TranslationService.l.wa_hello}, ${TranslationService.l.wa_would_like} ${TranslationService.l.prop_location}\n📍 ${contactConfig.googleMapsUrl}\n\n${TranslationService.l.cal_summary_title}:\n${TranslationService.l.cal_summary_dates}: ${startStr} ${TranslationService.l.wa_date_to} ${endStr}\n${TranslationService.l.cal_summary_nights}: ${this._nights}${discountStr}\n${TranslationService.l.cal_summary_total}: ${priceDetails.finalPrice}€`;
             }
             
             const encodedMsg = encodeURIComponent(message);
