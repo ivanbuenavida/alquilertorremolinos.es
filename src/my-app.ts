@@ -74,7 +74,7 @@ export class MyApp extends LitElement {
           <image-carousel .images="${this.data.images}"></image-carousel>
         </section>
 
-        <div class="row g-5">
+        <div class="row g-4 g-lg-5">
           <div class="col-lg-8">
             <!-- Property summary line (Airbnb style) -->
             <div class="d-flex justify-content-between align-items-start mb-4 pb-4 border-bottom">
@@ -97,7 +97,7 @@ export class MyApp extends LitElement {
           </div>
           <div class="col-lg-4">
             <div class="sticky-top" style="top: 80px; z-index: 10;">
-              <availability-calendar style="display: block; min-width: 350px;"></availability-calendar>
+              <availability-calendar style="display: block;"></availability-calendar>
             </div>
           </div>
         </div>

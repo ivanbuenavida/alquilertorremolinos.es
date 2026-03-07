@@ -16,6 +16,11 @@
   --primary-dark: #003d4d;
 }
 
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 /* Global Overrides for standard Bootstrap components */
 .btn-primary {
   --bs-btn-bg: var(--bs-primary);
