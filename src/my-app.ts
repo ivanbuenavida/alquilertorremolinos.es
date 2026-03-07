@@ -93,9 +93,8 @@ export class MyApp extends LitElement {
             <hr class="my-5 opacity-25">
             <property-map></property-map>
             
-
+            <hr class="d-md-none" />
           </div>
-          
           <div class="col-lg-4">
             <div class="sticky-top" style="top: 80px; z-index: 10;">
               <availability-calendar style="display: block; min-width: 350px;"></availability-calendar>
@@ -103,7 +102,7 @@ export class MyApp extends LitElement {
           </div>
         </div>
         <div>
-                      <hr class="my-5 opacity-25">
+            <hr class="my-5 opacity-25">
             <host-profile .host="${this.data.host}"></host-profile>
         </div>
       </main>
