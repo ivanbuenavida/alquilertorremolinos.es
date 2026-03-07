@@ -17,8 +17,8 @@ export class CalendarView extends LitElement {
   @state() private _limitMsgKey: '30days' | 'september' | null = null;
   
   // Selection state
-  @state() private _startDate: Date | null = null;
-  @state() private _endDate: Date | null = null;
+  @state() _startDate: Date | null = null;
+  @state() _endDate: Date | null = null;
 
   private _minDate = new Date();
   private _maxDate = new Date();
@@ -247,6 +247,14 @@ export class CalendarView extends LitElement {
     }));
   }
 
+  async setRange(start: Date, end: Date) {
+    this._currentDate = new Date(start.getFullYear(), start.getMonth(), 1);
+    this._startDate = new Date(start);
+    this._endDate = null;
+    await this._generateCalendar();
+    await this._handleDayClick(end, false);
+  }
+
   resetSelection() {
     this._startDate = null;
     this._endDate = null;
@@ -345,21 +353,6 @@ export class CalendarView extends LitElement {
     return date.toLocaleDateString(locale, { month: 'long', year: 'numeric' });
   }
 
-  // Unused legend for now
-  private renderLegend() {
-    return html`
-      <div class="d-flex justify-content-center gap-4 p-3 bg-light border-top small fw-bold text-dark">
-        <div class="d-flex align-items-center gap-2">
-          <span class="rounded-circle bg-primary" style="width: 10px; height: 10px;"></span>
-          <span>${TranslationService.l.cal_legend_available}</span>
-        </div>
-        <div class="d-flex align-items-center gap-2">
-          <span class="rounded-circle bg-danger" style="width: 10px; height: 10px;"></span>
-          <span>${TranslationService.l.cal_legend_occupied}</span>
-        </div>
-      </div>
-    `;
-  }
 
   render() {
     const lang = TranslationService.currentLang;

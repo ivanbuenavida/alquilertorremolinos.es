@@ -65,6 +65,10 @@ interface Labels {
   cal_wa_limit_msg: (date: string) => string;
   cal_summary_discount_early: string;
   cal_summary_discount_early_info: string;
+  cal_btn_share: string;
+  cal_share_title: string;
+  cal_share_text: (property: string, dates: string, price: string) => string;
+  cal_copy_success: string;
   // Policies (Accordion)
   pol_title: string;
   pol_cancellation_title: string;
@@ -187,6 +191,10 @@ const translations: Record<Language, Labels> = {
     cal_wa_limit_msg: (date) => `Hola, quiero reservar para las fechas: ${date}`,
     cal_summary_discount_early: "Descuento por reserva temprana",
     cal_summary_discount_early_info: "Si se cancela o modifica la reserva, se perderá este descuento.",
+    cal_btn_share: "Compartir reserva",
+    cal_share_title: "Mira este alojamiento en Torremolinos",
+    cal_share_text: (property, dates, price) => `He encontrado este alojamiento en Torremolinos: ${property}\n\nFechas: ${dates}\nPrecio total: ${price}\n\nPuedes verlo aquí:`,
+    cal_copy_success: "¡Enlace copiado al portapapeles!",
     pol_title: "Condiciones de reserva",
     pol_cancellation_title: "Política de cancelación",
     pol_cancellation_desc: "Cancelación gratuita hasta 14 días antes de la llegada. Si cancelas posteriormente, se retendrá el depósito de reserva.",
@@ -293,6 +301,10 @@ const translations: Record<Language, Labels> = {
     cal_wa_limit_msg: (date) => `Hello, I would like to book for these dates: ${date}`,
     cal_summary_discount_early: "Early bird discount",
     cal_summary_discount_early_info: "If the reservation is cancelled or modified, this discount will be lost.",
+    cal_btn_share: "Share booking",
+    cal_share_title: "Check out this accommodation in Torremolinos",
+    cal_share_text: (property, dates, price) => `I found this accommodation in Torremolinos: ${property}\n\nDates: ${dates}\nTotal price: ${price}\n\nYou can see it here:`,
+    cal_copy_success: "Link copied to clipboard!",
     pol_title: "Booking Conditions",
     pol_cancellation_title: "Cancellation Policy",
     pol_cancellation_desc: "Free cancellation up to 14 days before arrival. If you cancel later, the booking deposit will be retained.",
@@ -399,6 +411,10 @@ const translations: Record<Language, Labels> = {
     cal_wa_limit_msg: (date) => `Hallo, ich möchte für diese Termine buchen: ${date}`,
     cal_summary_discount_early: "Frühbucherrabatt",
     cal_summary_discount_early_info: "Wenn die Reservierung storniert oder geändert wird, geht dieser Rabatt verloren.",
+    cal_btn_share: "Reservierung teilen",
+    cal_share_title: "Schau dir diese Unterkunft in Torremolinos an",
+    cal_share_text: (property, dates, price) => `Ich habe diese Unterkunft in Torremolinos gefunden: ${property}\n\nDaten: ${dates}\nGesamtpreis: ${price}\n\nHier kannst du sie sehen:`,
+    cal_copy_success: "Link in die Zwischenablage kopiert!",
     pol_title: "Buchungsbedingungen",
     pol_cancellation_title: "Stornierungsbedingungen",
     pol_cancellation_desc: "Kostenlose Stornierung bis 14 Tage vor Anreise. Bei späterer Stornierung wird die Buchungskaution einbehalten.",
@@ -505,6 +521,10 @@ const translations: Record<Language, Labels> = {
     cal_wa_limit_msg: (date) => `Bonjour, je souhaite réserver pour ces dates : ${date}`,
     cal_summary_discount_early: "Remise réservation anticipée",
     cal_summary_discount_early_info: "Si la réservation est annulée ou modifiée, cette remise sera perdue.",
+    cal_btn_share: "Partager la réservation",
+    cal_share_title: "Regardez ce logement à Torremolinos",
+    cal_share_text: (property, dates, price) => `J'ai trouvé ce logement à Torremolinos : ${property}\n\nDates : ${dates}\nPrix total : ${price}\n\nVous pouvez le voir ici :`,
+    cal_copy_success: "Lien copié dans le presse-papiers !",
     pol_title: "Conditions de réservation",
     pol_cancellation_title: "Conditions d'annulation",
     pol_cancellation_desc: "Annulation gratuite jusqu'à 14 jours avant l'arrivée. Si vous annulez plus tard, l'acompte de réservation sera conservé.",
@@ -611,6 +631,10 @@ const translations: Record<Language, Labels> = {
     cal_wa_limit_msg: (date) => `Hallo, ik wil graag boeken voor deze data: ${date}`,
     cal_summary_discount_early: "Vroegboekkorting",
     cal_summary_discount_early_info: "Als de reservering wordt geannuleerd of gewijzigd, komt deze korting te vervallen.",
+    cal_btn_share: "Reservering delen",
+    cal_share_title: "Bekijk deze accommodatie in Torremolinos",
+    cal_share_text: (property, dates, price) => `Ik heb deze accommodatie in Torremolinos gevonden: ${property}\n\nData: ${dates}\nTotale prijs: ${price}\n\nJe kunt het hier bekijken:`,
+    cal_copy_success: "Link gekopieerd naar klembord!",
     pol_title: "Boekingsvoorwaarden",
     pol_cancellation_title: "Annuleringsvoorwaarden",
     pol_cancellation_desc: "Gratis annuleren tot 14 dagen voor aankomst. Als u later annuleert, wordt de boekingsaanbetaling ingehouden.",

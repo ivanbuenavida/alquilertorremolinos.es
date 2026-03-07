@@ -35,15 +35,48 @@ export class AvailabilityCalendar extends LitElement {
       
       // TRACKING: Interest in specific dates
       AnalyticsService.trackDateSelection(this._nights, this._totalPrice);
+      
+      this._updateUrlWithDates();
     });
 
     this.addEventListener('selection-error', (e: any) => {
       this._selectionError = e.detail.message || '';
       this._alternatives = e.detail.alternatives || [];
       
-      // TRACKING: Why aren't they booking? (Too few nights? Occupied?)
+    // TRACKING: Why aren't they booking? (Too few nights? Occupied?)
       AnalyticsService.trackAvailabilityError('booking_restriction', this._selectionError);
     });
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this._parseUrlParams();
+  }
+
+  private async _parseUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    const checkinStr = params.get('checkin');
+    const checkoutStr = params.get('checkout');
+
+    if (checkinStr && checkoutStr) {
+      setTimeout(async () => {
+        const calendarView = this.querySelector('calendar-view') as any;
+        if (calendarView) {
+          try {
+            const start = new Date(checkinStr);
+            start.setHours(0,0,0,0);
+            const end = new Date(checkoutStr);
+            end.setHours(0,0,0,0);
+            
+            if (!isNaN(start.getTime()) && !isNaN(end.getTime())) {
+              await calendarView.setRange(start, end);
+            }
+          } catch (e) {
+            console.error('Error parsing URL dates', e);
+          }
+        }
+      }, 500);
+    }
   }
 
   private _applyAlternative(alt: {start: Date, end: Date}) {
@@ -72,11 +105,54 @@ export class AvailabilityCalendar extends LitElement {
     if (calendarView) {
       calendarView.resetSelection();
     }
+    this._updateUrlWithDates();
+  }
+
+  private _updateUrlWithDates() {
+    const url = new URL(window.location.href);
+    if (this._startDate && this._endDate) {
+      url.searchParams.set('checkin', this._startDate.toISOString().split('T')[0]);
+      url.searchParams.set('checkout', this._endDate.toISOString().split('T')[0]);
+    } else {
+      url.searchParams.delete('checkin');
+      url.searchParams.delete('checkout');
+    }
+    window.history.replaceState({}, '', url.toString());
   }
 
   private _handleWhatsAppClick() {
     AnalyticsService.trackLead(this._totalPrice, this._nights);
     console.log('WhatsApp booking clicked');
+  }
+
+  private _handleShareClick() {
+    const propertyTitle = TranslationService.l.app_property_title;
+    const locale = TranslationService.currentLang;
+    const startStr = this._startDate?.toLocaleDateString(locale) || '';
+    const endStr = this._endDate?.toLocaleDateString(locale) || '';
+    const datesStr = `${startStr} - ${endStr}`;
+    const priceStr = `${this._calculatePriceDetails().finalPrice}€`;
+    
+    // Construct URL with dates
+    const url = new URL(window.location.origin + window.location.pathname);
+    url.searchParams.set('lang', TranslationService.currentLang);
+    if (this._startDate) url.searchParams.set('checkin', this._startDate.toISOString().split('T')[0]);
+    if (this._endDate) url.searchParams.set('checkout', this._endDate.toISOString().split('T')[0]);
+
+    const shareData = {
+      title: TranslationService.l.cal_share_title,
+      text: TranslationService.l.cal_share_text(propertyTitle, datesStr, priceStr),
+      url: url.toString()
+    };
+
+    if (navigator.share) {
+      navigator.share(shareData).catch(console.error);
+    } else {
+      // Fallback to copy to clipboard
+      navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`).then(() => {
+        alert(TranslationService.l.cal_copy_success);
+      });
+    }
   }
 
   private _calculatePriceDetails() {
@@ -260,6 +336,14 @@ export class AvailabilityCalendar extends LitElement {
               >
                 <i class="bi bi-whatsapp fs-5"></i> ${TranslationService.l.cal_btn_whatsapp}
               </a>
+
+              <button 
+                class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center gap-2 fw-bold rounded-pill shadow-sm ${!this._startDate || !this._endDate ? 'disabled opacity-50' : ''}" 
+                @click="${this._handleShareClick}"
+                ?disabled="${!this._startDate || !this._endDate}"
+              >
+                <i class="bi bi-share fs-5"></i> ${TranslationService.l.cal_btn_share}
+              </button>
             `;
           })()}
         </div>
