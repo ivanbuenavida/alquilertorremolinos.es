@@ -116,6 +116,9 @@ interface Labels {
   seo_title: string;
   seo_description: string;
   seo_keywords: string;
+  // Host
+  host_qualities_ivan: string;
+  host_qualities_other: string;
 }
 
 const translations: Record<Language, Labels> = {
@@ -217,7 +220,9 @@ const translations: Record<Language, Labels> = {
     img_title_8: "Dormitorio principal",
     seo_title: "Alquiler Torremolinos | Apartamento Vacacional en la Costa del Sol",
     seo_description: "Reserva tu alquiler vacacional en Torremolinos. Apartamento moderno en el centro, cerca de la playa, con Wi-Fi, Aire Acondicionado y máxima comodidad. ¡Mejor precio garantizado!",
-    seo_keywords: "alquiler torremolinos, vacaciones torremolinos, apartamento vacacional costa del sol, alojamiento torremolinos centro, alquilar apartamento torremolinos playa"
+    seo_keywords: "alquiler torremolinos, vacaciones torremolinos, apartamento vacacional costa del sol, alojamiento torremolinos centro, alquilar apartamento torremolinos playa",
+    host_qualities_ivan: "Alegre, cuidadoso, atento",
+    host_qualities_other: "Alegre, puntual, simpática"
   },
   en: {
     nav_brand: "Torremolinos Rental",
@@ -317,7 +322,9 @@ const translations: Record<Language, Labels> = {
     img_title_8: "Master bedroom",
     seo_title: "Torremolinos Holiday Rental | Luxury Vacation Apartment",
     seo_description: "Book your holiday rental in Torremolinos. Modern city center apartment near the beach, with Wi-Fi, AC, and premium comfort. Best price guaranteed!",
-    seo_keywords: "torremolinos holiday rental, torremolinos vacation apartment, holiday accommodation torremolinos, rent apartment torremolinos beach, costa del sol holiday"
+    seo_keywords: "torremolinos holiday rental, torremolinos vacation apartment, holiday accommodation torremolinos, rent apartment torremolinos beach, costa del sol holiday",
+    host_qualities_ivan: "Cheerful, careful, attentive",
+    host_qualities_other: "Cheerful, punctual, nice"
   },
   de: {
     nav_brand: "Ferienwohnung Torremolinos",
@@ -417,7 +424,9 @@ const translations: Record<Language, Labels> = {
     img_title_8: "Hauptschlafzimmer",
     seo_title: "Ferienwohnung Torremolinos | Luxus-Urlaubsapartment mieten",
     seo_description: "Buchen Sie Ihre Ferienwohnung in Torremolinos. Modernes Apartment im Zentrum nahe dem Strand, mit WLAN, Klimaanlage und höchstem Komfort. Bestpreis garantiert!",
-    seo_keywords: "ferienwohnung torremolinos, torremolinos urlaub, apartment mieten torremolinos, torremolinos ferienunterkunft, costa del sol urlaubsapartment"
+    seo_keywords: "ferienwohnung torremolinos, torremolinos urlaub, apartment mieten torremolinos, torremolinos ferienunterkunft, costa del sol urlaubsapartment",
+    host_qualities_ivan: "Fröhlich, sorgfältig, aufmerksam",
+    host_qualities_other: "Fröhlich, pünktlich, sympathisch"
   },
   fr: {
     nav_brand: "Location Torremolinos",
@@ -517,7 +526,9 @@ const translations: Record<Language, Labels> = {
     img_title_8: "Chambre principale",
     seo_title: "Location Torremolinos | Appartement de Vacances de Luxe",
     seo_description: "Réservez votre location de vacances à Torremolinos. Appartement moderne au centre-ville près de la plage, avec Wi-Fi, clim et confort premium. Meilleur prix garanti !",
-    seo_keywords: "location torremolinos, vacances torremolinos, appartement vacances torremolinos, louer appartement torremolinos plage, côte du soleil vacances"
+    seo_keywords: "location torremolinos, vacances torremolinos, appartement vacances torremolinos, louer appartement torremolinos plage, côte du soleil vacances",
+    host_qualities_ivan: "Joyeux, soigneux, attentif",
+    host_qualities_other: "Joyeux, ponctuel, sympathique"
   },
   nl: {
     nav_brand: "Verhuur Torremolinos",
@@ -617,7 +628,9 @@ const translations: Record<Language, Labels> = {
     img_title_8: "Hoofdslaapkamer",
     seo_title: "Vakantiehuis Torremolinos | Luxe Vakantieappartement huren",
     seo_description: "Boek uw vakantiehuis in Torremolinos. Modern appartement in het centrum nabij het strand, met Wi-Fi, airconditioning en premium comfort. Beste prijs gegarandeerd!",
-    seo_keywords: "vakantiehuis torremolinos, torremolinos vakantie, appartement huren torremolinos, vakantie accommodatie torremolinos, costa del sol vakantie"
+    seo_keywords: "vakantiehuis torremolinos, torremolinos vakantie, appartement huren torremolinos, vakantie accommodatie torremolinos, costa del sol vakantie",
+    host_qualities_ivan: "Vrolijk, zorgvuldig, attent",
+    host_qualities_other: "Vrolijk, punctueel, sympathiek"
   }
 };
 
