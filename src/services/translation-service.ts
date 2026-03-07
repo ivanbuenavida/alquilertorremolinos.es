@@ -60,7 +60,7 @@ interface Labels {
   cal_summary_subtotal: string;
   cal_summary_discount_weekly: string;
   cal_summary_discount_monthly: string;
-  cal_limit_reach_msg: (phone: string) => string;
+  cal_limit_reach_msg: string;
   cal_wa_limit_msg: (date: string) => string;
   cal_summary_discount_early: string;
   cal_summary_discount_early_info: string;
@@ -173,7 +173,7 @@ const translations: Record<Language, Labels> = {
     cal_summary_subtotal: "Subtotal",
     cal_summary_discount_weekly: "Descuento semanal",
     cal_summary_discount_monthly: "Descuento de larga estancia",
-    cal_limit_reach_msg: (phone) => `No disponible para reservas más allá del 30 de Septiembre por la web. Para estancias de larga duración o fechas lejanas, contacta directamente al ${phone}`,
+    cal_limit_reach_msg: "No disponible para reservar estas fechas por la web. Para estancias de larga duración o fechas lejanas, contacta con nosotros directamente.",
     cal_wa_limit_msg: (date) => `Hola, quiero reservar más allá de la fecha ${date}`,
     cal_summary_discount_early: "Descuento por reserva temprana",
     cal_summary_discount_early_info: "Si se cancela o modifica la reserva, se perderá este descuento.",
@@ -272,7 +272,7 @@ const translations: Record<Language, Labels> = {
     cal_summary_subtotal: "Subtotal",
     cal_summary_discount_weekly: "Weekly discount",
     cal_summary_discount_monthly: "Long stay discount",
-    cal_limit_reach_msg: (phone) => `Not available for bookings more than 5 months in advance via the web. For long-term stays or future dates, please contact ${phone} directly`,
+    cal_limit_reach_msg: "Not available to book these dates via the web. For long-term stays or future dates, please contact us directly.",
     cal_wa_limit_msg: (date) => `Hello, I would like to book beyond the date ${date}`,
     cal_summary_discount_early: "Early bird discount",
     cal_summary_discount_early_info: "If the reservation is cancelled or modified, this discount will be lost.",
@@ -371,7 +371,7 @@ const translations: Record<Language, Labels> = {
     cal_summary_subtotal: "Zwischensumme",
     cal_summary_discount_weekly: "Wochenrabatt",
     cal_summary_discount_monthly: "Langzeitrabatt",
-    cal_limit_reach_msg: (phone) => `Buchungen, die mehr als 5 Monate im Voraus liegen, sind über die Website nicht verfügbar. Für Langzeitaufenthalte oder spätere Termine wenden Sie sich bitte direkt an ${phone}`,
+    cal_limit_reach_msg: "Für diese Termine ist eine Online-Buchung nicht möglich. Für Langzeitaufenthalte oder ferne Termine kontaktieren Sie uns bitte direkt.",
     cal_wa_limit_msg: (date) => `Hallo, ich möchte über das Datum ${date} hinaus buchen`,
     cal_summary_discount_early: "Frühbucherrabatt",
     cal_summary_discount_early_info: "Wenn die Reservierung storniert oder geändert wird, geht dieser Rabatt verloren.",
@@ -470,7 +470,7 @@ const translations: Record<Language, Labels> = {
     cal_summary_subtotal: "Sous-total",
     cal_summary_discount_weekly: "Remise hebdomadaire",
     cal_summary_discount_monthly: "Remise longue durée",
-    cal_limit_reach_msg: (phone) => `Non disponible pour les réservations à plus de 5 mois via le web. Pour les longs séjours ou les dates futures, veuillez contacter directement le ${phone}`,
+    cal_limit_reach_msg: "Non disponible pour réserver ces dates via le web. Pour les longs séjours ou les dates lointaines, veuillez nous contacter directement.",
     cal_wa_limit_msg: (date) => `Bonjour, je souhaite réserver au-delà de la date ${date}`,
     cal_summary_discount_early: "Remise réservation anticipée",
     cal_summary_discount_early_info: "Si la réservation est annulée ou modifiée, cette remise sera perdue.",
@@ -569,7 +569,7 @@ const translations: Record<Language, Labels> = {
     cal_summary_subtotal: "Subtotaal",
     cal_summary_discount_weekly: "Weekkorting",
     cal_summary_discount_monthly: "Lange verblijfskorting",
-    cal_limit_reach_msg: (phone) => `Niet beschikbaar voor boekingen meer dan 5 maanden van tevoren via de website. Voor langdurige verblijven of toekomstige data kunt u rechtstreeks contact opnemen met ${phone}`,
+    cal_limit_reach_msg: "Niet beschikbaar om deze data via internet te boeken. Neem rechtstreeks contact con ons op voor een lang verblijf of verre data.",
     cal_wa_limit_msg: (date) => `Hallo, ik wil graag boeken na de datum ${date}`,
     cal_summary_discount_early: "Vroegboekkorting",
     cal_summary_discount_early_info: "Als de reservering wordt geannuleerd of gewijzigd, komt deze korting te vervallen.",

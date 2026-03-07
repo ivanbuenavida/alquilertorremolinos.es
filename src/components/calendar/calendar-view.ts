@@ -14,6 +14,7 @@ export class CalendarView extends LitElement {
   @state() private _currentDate = new Date();
   @state() private _days: DayInfo[] = [];
   @state() private _loading = true;
+  @state() private _showLimitMsg = false;
   
   // Selection state
   @state() private _startDate: Date | null = null;
@@ -112,13 +113,21 @@ export class CalendarView extends LitElement {
   }
 
   private _nextMonth() {
-    if (!this._canGoNext()) return;
+    if (!this._canGoNext()) {
+      // If we are in September (8) and try to go next, show message
+      if (this._currentDate.getMonth() === 8) {
+        this._showLimitMsg = true;
+      }
+      return;
+    }
+    this._showLimitMsg = false;
     this._currentDate = new Date(this._currentDate.getFullYear(), this._currentDate.getMonth() + 1, 1);
     this._generateCalendar();
   }
 
   private _prevMonth() {
     if (!this._canGoPrev()) return;
+    this._showLimitMsg = false;
     this._currentDate = new Date(this._currentDate.getFullYear(), this._currentDate.getMonth() - 1, 1);
     this._generateCalendar();
   }
@@ -135,6 +144,7 @@ export class CalendarView extends LitElement {
     if (!this._startDate || (this._startDate && this._endDate)) {
       this._startDate = new Date(date);
       this._endDate = null;
+      this._showLimitMsg = false;
     } else {
       const startTime = this._startDate.getTime();
       
@@ -146,7 +156,7 @@ export class CalendarView extends LitElement {
         // Enforce max 30 days
         const diffDays = Math.ceil((clickedTime - startTime) / (1000 * 60 * 60 * 24));
         if (diffDays > 30) {
-          alert('La reserva máxima es de 30 días');
+          this._showLimitMsg = true;
           return;
         }
 
@@ -240,6 +250,7 @@ export class CalendarView extends LitElement {
   resetSelection() {
     this._startDate = null;
     this._endDate = null;
+    this._showLimitMsg = false;
     this.dispatchEvent(new CustomEvent('range-selected', {
       detail: { 
         start: null, 
@@ -422,12 +433,11 @@ export class CalendarView extends LitElement {
           }
         </div>
 
-        ${!this._canGoNext() ? html`
-          <div class="p-3 bg-light border-top border-bottom">
+        ${this._showLimitMsg ? html`
+          <div class="p-3 bg-light border-top border-bottom animate-fade-in">
             <div class="alert alert-info mb-0 py-2 small d-flex flex-column align-items-center gap-2 border-0 bg-transparent text-center">
               <div class="d-flex align-items-center gap-2">
-                <i class="bi bi-info-circle-fill text-primary"></i>
-                <span>${TranslationService.l.cal_limit_reach_msg(contactConfig.phone)}</span>
+                <span>${TranslationService.l.cal_limit_reach_msg}</span>
               </div>
               <a href="https://wa.me/${contactConfig.whatsapp}?text=${encodeURIComponent(TranslationService.l.cal_wa_limit_msg(this._maxDate.toLocaleDateString(({ 'es': 'es-ES', 'en': 'en-US', 'de': 'de-DE', 'fr': 'fr-FR', 'nl': 'nl-NL' } as any)[TranslationService.currentLang] || 'es-ES')))}" 
                  target="_blank" 
