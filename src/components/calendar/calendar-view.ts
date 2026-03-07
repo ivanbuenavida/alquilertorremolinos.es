@@ -28,15 +28,8 @@ export class CalendarView extends LitElement {
     this._minDate = new Date(now.getFullYear(), now.getMonth(), 1);
     this._minDate.setHours(0, 0, 0, 0);
     
-    // Max booking distance is 5 months from today
-    this._maxDate = new Date(now);
-    this._maxDate.setMonth(this._maxDate.getMonth() + 5); 
-    
-    // Hard cap at September 30th, 2026
-    const sept30 = new Date(2026, 8, 30, 23, 59, 59); // 8 is September (0-indexed)
-    if (this._maxDate > sept30) {
-      this._maxDate = sept30;
-    }
+    // Hard cap strictly at September 30th, 2026
+    this._maxDate = new Date(2026, 8, 30, 23, 59, 59); // 8 is September (0-indexed)
     
     this._currentDate = new Date(this._minDate);
 

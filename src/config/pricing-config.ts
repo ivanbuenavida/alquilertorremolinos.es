@@ -44,6 +44,7 @@ export interface PricingConfig {
     weekly: number;      // 7 days
     biweekly: number;    // 14 days
     monthly: number;     // 30 days
+    earlyBird: number;   // 2 months in advance
   };
 }
 
@@ -90,6 +91,7 @@ export const pricingConfig: PricingConfig = {
   discounts: {
     weekly: 0.80,
     biweekly: 0.75,
-    monthly: 0.70
+    monthly: 0.70,
+    earlyBird: 0.90
   }
 };

@@ -79,7 +79,50 @@ export class AvailabilityCalendar extends LitElement {
     console.log('WhatsApp booking clicked');
   }
 
+  private _calculatePriceDetails() {
+    const subtotal = this._totalPrice;
+    let longStayDiscountLabel = '';
+    let longStayMultiplier = 1;
+
+    if (this._nights >= 30) {
+      longStayDiscountLabel = TranslationService.l.cal_summary_discount_monthly;
+      longStayMultiplier = pricingConfig.discounts.monthly;
+    } else if (this._nights >= 14) {
+      longStayDiscountLabel = TranslationService.l.cal_summary_discount_monthly;
+      longStayMultiplier = pricingConfig.discounts.biweekly;
+    } else if (this._nights >= 7) {
+      longStayDiscountLabel = TranslationService.l.cal_summary_discount_weekly;
+      longStayMultiplier = pricingConfig.discounts.weekly;
+    }
+
+    const longStayDiscountAmount = Math.round(subtotal * (1 - longStayMultiplier));
+
+    // Early Bird Logic: 2 months in advance
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const twoMonthsLater = new Date(today);
+    twoMonthsLater.setMonth(today.getMonth() + 2);
+    
+    const isEarlyBird = this._startDate && this._startDate >= twoMonthsLater;
+    const earlyBirdDiscountAmount = isEarlyBird ? Math.round(subtotal * (1 - pricingConfig.discounts.earlyBird)) : 0;
+    
+    const finalPrice = subtotal - longStayDiscountAmount - earlyBirdDiscountAmount;
+
+    return {
+      subtotal,
+      longStayDiscountLabel,
+      longStayPercent: Math.round((1 - longStayMultiplier) * 100),
+      longStayDiscountAmount,
+      isEarlyBird,
+      earlyBirdPercent: Math.round((1 - pricingConfig.discounts.earlyBird) * 100),
+      earlyBirdDiscountAmount,
+      finalPrice
+    };
+  }
+
   render() {
+    const priceDetails = this._calculatePriceDetails();
+
     return html`
       <div class="card p-3 p-md-4 rounded-4 shadow-lg border-opacity-25 border mb-4">
         <h4 class="fw-bold d-flex align-items-center gap-2 mb-4">
@@ -150,49 +193,35 @@ export class AvailabilityCalendar extends LitElement {
                 <span class="fw-medium">${this._nights}</span>
               </div>
 
-              ${(() => {
-                let discountLabel = '';
-                let discountMultiplier = 1;
+              <div class="d-flex justify-content-between mb-2 small">
+                <span class="text-muted">${TranslationService.l.cal_summary_subtotal}:</span>
+                <span class="fw-medium font-monospace">${priceDetails.subtotal}€</span>
+              </div>
 
-                if (this._nights >= 30) {
-                  discountLabel = TranslationService.l.cal_summary_discount_monthly;
-                  discountMultiplier = pricingConfig.discounts.monthly;
-                } else if (this._nights >= 14) {
-                  discountLabel = TranslationService.l.cal_summary_discount_monthly;
-                  discountMultiplier = pricingConfig.discounts.biweekly;
-                } else if (this._nights >= 7) {
-                  discountLabel = TranslationService.l.cal_summary_discount_weekly;
-                  discountMultiplier = pricingConfig.discounts.weekly;
-                }
+              ${priceDetails.longStayDiscountAmount > 0 ? html`
+                <div class="d-flex justify-content-between mb-2 small text-success fw-bold">
+                  <span>${priceDetails.longStayDiscountLabel} (-${priceDetails.longStayPercent}%):</span>
+                  <span>-${priceDetails.longStayDiscountAmount}€</span>
+                </div>
+              ` : ''}
 
-                if (discountMultiplier < 1) {
-                  const discountPercent = Math.round((1 - discountMultiplier) * 100);
-                  const discountAmount = Math.round(this._totalPrice * (1 - discountMultiplier));
-                  const finalPrice = this._totalPrice - discountAmount;
+              ${priceDetails.isEarlyBird ? html`
+                <div class="d-flex justify-content-between mb-2 small text-success fw-bold">
+                  <span class="d-flex align-items-center gap-1">
+                    ${TranslationService.l.cal_summary_discount_early} (-${priceDetails.earlyBirdPercent}%):
+                    <span class="custom-tooltip">
+                      <i class="bi bi-info-circle small" style="font-size: 0.8em; vertical-align: middle;"></i>
+                      <span class="tooltip-text">${TranslationService.l.cal_summary_discount_early_info}</span>
+                    </span>
+                  </span>
+                  <span>-${priceDetails.earlyBirdDiscountAmount}€</span>
+                </div>
+              ` : ''}
 
-                  return html`
-                    <div class="d-flex justify-content-between mb-2 small">
-                      <span class="text-muted">${TranslationService.l.cal_summary_subtotal}:</span>
-                      <span class="fw-medium font-monospace">${this._totalPrice}€</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2 small text-success fw-bold">
-                      <span>${discountLabel} (-${discountPercent}%):</span>
-                      <span>-${discountAmount}€</span>
-                    </div>
-                    <div class="d-flex justify-content-between pt-2 mt-2 border-top">
-                      <span class="fw-bold">${TranslationService.l.cal_summary_total}:</span>
-                      <span class="fw-bold fs-5 text-primary">${finalPrice}€</span>
-                    </div>
-                  `;
-                }
-
-                return html`
-                  <div class="d-flex justify-content-between pt-2 mt-2 border-top">
-                    <span class="fw-bold">${TranslationService.l.cal_summary_total}:</span>
-                    <span class="fw-bold fs-5 text-primary">${this._totalPrice}€</span>
-                  </div>
-                `;
-              })()}
+              <div class="d-flex justify-content-between pt-2 mt-2 border-top">
+                <span class="fw-bold">${TranslationService.l.cal_summary_total}:</span>
+                <span class="fw-bold fs-5 text-primary">${priceDetails.finalPrice}€</span>
+              </div>
             ` : ''}
           </div>
         ` : ''}
@@ -202,30 +231,19 @@ export class AvailabilityCalendar extends LitElement {
             const startStr = this._startDate ? this._startDate.toLocaleDateString('es-ES') : '';
             const endStr = this._endDate ? this._endDate.toLocaleDateString('es-ES') : '';
             
-            let discountLabel = '';
-            let discountMultiplier = 1;
-
-            if (this._nights >= 30) {
-              discountLabel = TranslationService.l.cal_summary_discount_monthly;
-              discountMultiplier = pricingConfig.discounts.monthly;
-            } else if (this._nights >= 14) {
-              discountLabel = TranslationService.l.cal_summary_discount_monthly;
-              discountMultiplier = pricingConfig.discounts.biweekly;
-            } else if (this._nights >= 7) {
-              discountLabel = TranslationService.l.cal_summary_discount_weekly;
-              discountMultiplier = pricingConfig.discounts.weekly;
-            }
-
-            const discountAmount = Math.round(this._totalPrice * (1 - discountMultiplier));
-            const finalPrice = this._totalPrice - discountAmount;
-
             let message = `Hola, se ha solicitado la reserva para el alojamiento ubicado en: ${TranslationService.l.prop_location}.`;
             if (this._startDate && this._endDate) {
-              const discountStr = discountMultiplier < 1 
-                ? `\nSubtotal: ${this._totalPrice}€\n${discountLabel} (-${Math.round((1-discountMultiplier)*100)}%): -${discountAmount}€` 
-                : '';
+              let discountSection = '';
+              if (priceDetails.longStayDiscountAmount > 0) {
+                discountSection += `\n${priceDetails.longStayDiscountLabel} (-${priceDetails.longStayPercent}%): -${priceDetails.longStayDiscountAmount}€`;
+              }
+              if (priceDetails.isEarlyBird) {
+                discountSection += `\n${TranslationService.l.cal_summary_discount_early} (-${priceDetails.earlyBirdPercent}%): -${priceDetails.earlyBirdDiscountAmount}€`;
+              }
+
+              const discountStr = discountSection ? `\nSubtotal: ${priceDetails.subtotal}€${discountSection}` : '';
               
-              message = `Hola, me gustaría reservar el alojamiento en ${TranslationService.l.prop_location}\n\nResumen de reserva:\nFechas: ${startStr} a ${endStr}\nNoches: ${this._nights}${discountStr}\nPrecio total: ${finalPrice}€`;
+              message = `Hola, me gustaría reservar el alojamiento en ${TranslationService.l.prop_location}\n\nResumen de reserva:\nFechas: ${startStr} a ${endStr}\nNoches: ${this._nights}${discountStr}\nPrecio total: ${priceDetails.finalPrice}€`;
             }
             
             const encodedMsg = encodeURIComponent(message);
