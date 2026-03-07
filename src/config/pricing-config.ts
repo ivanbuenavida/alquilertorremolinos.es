@@ -46,6 +46,9 @@ export interface PricingConfig {
     monthly: number;     // 30 days
     earlyBird: number;   // 2 months in advance
   };
+
+  /** Percentage required for booking deposit (e.g. 0.10 = 10%) */
+  depositPercent: number;
 }
 
 export const pricingConfig: PricingConfig = {
@@ -95,5 +98,6 @@ export const pricingConfig: PricingConfig = {
     biweekly: 0.75,
     monthly: 0.70,
     earlyBird: 0.95
-  }
+  },
+  depositPercent: 0.10
 };

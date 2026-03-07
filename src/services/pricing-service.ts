@@ -11,6 +11,8 @@ export interface PriceDetails {
   earlyBirdPercent: number;
   earlyBirdDiscountAmount: number;
   finalPrice: number;
+  depositAmount: number;
+  depositPercent: number;
 }
 
 export class PricingService {
@@ -79,6 +81,7 @@ export class PricingService {
     const earlyBirdDiscountAmount = isEarlyBird ? Math.round(subtotal * (1 - this.config.discounts.earlyBird)) : 0;
     
     const finalPrice = subtotal - longStayDiscountAmount - earlyBirdDiscountAmount;
+    const depositAmount = Math.round(finalPrice * this.config.depositPercent);
 
     return {
       subtotal,
@@ -88,7 +91,9 @@ export class PricingService {
       isEarlyBird,
       earlyBirdPercent: Math.round((1 - this.config.discounts.earlyBird) * 100),
       earlyBirdDiscountAmount,
-      finalPrice
+      finalPrice,
+      depositAmount,
+      depositPercent: Math.round(this.config.depositPercent * 100)
     };
   }
 

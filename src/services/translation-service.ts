@@ -65,6 +65,8 @@ interface Labels {
   cal_wa_limit_msg: (date: string) => string;
   cal_summary_discount_early: string;
   cal_summary_discount_early_info: string;
+  cal_summary_deposit: (percent: number) => string;
+  cal_summary_deposit_info: string;
   cal_btn_share: string;
   cal_share_title: string;
   cal_share_text: (property: string, dates: string, price: string) => string;
@@ -192,6 +194,8 @@ const translations: Record<Language, Labels> = {
     cal_wa_limit_msg: (date) => `Hola, quiero reservar para las fechas: ${date}`,
     cal_summary_discount_early: "Descuento por reserva temprana",
     cal_summary_discount_early_info: "Si se cancela o modifica la reserva, se perderá este descuento.",
+    cal_summary_deposit: (percent) => `Reserva del ${percent}%`,
+    cal_summary_deposit_info: "Hay 24h para pagar la reserva o se cancelan las fechas.",
     cal_btn_share: "Compartir reserva",
     cal_share_title: "Mira este alojamiento en Torremolinos",
     cal_share_text: (property, dates, price) => `He encontrado este alojamiento en Torremolinos: ${property}\n\nFechas: ${dates}\nPrecio total: ${price}\n\nPuedes verlo aquí:`,
@@ -303,6 +307,8 @@ const translations: Record<Language, Labels> = {
     cal_wa_limit_msg: (date) => `Hello, I would like to book for these dates: ${date}`,
     cal_summary_discount_early: "Early bird discount",
     cal_summary_discount_early_info: "If the reservation is cancelled or modified, this discount will be lost.",
+    cal_summary_deposit: (percent) => `Booking deposit (${percent}%)`,
+    cal_summary_deposit_info: "You have 24 hours to pay the deposit or the dates will be cancelled.",
     cal_btn_share: "Share booking",
     cal_share_title: "Check out this accommodation in Torremolinos",
     cal_share_text: (property, dates, price) => `I found this accommodation in Torremolinos: ${property}\n\nDates: ${dates}\nTotal price: ${price}\n\nYou can see it here:`,
@@ -414,6 +420,8 @@ const translations: Record<Language, Labels> = {
     cal_wa_limit_msg: (date) => `Hallo, ich möchte für diese Termine buchen: ${date}`,
     cal_summary_discount_early: "Frühbucherrabatt",
     cal_summary_discount_early_info: "Wenn die Reservierung storniert oder geändert wird, geht dieser Rabatt verloren.",
+    cal_summary_deposit: (percent) => `Buchungsanzahlung (${percent}%)`,
+    cal_summary_deposit_info: "Sie haben 24 Stunden Zeit, um die Anzahlung zu leisten, andernfalls werden die Termine storniert.",
     cal_btn_share: "Reservierung teilen",
     cal_share_title: "Schau dir diese Unterkunft in Torremolinos an",
     cal_share_text: (property, dates, price) => `Ich habe diese Unterkunft in Torremolinos gefunden: ${property}\n\nDaten: ${dates}\nGesamtpreis: ${price}\n\nHier kannst du sie sehen:`,
@@ -525,6 +533,8 @@ const translations: Record<Language, Labels> = {
     cal_wa_limit_msg: (date) => `Bonjour, je souhaite réserver pour ces dates : ${date}`,
     cal_summary_discount_early: "Remise réservation anticipée",
     cal_summary_discount_early_info: "Si la réservation est annulée ou modifiée, cette remise sera perdue.",
+    cal_summary_deposit: (percent) => `Acompte de réservation (${percent}%)`,
+    cal_summary_deposit_info: "Vous avez 24 heures pour payer l'acompte, sinon les dates seront annulées.",
     cal_btn_share: "Partager la réservation",
     cal_share_title: "Regardez ce logement à Torremolinos",
     cal_share_text: (property, dates, price) => `J'ai trouvé ce logement à Torremolinos : ${property}\n\nDates : ${dates}\nPrix total : ${price}\n\nVous pouvez le voir ici :`,
@@ -636,6 +646,8 @@ const translations: Record<Language, Labels> = {
     cal_wa_limit_msg: (date) => `Hallo, ik wil graag boeken voor deze data: ${date}`,
     cal_summary_discount_early: "Vroegboekkorting",
     cal_summary_discount_early_info: "Als de reservering wordt geannuleerd of gewijzigd, komt deze korting te vervallen.",
+    cal_summary_deposit: (percent) => `Boekingsaanbetaling (${percent}%)`,
+    cal_summary_deposit_info: "U heeft 24 uur de tijd om de aanbetaling te voldoen, anders worden de data geannuleerd.",
     cal_btn_share: "Reservering delen",
     cal_share_title: "Bekijk deze accommodatie in Torremolinos",
     cal_share_text: (property, dates, price) => `Ik heb deze accommodatie in Torremolinos gevonden: ${property}\n\nData: ${dates}\nTotale prijs: ${price}\n\nJe kunt het hier bekijken:`,

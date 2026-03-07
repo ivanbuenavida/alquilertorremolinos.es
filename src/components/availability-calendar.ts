@@ -158,7 +158,9 @@ export class AvailabilityCalendar extends LitElement {
         isEarlyBird: false,
         earlyBirdPercent: 0,
         earlyBirdDiscountAmount: 0,
-        finalPrice: 0
+        finalPrice: 0,
+        depositAmount: 0,
+        depositPercent: 0
       };
     }
 
@@ -190,8 +192,9 @@ export class AvailabilityCalendar extends LitElement {
         }
 
         const discountStr = discountSection ? `\n${labels.cal_summary_subtotal}: ${priceDetails.subtotal}€${discountSection}` : '';
+        const depositLine = `\n${labels.cal_summary_deposit(priceDetails.depositPercent)}: ${priceDetails.depositAmount}€`;
         
-        msg = `${labels.wa_hello}, ${labels.wa_would_like} ${labels.prop_location}\n📍 ${contactConfig.googleMapsUrl}\n\n${labels.cal_summary_title}:\n${labels.cal_summary_dates}: ${s} ${labels.wa_date_to} ${e}\n${labels.cal_summary_nights}: ${this._nights}${discountStr}\n${labels.cal_summary_total}: ${priceDetails.finalPrice}€`;
+        msg = `${labels.wa_hello}, ${labels.wa_would_like} ${labels.prop_location}\n📍 ${contactConfig.googleMapsUrl}\n\n${labels.cal_summary_title}:\n${labels.cal_summary_dates}: ${s} ${labels.wa_date_to} ${e}\n${labels.cal_summary_nights}: ${this._nights}${discountStr}\n${labels.cal_summary_total}: ${priceDetails.finalPrice}€${depositLine}`;
       }
       return msg;
     };
@@ -309,6 +312,17 @@ export class AvailabilityCalendar extends LitElement {
               <div class="d-flex justify-content-between pt-2 mt-2 border-top">
                 <span class="fw-bold">${TranslationService.l.cal_summary_total}:</span>
                 <span class="fw-bold fs-5 text-primary">${priceDetails.finalPrice}€</span>
+              </div>
+
+              <div class="d-flex justify-content-between mb-2 small mt-1 text-muted italic">
+                <span class="d-flex align-items-center gap-1">
+                  ${TranslationService.l.cal_summary_deposit(priceDetails.depositPercent)}
+                  <span class="custom-tooltip">
+                    <i class="bi bi-info-circle small" style="font-size: 0.8em; vertical-align: middle;"></i>
+                    <span class="tooltip-text">${TranslationService.l.cal_summary_deposit_info}</span>
+                  </span>:
+                </span>
+                <span class="fw-medium">${priceDetails.depositAmount}€</span>
               </div>
             ` : ''}
           </div>
