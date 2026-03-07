@@ -19,7 +19,7 @@ export class PropertyMap extends LitElement {
 
     return html`
       <section class="mb-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-1 mb-4">
           <h3 class="fw-semibold mb-0 text-dark">${TranslationService.l.map_title}</h3>
           <a href="${mapUrl}" target="_blank" rel="noopener noreferrer" 
              @click="${() => AnalyticsService.trackMapClick()}"

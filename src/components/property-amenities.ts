@@ -83,7 +83,7 @@ export class PropertyAmenities extends LitElement {
     return html`
       <div class="mb-5 position-relative">
         <h3 class="fw-bold mb-4 text-dark">${TranslationService.l.amen_offers}</h3>
-        <div class="row g-4">
+        <div class="row g-1">
           ${displayAmenities.map((amenity: any) => html`
             <div class="col-md-6">
               <div class="d-flex align-items-center gap-3">
@@ -97,7 +97,7 @@ export class PropertyAmenities extends LitElement {
         ${this.amenities.length > 6 ? html`
           <button 
             @click="${this._toggleModal}"
-            class="btn btn-outline-dark fw-bold px-4 py-2 mt-4 rounded-3 hover-shadow transition-all"
+            class="btn btn-outline-dark fw-bold px-4 py-2 mt-4 rounded-3 w-100 transition-all"
             style="border-width: 1px;"
           >
             ${TranslationService.l.amen_btn_show_all(this.amenities.length)}
@@ -119,9 +119,9 @@ export class PropertyAmenities extends LitElement {
                 </div>
                 <div class="modal-body p-4 pt-2 overflow-auto">
                   <h2 class="fw-bold mb-4 text-dark fs-3">${TranslationService.l.amen_modal_title}</h2>
-                  <div class="row g-4">
+                  <div class="row">
                     ${this.amenities.map((amenity: any) => html`
-                      <div class="col-12 py-3 border-bottom">
+                      <div class="col-12 border-bottom py-2">
                         <div class="d-flex align-items-center gap-4">
                           <i class="bi ${amenity.icon} fs-3 text-dark"></i>
                           <span class="fs-5 text-dark">${TranslationService.translateAmenity(amenity.icon)}</span>
@@ -138,7 +138,7 @@ export class PropertyAmenities extends LitElement {
 
       <style>
         .transition-all { transition: all 0.2s ease-in-out; }
-        .hover-shadow:hover { background-color: #f7f7f7; transform: scale(1.01); }
+        .btn-outline-dark:hover { transform: scale(1.01); }
       </style>
     `;
   }
