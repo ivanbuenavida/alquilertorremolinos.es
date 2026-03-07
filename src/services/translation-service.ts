@@ -119,6 +119,11 @@ interface Labels {
   // Host
   host_qualities_ivan: string;
   host_qualities_other: string;
+  // WhatsApp & Helpers
+  wa_hello: string;
+  wa_request_prefix: string;
+  wa_would_like: string;
+  wa_date_to: string;
 }
 
 const translations: Record<Language, Labels> = {
@@ -222,7 +227,11 @@ const translations: Record<Language, Labels> = {
     seo_description: "Reserva tu alquiler vacacional en Torremolinos. Apartamento moderno en el centro, cerca de la playa, con Wi-Fi, Aire Acondicionado y máxima comodidad. ¡Mejor precio garantizado!",
     seo_keywords: "alquiler torremolinos, vacaciones torremolinos, apartamento vacacional costa del sol, alojamiento torremolinos centro, alquilar apartamento torremolinos playa",
     host_qualities_ivan: "Alegre, cuidadoso, atento",
-    host_qualities_other: "Alegre, puntual, simpática"
+    host_qualities_other: "Alegre, puntual, simpática",
+    wa_hello: "Hola",
+    wa_request_prefix: "se ha solicitado la reserva para el alojamiento ubicado en",
+    wa_would_like: "me gustaría reservar el alojamiento en",
+    wa_date_to: "al"
   },
   en: {
     nav_brand: "Torremolinos Rental",
@@ -324,7 +333,11 @@ const translations: Record<Language, Labels> = {
     seo_description: "Book your holiday rental in Torremolinos. Modern city center apartment near the beach, with Wi-Fi, AC, and premium comfort. Best price guaranteed!",
     seo_keywords: "torremolinos holiday rental, torremolinos vacation apartment, holiday accommodation torremolinos, rent apartment torremolinos beach, costa del sol holiday",
     host_qualities_ivan: "Cheerful, careful, attentive",
-    host_qualities_other: "Cheerful, punctual, nice"
+    host_qualities_other: "Cheerful, punctual, nice",
+    wa_hello: "Hello",
+    wa_request_prefix: "a reservation has been requested for the accommodation located at",
+    wa_would_like: "I would like to book the accommodation at",
+    wa_date_to: "to"
   },
   de: {
     nav_brand: "Ferienwohnung Torremolinos",
@@ -426,7 +439,11 @@ const translations: Record<Language, Labels> = {
     seo_description: "Buchen Sie Ihre Ferienwohnung in Torremolinos. Modernes Apartment im Zentrum nahe dem Strand, mit WLAN, Klimaanlage und höchstem Komfort. Bestpreis garantiert!",
     seo_keywords: "ferienwohnung torremolinos, torremolinos urlaub, apartment mieten torremolinos, torremolinos ferienunterkunft, costa del sol urlaubsapartment",
     host_qualities_ivan: "Fröhlich, sorgfältig, aufmerksam",
-    host_qualities_other: "Fröhlich, pünktlich, sympathisch"
+    host_qualities_other: "Fröhlich, pünktlich, sympathisch",
+    wa_hello: "Hallo",
+    wa_request_prefix: "eine Reservierung wurde für die Unterkunft in angefordert",
+    wa_would_like: "ich möchte die Unterkunft in buchen",
+    wa_date_to: "bis"
   },
   fr: {
     nav_brand: "Location Torremolinos",
@@ -528,7 +545,11 @@ const translations: Record<Language, Labels> = {
     seo_description: "Réservez votre location de vacances à Torremolinos. Appartement moderne au centre-ville près de la plage, avec Wi-Fi, clim et confort premium. Meilleur prix garanti !",
     seo_keywords: "location torremolinos, vacances torremolinos, appartement vacances torremolinos, louer appartement torremolinos plage, côte du soleil vacances",
     host_qualities_ivan: "Joyeux, soigneux, attentif",
-    host_qualities_other: "Joyeux, ponctuel, sympathique"
+    host_qualities_other: "Joyeux, ponctuel, sympathique",
+    wa_hello: "Bonjour",
+    wa_request_prefix: "une réservation a été demandée pour l'hébergement situé à",
+    wa_would_like: "je souhaiterais réserver l'hébergement à",
+    wa_date_to: "au"
   },
   nl: {
     nav_brand: "Verhuur Torremolinos",
@@ -630,7 +651,11 @@ const translations: Record<Language, Labels> = {
     seo_description: "Boek uw vakantiehuis in Torremolinos. Modern appartement in het centrum nabij het strand, met Wi-Fi, airconditioning en premium comfort. Beste prijs gegarandeerd!",
     seo_keywords: "vakantiehuis torremolinos, torremolinos vakantie, appartement huren torremolinos, vakantie accommodatie torremolinos, costa del sol vakantie",
     host_qualities_ivan: "Vrolijk, zorgvuldig, attent",
-    host_qualities_other: "Vrolijk, punctueel, sympathiek"
+    host_qualities_other: "Vrolijk, punctueel, sympathiek",
+    wa_hello: "Hallo",
+    wa_request_prefix: "er is een reservering aangevraagd voor de accommodatie in",
+    wa_would_like: "ik zou graag de accommodatie in willen boeken",
+    wa_date_to: "tot"
   }
 };
 

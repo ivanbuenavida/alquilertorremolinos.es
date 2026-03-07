@@ -15,6 +15,11 @@ export class ImageCarousel extends LitElement {
   @state()
   private _showModal = false;
 
+  constructor() {
+    super();
+    window.addEventListener('language-changed', () => this.requestUpdate());
+  }
+
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener('keydown', this._handleKeyDown);

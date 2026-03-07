@@ -228,10 +228,11 @@ export class AvailabilityCalendar extends LitElement {
 
         <div class="d-grid gap-3 mb-4">
           ${(() => {
-            const startStr = this._startDate ? this._startDate.toLocaleDateString('es-ES') : '';
-            const endStr = this._endDate ? this._endDate.toLocaleDateString('es-ES') : '';
+            const locale = TranslationService.currentLang;
+            const startStr = this._startDate ? this._startDate.toLocaleDateString(locale) : '';
+            const endStr = this._endDate ? this._endDate.toLocaleDateString(locale) : '';
             
-            let message = `Hola, se ha solicitado la reserva para el alojamiento ubicado en: ${TranslationService.l.prop_location}.`;
+            let message = `${TranslationService.l.wa_hello}, ${TranslationService.l.wa_request_prefix}: ${TranslationService.l.prop_location}.`;
             if (this._startDate && this._endDate) {
               let discountSection = '';
               if (priceDetails.longStayDiscountAmount > 0) {
@@ -241,9 +242,9 @@ export class AvailabilityCalendar extends LitElement {
                 discountSection += `\n${TranslationService.l.cal_summary_discount_early} (-${priceDetails.earlyBirdPercent}%): -${priceDetails.earlyBirdDiscountAmount}€`;
               }
 
-              const discountStr = discountSection ? `\nSubtotal: ${priceDetails.subtotal}€${discountSection}` : '';
+              const discountStr = discountSection ? `\n${TranslationService.l.cal_summary_subtotal}: ${priceDetails.subtotal}€${discountSection}` : '';
               
-              message = `Hola, me gustaría reservar el alojamiento en ${TranslationService.l.prop_location}\n\nResumen de reserva:\nFechas: ${startStr} a ${endStr}\nNoches: ${this._nights}${discountStr}\nPrecio total: ${priceDetails.finalPrice}€`;
+              message = `${TranslationService.l.wa_hello}, ${TranslationService.l.wa_would_like} ${TranslationService.l.prop_location}\n\n${TranslationService.l.cal_summary_title}:\n${TranslationService.l.cal_summary_dates}: ${startStr} ${TranslationService.l.wa_date_to} ${endStr}\n${TranslationService.l.cal_summary_nights}: ${this._nights}${discountStr}\n${TranslationService.l.cal_summary_total}: ${priceDetails.finalPrice}€`;
             }
             
             const encodedMsg = encodeURIComponent(message);
