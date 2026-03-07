@@ -17,7 +17,7 @@ export class HostProfile extends LitElement {
     return html`
       <section class="mb-5">
         <h3 class="fw-semibold text-dark mb-4">${TranslationService.l.host_title}</h3>
-        <div class="row gx-5">
+        <div class="row gx-4 gx-lg-5">
           <div class="col-md-4 mb-4 mb-md-0">
             <div class="card bg-white shadow-sm border rounded-4 text-center p-4 mb-0">
               <img src="${this.host.image || '/logo.svg'}" class="rounded-circle mx-auto mb-3" width="100" height="100" style="object-fit:cover;" alt="Anfitrión - ${this.host.name}">
