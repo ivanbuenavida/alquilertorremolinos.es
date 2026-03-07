@@ -1,7 +1,7 @@
 import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { TranslationService } from '../services/translation-service';
-import { AnalyticsService } from '../services/analytics-service';
+import { shareService } from '../services/share-service';
 
 import { contactConfig } from '../config/contact-config';
 
@@ -17,25 +17,11 @@ export class PropertyHeader extends LitElement {
   }
 
   async _handleShare() {
-    const shareData = {
+    await shareService.share({
       title: 'Alquiler Torremolinos',
       text: 'Mira este alojamiento en Torremolinos',
       url: window.location.href,
-    };
-
-    try {
-      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
-        await navigator.share(shareData);
-      } else {
-        // Fallback: Copy to clipboard
-        await navigator.clipboard.writeText(window.location.href);
-        alert('Enlace copiado al portapapeles');
-      }
-      
-      AnalyticsService.trackShare(!!navigator.share ? 'Web Share API' : 'Link Copy');
-    } catch (err) {
-      console.log('Error sharing:', err);
-    }
+    }, 'Enlace copiado al portapapeles');
   }
 
   render() {

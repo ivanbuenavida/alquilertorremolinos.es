@@ -1,4 +1,4 @@
-import { pricingConfig } from '../config/pricing-config';
+import { pricingService, type Season } from './pricing-service';
 
 export interface CalendarEvent {
   start: string;
@@ -10,36 +10,35 @@ export interface DayInfo {
   date: Date;
   isBusy: boolean;
   price: number;
-  season: 'low' | 'mid' | 'high';
+  season: Season;
   isCurrentMonth: boolean;
   isToday: boolean;
   isPast: boolean;
 }
 
-export class CalendarService {
-  // ⚠️ PASTE YOUR GOOGLE CALENDAR DATA HERE
-  // These keys are restricted by domain in the Google Cloud Console.
+export interface CalendarProvider {
+  getBusyDays(start: Date, end: Date): Promise<CalendarEvent[]>;
+}
+
+export class GoogleCalendarProvider implements CalendarProvider {
   private static API_KEY = 'AIzaSyAaIkxaKDZnma_1mfYJXZ0TXISiL3NrE5o';
   private static CALENDAR_ID = 'c_d03a807d6b2067a8380983f831efe4cba0a5b5340d7044bc47a9c03e6283c703@group.calendar.google.com';
+  private _eventCache: { [key: string]: CalendarEvent[] } = {};
 
-  private static _eventCache: { [key: string]: CalendarEvent[] } = {};
-
-  static async getBusyDays(start: Date, end: Date): Promise<CalendarEvent[]> {
-    if (!this.API_KEY || !this.CALENDAR_ID || this.API_KEY === 'YOUR_API_KEY_HERE') {
+  async getBusyDays(start: Date, end: Date): Promise<CalendarEvent[]> {
+    if (!GoogleCalendarProvider.API_KEY || !GoogleCalendarProvider.CALENDAR_ID || GoogleCalendarProvider.API_KEY === 'YOUR_API_KEY_HERE') {
       console.warn('Google Calendar API Key or ID not properly configured. Using mock data.');
       return this.getMockBusyDays(start, end);
     }
 
-    // Cache key based on month/year to avoid redundant calls
     const cacheKey = `${start.getFullYear()}-${start.getMonth()}-${end.getFullYear()}-${end.getMonth()}`;
     if (this._eventCache[cacheKey]) return this._eventCache[cacheKey];
 
     try {
-      // We set time to 00:00:00Z for consistency
       const timeMin = start.toISOString();
       const timeMax = end.toISOString();
       
-      const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(this.CALENDAR_ID)}/events?key=${this.API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
+      const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(GoogleCalendarProvider.CALENDAR_ID)}/events?key=${GoogleCalendarProvider.API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
       
       const response = await fetch(url);
       const data = await response.json();
@@ -62,44 +61,10 @@ export class CalendarService {
     }
   }
 
-  static getPriceAndSeasonForDate(date: Date): { price: number, season: 'low' | 'mid' | 'high' } {
-    const month = date.getMonth(); // 0-indexed
-    
-    // Check if it's a holiday
-    const specificDateString = date.toISOString().split('T')[0]; // YYYY-MM-DD
-    const recurringDateString = specificDateString.substring(5); // MM-DD
-    const isHoliday = pricingConfig.holidays.includes(specificDateString) || 
-                      pricingConfig.holidays.includes(recurringDateString);
-
-    let price = pricingConfig.basePrice;
-    let season: 'low' | 'mid' | 'high' = 'low';
-
-    // Determine seasonal base price
-    if (isHoliday || pricingConfig.highSeasonMonths.includes(month)) {
-      price = price * pricingConfig.highSeasonMultiplier;
-      season = 'high';
-    } else if (pricingConfig.midSeasonMonths.includes(month)) {
-      price = price * pricingConfig.midSeasonMultiplier;
-      season = 'mid';
-    }
-
-    // Apply holiday surcharge (5%)
-    if (isHoliday) {
-      price = price * 1.05;
-    }
-
-    // Weekend/Holiday extra surcharge removed (multiplier is 1.0)
-    // price = price * pricingConfig.weekendMultiplier;
-
-    return { price: Math.round(price), season };
-  }
-
-  private static getMockBusyDays(_start: Date, _end: Date): CalendarEvent[] {
-    // Generate some mock busy days for demonstration
+  private getMockBusyDays(_start: Date, _end: Date): CalendarEvent[] {
     const busyDays: CalendarEvent[] = [];
     const today = new Date();
     
-    // Add a 5-day booking starting in 3 days
     const start1 = new Date(today);
     start1.setDate(today.getDate() + 3);
     const end1 = new Date(start1);
@@ -111,7 +76,6 @@ export class CalendarService {
       summary: 'Reserved'
     });
 
-    // Add another booking next month
     const start2 = new Date(today);
     start2.setMonth(today.getMonth() + 1);
     start2.setDate(10);
@@ -127,3 +91,21 @@ export class CalendarService {
     return busyDays;
   }
 }
+
+export class CalendarService {
+  private provider: CalendarProvider;
+
+  constructor(provider: CalendarProvider = new GoogleCalendarProvider()) {
+    this.provider = provider;
+  }
+
+  async getBusyDays(start: Date, end: Date): Promise<CalendarEvent[]> {
+    return this.provider.getBusyDays(start, end);
+  }
+
+  getPriceAndSeasonForDate(date: Date): { price: number, season: Season } {
+    return pricingService.getPriceAndSeasonForDate(date);
+  }
+}
+
+export const calendarService = new CalendarService();

@@ -1,8 +1,8 @@
 import { LitElement, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { CalendarService, type DayInfo, type CalendarEvent } from '../../services/calendar-service';
+import { calendarService, type DayInfo, type CalendarEvent } from '../../services/calendar-service';
 import { TranslationService } from '../../services/translation-service';
-import { pricingConfig } from '../../config/pricing-config';
+import { pricingService } from '../../services/pricing-service';
 import { contactConfig } from '../../config/contact-config';
 
 @customElement('calendar-view')
@@ -77,14 +77,14 @@ export class CalendarView extends LitElement {
     end.setDate(end.getDate() + endOffset);
     end.setHours(23, 59, 59, 999);
 
-    const busyEvents = await CalendarService.getBusyDays(start, end);
+    const busyEvents = await calendarService.getBusyDays(start, end);
     const days: DayInfo[] = [];
     const curr = new Date(start);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
     while (curr <= end) {
-      const { price, season } = CalendarService.getPriceAndSeasonForDate(curr);
+      const { price, season } = pricingService.getPriceAndSeasonForDate(curr);
       days.push({
         date: new Date(curr),
         isBusy: this._checkIfBusy(curr, busyEvents),
@@ -161,13 +161,8 @@ export class CalendarView extends LitElement {
         }
 
         // Determine min nights based on start date's season
-        const startMonth = this._startDate!.getMonth();
-        let requiredMinNights = pricingConfig.minNights.low;
-        if (pricingConfig.highSeasonMonths.includes(startMonth)) {
-          requiredMinNights = pricingConfig.minNights.high;
-        } else if (pricingConfig.midSeasonMonths.includes(startMonth)) {
-          requiredMinNights = pricingConfig.minNights.mid;
-        }
+        const { season } = pricingService.getPriceAndSeasonForDate(this._startDate!);
+        const requiredMinNights = pricingService.getMinNightsForSeason(season);
 
         // Enforce dynamic min nights
         if (diffDays < requiredMinNights) {
@@ -180,7 +175,7 @@ export class CalendarView extends LitElement {
         }
 
         // Check for busy days in between using actual events
-        const busyEvents = await CalendarService.getBusyDays(new Date(startTime), new Date(clickedTime));
+        const busyEvents = await calendarService.getBusyDays(new Date(startTime), new Date(clickedTime));
         const hasBusyDaysBetween = this._checkIfBusyRange(new Date(startTime), diffDays, busyEvents);
 
         if (hasBusyDaysBetween) {
@@ -226,7 +221,7 @@ export class CalendarView extends LitElement {
       totalPrice = 0;
       let curr = new Date(this._startDate);
       while (curr < this._endDate) {
-        totalPrice += CalendarService.getPriceAndSeasonForDate(curr).price;
+        totalPrice += pricingService.getPriceAndSeasonForDate(curr).price;
         curr.setDate(curr.getDate() + 1);
       }
     }
@@ -277,7 +272,7 @@ export class CalendarView extends LitElement {
     
     const today = new Date();
     today.setHours(0,0,0,0);
-    const busyEvents = await CalendarService.getBusyDays(today, this._maxDate);
+    const busyEvents = await calendarService.getBusyDays(today, this._maxDate);
     
     const alternatives: {start: Date, end: Date}[] = [];
     const baseStart = new Date(startMillis);

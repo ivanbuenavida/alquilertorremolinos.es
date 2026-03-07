@@ -3,8 +3,9 @@ import { customElement, state } from 'lit/decorators.js';
 import './calendar/calendar-view.ts';
 import { TranslationService } from '../services/translation-service';
 import { AnalyticsService } from '../services/analytics-service';
+import { shareService } from '../services/share-service';
+import { pricingService } from '../services/pricing-service';
 import { contactConfig } from '../config/contact-config';
-import { pricingConfig } from '../config/pricing-config';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 @customElement('availability-calendar')
@@ -125,13 +126,14 @@ export class AvailabilityCalendar extends LitElement {
     console.log('WhatsApp booking clicked');
   }
 
-  private _handleShareClick() {
+  private async _handleShareClick() {
     const propertyTitle = TranslationService.l.app_property_title;
     const locale = TranslationService.currentLang;
     const startStr = this._startDate?.toLocaleDateString(locale) || '';
     const endStr = this._endDate?.toLocaleDateString(locale) || '';
     const datesStr = `${startStr} - ${endStr}`;
-    const priceStr = `${this._calculatePriceDetails().finalPrice}€`;
+    const priceDetails = this._calculatePriceDetails();
+    const priceStr = `${priceDetails.finalPrice}€`;
     
     // Construct URL with dates
     const url = new URL(window.location.origin + window.location.pathname);
@@ -139,61 +141,33 @@ export class AvailabilityCalendar extends LitElement {
     if (this._startDate) url.searchParams.set('checkin', this._startDate.toISOString().split('T')[0]);
     if (this._endDate) url.searchParams.set('checkout', this._endDate.toISOString().split('T')[0]);
 
-    const shareData = {
+    await shareService.share({
       title: TranslationService.l.cal_share_title,
       text: TranslationService.l.cal_share_text(propertyTitle, datesStr, priceStr),
       url: url.toString()
-    };
-
-    if (navigator.share) {
-      navigator.share(shareData).catch(console.error);
-    } else {
-      // Fallback to copy to clipboard
-      navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`).then(() => {
-        alert(TranslationService.l.cal_copy_success);
-      });
-    }
+    });
   }
 
   private _calculatePriceDetails() {
-    const subtotal = this._totalPrice;
-    let longStayDiscountLabel = '';
-    let longStayMultiplier = 1;
-
-    if (this._nights >= 30) {
-      longStayDiscountLabel = TranslationService.l.cal_summary_discount_monthly;
-      longStayMultiplier = pricingConfig.discounts.monthly;
-    } else if (this._nights >= 14) {
-      longStayDiscountLabel = TranslationService.l.cal_summary_discount_monthly;
-      longStayMultiplier = pricingConfig.discounts.biweekly;
-    } else if (this._nights >= 7) {
-      longStayDiscountLabel = TranslationService.l.cal_summary_discount_weekly;
-      longStayMultiplier = pricingConfig.discounts.weekly;
+    if (!this._startDate || !this._endDate) {
+      return {
+        subtotal: 0,
+        longStayDiscountLabel: '',
+        longStayPercent: 0,
+        longStayDiscountAmount: 0,
+        isEarlyBird: false,
+        earlyBirdPercent: 0,
+        earlyBirdDiscountAmount: 0,
+        finalPrice: 0
+      };
     }
 
-    const longStayDiscountAmount = Math.round(subtotal * (1 - longStayMultiplier));
-
-    // Early Bird Logic: 2 months in advance
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const twoMonthsLater = new Date(today);
-    twoMonthsLater.setMonth(today.getMonth() + 2);
-    
-    const isEarlyBird = this._startDate && this._startDate >= twoMonthsLater;
-    const earlyBirdDiscountAmount = isEarlyBird ? Math.round(subtotal * (1 - pricingConfig.discounts.earlyBird)) : 0;
-    
-    const finalPrice = subtotal - longStayDiscountAmount - earlyBirdDiscountAmount;
-
-    return {
-      subtotal,
-      longStayDiscountLabel,
-      longStayPercent: Math.round((1 - longStayMultiplier) * 100),
-      longStayDiscountAmount,
-      isEarlyBird,
-      earlyBirdPercent: Math.round((1 - pricingConfig.discounts.earlyBird) * 100),
-      earlyBirdDiscountAmount,
-      finalPrice
-    };
+    return pricingService.calculateBookingDetails(
+      this._startDate,
+      this._endDate,
+      this._totalPrice,
+      TranslationService
+    );
   }
 
   render() {
