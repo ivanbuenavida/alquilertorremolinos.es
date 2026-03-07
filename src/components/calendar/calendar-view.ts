@@ -14,7 +14,7 @@ export class CalendarView extends LitElement {
   @state() private _currentDate = new Date();
   @state() private _days: DayInfo[] = [];
   @state() private _loading = true;
-  @state() private _showLimitMsg = false;
+  @state() private _limitMsgKey: '30days' | 'september' | null = null;
   
   // Selection state
   @state() private _startDate: Date | null = null;
@@ -116,18 +116,18 @@ export class CalendarView extends LitElement {
     if (!this._canGoNext()) {
       // If we are in September (8) and try to go next, show message
       if (this._currentDate.getMonth() === 8) {
-        this._showLimitMsg = true;
+        this._limitMsgKey = 'september';
       }
       return;
     }
-    this._showLimitMsg = false;
+    this._limitMsgKey = null;
     this._currentDate = new Date(this._currentDate.getFullYear(), this._currentDate.getMonth() + 1, 1);
     this._generateCalendar();
   }
 
   private _prevMonth() {
     if (!this._canGoPrev()) return;
-    this._showLimitMsg = false;
+    this._limitMsgKey = null;
     this._currentDate = new Date(this._currentDate.getFullYear(), this._currentDate.getMonth() - 1, 1);
     this._generateCalendar();
   }
@@ -144,7 +144,7 @@ export class CalendarView extends LitElement {
     if (!this._startDate || (this._startDate && this._endDate)) {
       this._startDate = new Date(date);
       this._endDate = null;
-      this._showLimitMsg = false;
+      this._limitMsgKey = null;
     } else {
       const startTime = this._startDate.getTime();
       
@@ -156,7 +156,7 @@ export class CalendarView extends LitElement {
         // Enforce max 30 days
         const diffDays = Math.ceil((clickedTime - startTime) / (1000 * 60 * 60 * 24));
         if (diffDays > 30) {
-          this._showLimitMsg = true;
+          this._limitMsgKey = '30days';
           return;
         }
 
@@ -250,7 +250,7 @@ export class CalendarView extends LitElement {
   resetSelection() {
     this._startDate = null;
     this._endDate = null;
-    this._showLimitMsg = false;
+    this._limitMsgKey = null;
     this.dispatchEvent(new CustomEvent('range-selected', {
       detail: { 
         start: null, 
@@ -365,8 +365,8 @@ export class CalendarView extends LitElement {
             <i class="bi bi-chevron-left small"></i>
           </button>
           <div class="fw-bold text-dark text-capitalize px-2">${this._formatMonth(this._currentDate)}</div>
-          <button class="btn btn-light rounded-circle p-1 d-flex align-items-center justify-content-center" 
-                  @click="${this._nextMonth}" ?disabled="${!this._canGoNext()}" style="width: 32px; height: 32px;">
+          <button class="btn btn-light rounded-circle p-1 d-flex align-items-center justify-content-center ${!this._canGoNext() && this._currentDate.getMonth() !== 8 ? 'opacity-25 pointer-events-none' : ''}" 
+                  @click="${this._nextMonth}" style="width: 32px; height: 32px;">
             <i class="bi bi-chevron-right small"></i>
           </button>
         </div>
@@ -433,11 +433,11 @@ export class CalendarView extends LitElement {
           }
         </div>
 
-        ${this._showLimitMsg ? html`
+        ${this._limitMsgKey ? html`
           <div class="p-3 bg-light border-top border-bottom animate-fade-in">
             <div class="alert alert-info mb-0 py-2 small d-flex flex-column align-items-center gap-2 border-0 bg-transparent text-center">
-              <div class="d-flex align-items-center gap-2">
-                <span>${TranslationService.l.cal_limit_reach_msg}</span>
+              <div class="d-flex align-items-center gap-2 text-dark fw-medium">
+                <span>${this._limitMsgKey === '30days' ? TranslationService.l.cal_err_max_nights_msg : TranslationService.l.cal_err_date_limit_msg}</span>
               </div>
               <a href="https://wa.me/${contactConfig.whatsapp}?text=${encodeURIComponent(TranslationService.l.cal_wa_limit_msg(this._maxDate.toLocaleDateString(({ 'es': 'es-ES', 'en': 'en-US', 'de': 'de-DE', 'fr': 'fr-FR', 'nl': 'nl-NL' } as any)[TranslationService.currentLang] || 'es-ES')))}" 
                  target="_blank" 

@@ -60,7 +60,8 @@ interface Labels {
   cal_summary_subtotal: string;
   cal_summary_discount_weekly: string;
   cal_summary_discount_monthly: string;
-  cal_limit_reach_msg: string;
+  cal_err_max_nights_msg: string;
+  cal_err_date_limit_msg: string;
   cal_wa_limit_msg: (date: string) => string;
   cal_summary_discount_early: string;
   cal_summary_discount_early_info: string;
@@ -173,8 +174,9 @@ const translations: Record<Language, Labels> = {
     cal_summary_subtotal: "Subtotal",
     cal_summary_discount_weekly: "Descuento semanal",
     cal_summary_discount_monthly: "Descuento de larga estancia",
-    cal_limit_reach_msg: "No disponible para reservar estas fechas por la web. Para estancias de larga duración o fechas lejanas, contacta con nosotros directamente.",
-    cal_wa_limit_msg: (date) => `Hola, quiero reservar más allá de la fecha ${date}`,
+    cal_err_max_nights_msg: "No es posible reservar más de 30 días por la web. Contacta con nosotros directamente para estancias de larga duración.",
+    cal_err_date_limit_msg: "No es posible reservar más allá del 30 de Septiembre por la web. Contacta con nosotros para consultar disponibilidad futura.",
+    cal_wa_limit_msg: (date) => `Hola, quiero reservar para las fechas: ${date}`,
     cal_summary_discount_early: "Descuento por reserva temprana",
     cal_summary_discount_early_info: "Si se cancela o modifica la reserva, se perderá este descuento.",
     pol_title: "Condiciones de reserva",
@@ -272,8 +274,9 @@ const translations: Record<Language, Labels> = {
     cal_summary_subtotal: "Subtotal",
     cal_summary_discount_weekly: "Weekly discount",
     cal_summary_discount_monthly: "Long stay discount",
-    cal_limit_reach_msg: "Not available to book these dates via the web. For long-term stays or future dates, please contact us directly.",
-    cal_wa_limit_msg: (date) => `Hello, I would like to book beyond the date ${date}`,
+    cal_err_max_nights_msg: "Stays longer than 30 days cannot be booked online. Please contact us directly for long-term stays.",
+    cal_err_date_limit_msg: "Bookings beyond September 30th are not available online. Please contact us to check future availability.",
+    cal_wa_limit_msg: (date) => `Hello, I would like to book for these dates: ${date}`,
     cal_summary_discount_early: "Early bird discount",
     cal_summary_discount_early_info: "If the reservation is cancelled or modified, this discount will be lost.",
     pol_title: "Booking Conditions",
@@ -371,8 +374,9 @@ const translations: Record<Language, Labels> = {
     cal_summary_subtotal: "Zwischensumme",
     cal_summary_discount_weekly: "Wochenrabatt",
     cal_summary_discount_monthly: "Langzeitrabatt",
-    cal_limit_reach_msg: "Für diese Termine ist eine Online-Buchung nicht möglich. Für Langzeitaufenthalte oder ferne Termine kontaktieren Sie uns bitte direkt.",
-    cal_wa_limit_msg: (date) => `Hallo, ich möchte über das Datum ${date} hinaus buchen`,
+    cal_err_max_nights_msg: "Aufenthalte von mehr als 30 Tagen können nicht online gebucht werden. Bitte kontaktieren Sie uns direkt für Langzeitaufenthalte.",
+    cal_err_date_limit_msg: "Buchungen über den 30. September hinaus sind online nicht möglich. Bitte kontaktieren Sie uns, um die zukünftige Verfügbarkeit zu prüfen.",
+    cal_wa_limit_msg: (date) => `Hallo, ich möchte für diese Termine buchen: ${date}`,
     cal_summary_discount_early: "Frühbucherrabatt",
     cal_summary_discount_early_info: "Wenn die Reservierung storniert oder geändert wird, geht dieser Rabatt verloren.",
     pol_title: "Buchungsbedingungen",
@@ -470,8 +474,9 @@ const translations: Record<Language, Labels> = {
     cal_summary_subtotal: "Sous-total",
     cal_summary_discount_weekly: "Remise hebdomadaire",
     cal_summary_discount_monthly: "Remise longue durée",
-    cal_limit_reach_msg: "Non disponible pour réserver ces dates via le web. Pour les longs séjours ou les dates lointaines, veuillez nous contacter directement.",
-    cal_wa_limit_msg: (date) => `Bonjour, je souhaite réserver au-delà de la date ${date}`,
+    cal_err_max_nights_msg: "Les séjours de plus de 30 jours ne peuvent pas être réservés en ligne. Veuillez nous contacter directement pour les longs séjours.",
+    cal_err_date_limit_msg: "Les réservations au-delà du 30 septembre ne sont pas disponibles en ligne. Veuillez nous contacter pour vérifier la disponibilité future.",
+    cal_wa_limit_msg: (date) => `Bonjour, je souhaite réserver pour ces dates : ${date}`,
     cal_summary_discount_early: "Remise réservation anticipée",
     cal_summary_discount_early_info: "Si la réservation est annulée ou modifiée, cette remise sera perdue.",
     pol_title: "Conditions de réservation",
@@ -569,8 +574,9 @@ const translations: Record<Language, Labels> = {
     cal_summary_subtotal: "Subtotaal",
     cal_summary_discount_weekly: "Weekkorting",
     cal_summary_discount_monthly: "Lange verblijfskorting",
-    cal_limit_reach_msg: "Niet beschikbaar om deze data via internet te boeken. Neem rechtstreeks contact con ons op voor een lang verblijf of verre data.",
-    cal_wa_limit_msg: (date) => `Hallo, ik wil graag boeken na de datum ${date}`,
+    cal_err_max_nights_msg: "Verblijven langer dan 30 dagen kunnen niet online worden geboekt. Neem rechtstreeks contact met ons op voor een lang verblijf.",
+    cal_err_date_limit_msg: "Boekingen na 30 september zijn niet online beschikbaar. Neem contact met ons op om toekomstige beschikbaarheid te controleren.",
+    cal_wa_limit_msg: (date) => `Hallo, ik wil graag boeken voor deze data: ${date}`,
     cal_summary_discount_early: "Vroegboekkorting",
     cal_summary_discount_early_info: "Als de reservering wordt geannuleerd of gewijzigd, komt deze korting te vervallen.",
     pol_title: "Boekingsvoorwaarden",
