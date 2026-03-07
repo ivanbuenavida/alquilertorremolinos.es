@@ -60,6 +60,20 @@ export class AvailabilityCalendar extends LitElement {
     }
   }
 
+  private _resetSelection() {
+    this._startDate = null;
+    this._endDate = null;
+    this._nights = 0;
+    this._totalPrice = 0;
+    this._selectionError = '';
+    this._alternatives = [];
+    
+    const calendarView = this.renderRoot.querySelector('calendar-view') as any;
+    if (calendarView) {
+      calendarView.resetSelection();
+    }
+  }
+
   private _handleWhatsAppClick() {
     AnalyticsService.trackLead(this._totalPrice, this._nights);
     console.log('WhatsApp booking clicked');
@@ -68,9 +82,16 @@ export class AvailabilityCalendar extends LitElement {
   render() {
     return html`
       <div class="card p-4 rounded-4 shadow-lg border-opacity-25 border mb-4">
-        <h4 class="fw-bold d-flex align-items-center gap-2 mb-4">
-          <i class="bi bi-calendar-check text-primary"></i> 
-          ${TranslationService.l.cal_title}
+        <h4 class="fw-bold d-flex align-items-center justify-content-between mb-4">
+          <span class="d-flex align-items-center gap-2">
+            <i class="bi bi-calendar-check text-primary"></i> 
+            ${TranslationService.l.cal_title}
+          </span>
+          ${this._startDate ? html`
+            <button class="btn btn-sm btn-outline-danger border-0 rounded-pill px-3 fw-bold small" @click="${this._resetSelection}">
+              <i class="bi bi-x-lg me-1"></i> ${TranslationService.l.cal_summary_reset}
+            </button>
+          ` : ''}
         </h4>
         
         <div class="mb-4">
@@ -101,63 +122,80 @@ export class AvailabilityCalendar extends LitElement {
           </div>
         ` : ''}
 
-        ${this._startDate && this._endDate && !this._selectionError ? html`
-          <div class="bg-light p-3 rounded mb-4 shadow-sm border">
-            <h6 class="fw-bold mb-3 border-bottom pb-2">${TranslationService.l.cal_summary_title}</h6>
-            <div class="d-flex justify-content-between mb-2 small">
-              <span class="text-muted">${TranslationService.l.cal_summary_dates}:</span>
-              <span class="fw-medium">
-                ${this._startDate.toLocaleDateString(TranslationService.currentLang)} - ${this._endDate.toLocaleDateString(TranslationService.currentLang)}
-              </span>
+        ${this._startDate && !this._selectionError ? html`
+          <div class="bg-light p-3 rounded mb-4 shadow-sm border animate-fade-in">
+            <h6 class="fw-bold mb-3 border-bottom pb-2 d-flex align-items-center gap-2">
+              <i class="bi bi-info-circle-fill text-primary"></i>
+              ${TranslationService.l.cal_summary_title}
+            </h6>
+            
+            <div class="row g-2 mb-2">
+              <div class="col-6">
+                <div class="p-2 bg-white rounded border border-opacity-50">
+                  <div class="text-muted small-extra fw-bold text-uppercase pb-1">${TranslationService.l.cal_summary_checkin}</div>
+                  <div class="fw-bold text-primary">${this._startDate.toLocaleDateString(TranslationService.currentLang)}</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="p-2 bg-white rounded border border-opacity-50">
+                  <div class="text-muted small-extra fw-bold text-uppercase pb-1">${TranslationService.l.cal_summary_checkout}</div>
+                  <div class="${this._endDate ? 'fw-bold text-primary' : 'small text-muted italic text-opacity-50'}">
+                    ${this._endDate ? this._endDate.toLocaleDateString(TranslationService.currentLang) : TranslationService.l.cal_summary_select_checkout}
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="d-flex justify-content-between mb-2 small">
-              <span class="text-muted">${TranslationService.l.cal_summary_nights}:</span>
-              <span class="fw-medium">${this._nights}</span>
-            </div>
 
-            ${(() => {
-              let discountLabel = '';
-              let discountMultiplier = 1;
+            ${this._endDate ? html`
+              <div class="d-flex justify-content-between mb-2 small mt-3">
+                <span class="text-muted">${TranslationService.l.cal_summary_nights}:</span>
+                <span class="fw-medium">${this._nights}</span>
+              </div>
 
-              if (this._nights >= 30) {
-                discountLabel = TranslationService.l.cal_summary_discount_monthly;
-                discountMultiplier = pricingConfig.discounts.monthly;
-              } else if (this._nights >= 14) {
-                discountLabel = TranslationService.l.cal_summary_discount_monthly;
-                discountMultiplier = pricingConfig.discounts.biweekly;
-              } else if (this._nights >= 7) {
-                discountLabel = TranslationService.l.cal_summary_discount_weekly;
-                discountMultiplier = pricingConfig.discounts.weekly;
-              }
+              ${(() => {
+                let discountLabel = '';
+                let discountMultiplier = 1;
 
-              if (discountMultiplier < 1) {
-                const discountPercent = Math.round((1 - discountMultiplier) * 100);
-                const discountAmount = Math.round(this._totalPrice * (1 - discountMultiplier));
-                const finalPrice = this._totalPrice - discountAmount;
+                if (this._nights >= 30) {
+                  discountLabel = TranslationService.l.cal_summary_discount_monthly;
+                  discountMultiplier = pricingConfig.discounts.monthly;
+                } else if (this._nights >= 14) {
+                  discountLabel = TranslationService.l.cal_summary_discount_monthly;
+                  discountMultiplier = pricingConfig.discounts.biweekly;
+                } else if (this._nights >= 7) {
+                  discountLabel = TranslationService.l.cal_summary_discount_weekly;
+                  discountMultiplier = pricingConfig.discounts.weekly;
+                }
+
+                if (discountMultiplier < 1) {
+                  const discountPercent = Math.round((1 - discountMultiplier) * 100);
+                  const discountAmount = Math.round(this._totalPrice * (1 - discountMultiplier));
+                  const finalPrice = this._totalPrice - discountAmount;
+
+                  return html`
+                    <div class="d-flex justify-content-between mb-2 small">
+                      <span class="text-muted">${TranslationService.l.cal_summary_subtotal}:</span>
+                      <span class="fw-medium font-monospace">${this._totalPrice}€</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2 small text-success fw-bold">
+                      <span>${discountLabel} (-${discountPercent}%):</span>
+                      <span>-${discountAmount}€</span>
+                    </div>
+                    <div class="d-flex justify-content-between pt-2 mt-2 border-top">
+                      <span class="fw-bold">${TranslationService.l.cal_summary_total}:</span>
+                      <span class="fw-bold fs-5 text-primary">${finalPrice}€</span>
+                    </div>
+                  `;
+                }
 
                 return html`
-                  <div class="d-flex justify-content-between mb-2 small">
-                    <span class="text-muted">${TranslationService.l.cal_summary_subtotal}:</span>
-                    <span class="fw-medium font-monospace">${this._totalPrice}€</span>
-                  </div>
-                  <div class="d-flex justify-content-between mb-2 small text-success fw-bold">
-                    <span>${discountLabel} (-${discountPercent}%):</span>
-                    <span>-${discountAmount}€</span>
-                  </div>
                   <div class="d-flex justify-content-between pt-2 mt-2 border-top">
                     <span class="fw-bold">${TranslationService.l.cal_summary_total}:</span>
-                    <span class="fw-bold fs-5 text-primary">${finalPrice}€</span>
+                    <span class="fw-bold fs-5 text-primary">${this._totalPrice}€</span>
                   </div>
                 `;
-              }
-
-              return html`
-                <div class="d-flex justify-content-between pt-2 mt-2 border-top">
-                  <span class="fw-bold">${TranslationService.l.cal_summary_total}:</span>
-                  <span class="fw-bold fs-5 text-primary">${this._totalPrice}€</span>
-                </div>
-              `;
-            })()}
+              })()}
+            ` : ''}
           </div>
         ` : ''}
 

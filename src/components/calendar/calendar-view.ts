@@ -244,6 +244,21 @@ export class CalendarView extends LitElement {
     }));
   }
 
+  resetSelection() {
+    this._startDate = null;
+    this._endDate = null;
+    this.dispatchEvent(new CustomEvent('range-selected', {
+      detail: { 
+        start: null, 
+        end: null, 
+        nights: 0, 
+        totalPrice: 0 
+      },
+      bubbles: true,
+      composed: true
+    }));
+  }
+
   private async _findAlternativeDates(startMillis: number, endMillis: number, minNights: number): Promise<{start: Date, end: Date}[]> {
     const durationDays = Math.ceil((endMillis - startMillis) / (1000 * 60 * 60 * 24));
     const targetDays = Math.max(durationDays, minNights);

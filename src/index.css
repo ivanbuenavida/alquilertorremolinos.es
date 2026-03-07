@@ -10,7 +10,7 @@
   --bs-primary-rgb: 29, 120, 116;
   --bs-secondary: #ce7d55;
   --bs-secondary-rgb: 206, 125, 85;
-  --bs-body-font-family: 'Outfit', sans-serif;
+  --bs-body-font-family: "Outfit", sans-serif;
   --bs-body-bg: #f4f7f6;
   --bs-body-color: #2c3333;
   --primary-dark: #003d4d;
@@ -34,4 +34,23 @@
 .grid-7 {
   display: grid !important;
   grid-template-columns: repeat(7, 1fr) !important;
+}
+
+.small-extra {
+  font-size: 0.7rem;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
