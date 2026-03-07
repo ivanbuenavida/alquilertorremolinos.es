@@ -170,6 +170,44 @@ export class AvailabilityCalendar extends LitElement {
     );
   }
 
+  private _getWhatsAppUrl(priceDetails: any) {
+    const locale = TranslationService.currentLang;
+    const l = TranslationService.l;
+
+    const buildMessage = (labels: any, lang: string) => {
+      const s = this._startDate ? this._startDate.toLocaleDateString(lang) : '';
+      const e = this._endDate ? this._endDate.toLocaleDateString(lang) : '';
+      
+      let msg = `${labels.wa_hello}, ${labels.wa_request_prefix}: ${labels.prop_location} (${contactConfig.googleMapsUrl}).`;
+      
+      if (this._startDate && this._endDate) {
+        let discountSection = '';
+        if (priceDetails.longStayDiscountAmount > 0) {
+          discountSection += `\n${priceDetails.longStayDiscountLabel} (-${priceDetails.longStayPercent}%): -${priceDetails.longStayDiscountAmount}€`;
+        }
+        if (priceDetails.isEarlyBird) {
+          discountSection += `\n${labels.cal_summary_discount_early} (-${priceDetails.earlyBirdPercent}%): -${priceDetails.earlyBirdDiscountAmount}€`;
+        }
+
+        const discountStr = discountSection ? `\n${labels.cal_summary_subtotal}: ${priceDetails.subtotal}€${discountSection}` : '';
+        
+        msg = `${labels.wa_hello}, ${labels.wa_would_like} ${labels.prop_location}\n📍 ${contactConfig.googleMapsUrl}\n\n${labels.cal_summary_title}:\n${labels.cal_summary_dates}: ${s} ${labels.wa_date_to} ${e}\n${labels.cal_summary_nights}: ${this._nights}${discountStr}\n${labels.cal_summary_total}: ${priceDetails.finalPrice}€`;
+      }
+      return msg;
+    };
+
+    let message = buildMessage(l, locale);
+
+    // If not in Spanish, append Spanish translation for the host
+    if (locale !== 'es') {
+      const labelsEs = TranslationService.getLabelsFor('es');
+      const messageEs = buildMessage(labelsEs, 'es-ES');
+      message += `\n\n---\n${l.wa_translation_prefix}\n${messageEs}`;
+    }
+
+    return `https://wa.me/${contactConfig.whatsapp}?text=${encodeURIComponent(message)}`;
+  }
+
   render() {
     const priceDetails = this._calculatePriceDetails();
 
@@ -277,49 +315,23 @@ export class AvailabilityCalendar extends LitElement {
         ` : ''}
 
         <div class="d-grid gap-3 mb-4">
-          ${(() => {
-            const locale = TranslationService.currentLang;
-            const startStr = this._startDate ? this._startDate.toLocaleDateString(locale) : '';
-            const endStr = this._endDate ? this._endDate.toLocaleDateString(locale) : '';
-            
-            let message = `${TranslationService.l.wa_hello}, ${TranslationService.l.wa_request_prefix}: ${TranslationService.l.prop_location} (${contactConfig.googleMapsUrl}).`;
-            if (this._startDate && this._endDate) {
-              let discountSection = '';
-              if (priceDetails.longStayDiscountAmount > 0) {
-                discountSection += `\n${priceDetails.longStayDiscountLabel} (-${priceDetails.longStayPercent}%): -${priceDetails.longStayDiscountAmount}€`;
-              }
-              if (priceDetails.isEarlyBird) {
-                discountSection += `\n${TranslationService.l.cal_summary_discount_early} (-${priceDetails.earlyBirdPercent}%): -${priceDetails.earlyBirdDiscountAmount}€`;
-              }
+          <a 
+            href="${this._getWhatsAppUrl(priceDetails)}" 
+            target="_blank"
+            class="btn btn-success btn-lg d-flex align-items-center justify-content-center gap-2 fw-bold rounded-pill shadow-sm ${!this._startDate || !this._endDate ? 'disabled opacity-50' : ''}" 
+            @click="${this._handleWhatsAppClick}"
+            aria-disabled="${!this._startDate || !this._endDate}"
+          >
+            <i class="bi bi-whatsapp fs-5"></i> ${TranslationService.l.cal_btn_whatsapp}
+          </a>
 
-              const discountStr = discountSection ? `\n${TranslationService.l.cal_summary_subtotal}: ${priceDetails.subtotal}€${discountSection}` : '';
-              
-              message = `${TranslationService.l.wa_hello}, ${TranslationService.l.wa_would_like} ${TranslationService.l.prop_location}\n📍 ${contactConfig.googleMapsUrl}\n\n${TranslationService.l.cal_summary_title}:\n${TranslationService.l.cal_summary_dates}: ${startStr} ${TranslationService.l.wa_date_to} ${endStr}\n${TranslationService.l.cal_summary_nights}: ${this._nights}${discountStr}\n${TranslationService.l.cal_summary_total}: ${priceDetails.finalPrice}€`;
-            }
-            
-            const encodedMsg = encodeURIComponent(message);
-            const waUrl = `https://wa.me/${contactConfig.whatsapp}?text=${encodedMsg}`;
-            
-            return html`
-              <a 
-                href="${waUrl}" 
-                target="_blank"
-                class="btn btn-success btn-lg d-flex align-items-center justify-content-center gap-2 fw-bold rounded-pill shadow-sm ${!this._startDate || !this._endDate ? 'disabled opacity-50' : ''}" 
-                @click="${this._handleWhatsAppClick}"
-                aria-disabled="${!this._startDate || !this._endDate}"
-              >
-                <i class="bi bi-whatsapp fs-5"></i> ${TranslationService.l.cal_btn_whatsapp}
-              </a>
-
-              <button 
-                class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center gap-2 fw-bold rounded-pill shadow-sm ${!this._startDate || !this._endDate ? 'disabled opacity-50' : ''}" 
-                @click="${this._handleShareClick}"
-                ?disabled="${!this._startDate || !this._endDate}"
-              >
-                <i class="bi bi-share fs-5"></i> ${TranslationService.l.cal_btn_share}
-              </button>
-            `;
-          })()}
+          <button 
+            class="btn btn-outline-primary btn-lg d-flex align-items-center justify-content-center gap-2 fw-bold rounded-pill shadow-sm ${!this._startDate || !this._endDate ? 'disabled opacity-50' : ''}" 
+            @click="${this._handleShareClick}"
+            ?disabled="${!this._startDate || !this._endDate}"
+          >
+            <i class="bi bi-share fs-5"></i> ${TranslationService.l.cal_btn_share}
+          </button>
         </div>
 
         <!-- Booking Policies Accordion -->

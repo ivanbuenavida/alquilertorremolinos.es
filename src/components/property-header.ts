@@ -17,11 +17,14 @@ export class PropertyHeader extends LitElement {
   }
 
   async _handleShare() {
+    const url = new URL(window.location.href);
+    url.searchParams.set('lang', TranslationService.currentLang);
+
     await shareService.share({
-      title: 'Alquiler Torremolinos',
-      text: 'Mira este alojamiento en Torremolinos',
-      url: window.location.href,
-    }, 'Enlace copiado al portapapeles');
+      title: TranslationService.l.cal_share_title,
+      text: TranslationService.l.cal_share_title, // Using the same title as text for simplicity as it's a generic share
+      url: url.toString(),
+    }, TranslationService.l.cal_copy_success);
   }
 
   render() {

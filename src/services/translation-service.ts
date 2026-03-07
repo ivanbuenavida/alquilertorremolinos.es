@@ -128,6 +128,7 @@ interface Labels {
   wa_request_prefix: string;
   wa_would_like: string;
   wa_date_to: string;
+  wa_translation_prefix: string;
 }
 
 const translations: Record<Language, Labels> = {
@@ -239,7 +240,8 @@ const translations: Record<Language, Labels> = {
     wa_hello: "Hola",
     wa_request_prefix: "se ha solicitado la reserva para el alojamiento ubicado en",
     wa_would_like: "me gustaría reservar el alojamiento en",
-    wa_date_to: "al"
+    wa_date_to: "al",
+    wa_translation_prefix: "Traducción al español para el anfitrión:"
   },
   en: {
     nav_brand: "Torremolinos Rental",
@@ -349,7 +351,8 @@ const translations: Record<Language, Labels> = {
     wa_hello: "Hello",
     wa_request_prefix: "a reservation has been requested for the accommodation located at",
     wa_would_like: "I would like to book the accommodation at",
-    wa_date_to: "to"
+    wa_date_to: "to",
+    wa_translation_prefix: "Spanish translation for the host:"
   },
   de: {
     nav_brand: "Ferienwohnung Torremolinos",
@@ -459,7 +462,8 @@ const translations: Record<Language, Labels> = {
     wa_hello: "Hallo",
     wa_request_prefix: "eine Reservierung wurde für die Unterkunft in angefordert",
     wa_would_like: "ich möchte die Unterkunft in buchen",
-    wa_date_to: "bis"
+    wa_date_to: "bis",
+    wa_translation_prefix: "Spanische Übersetzung für den Gastgeber:"
   },
   fr: {
     nav_brand: "Location Torremolinos",
@@ -569,7 +573,8 @@ const translations: Record<Language, Labels> = {
     wa_hello: "Bonjour",
     wa_request_prefix: "une réservation a été demandée pour l'hébergement situé à",
     wa_would_like: "je souhaiterais réserver l'hébergement à",
-    wa_date_to: "au"
+    wa_date_to: "au",
+    wa_translation_prefix: "Traduction en espagnol pour l'hôte :"
   },
   nl: {
     nav_brand: "Verhuur Torremolinos",
@@ -679,8 +684,9 @@ const translations: Record<Language, Labels> = {
     wa_hello: "Hallo",
     wa_request_prefix: "er is een reservering aangevraagd voor de accommodatie in",
     wa_would_like: "ik zou graag de accommodatie in willen boeken",
-    wa_date_to: "tot"
-  }
+    wa_date_to: "tot",
+    wa_translation_prefix: "Spaanse vertaling voor de gastheer:"
+  },
 };
 
 export class TranslationService {
@@ -710,6 +716,10 @@ export class TranslationService {
 
   static get l() {
     return translations[this._currentLang];
+  }
+
+  static getLabelsFor(lang: Language) {
+    return translations[lang];
   }
 
   static get currentLang() {
