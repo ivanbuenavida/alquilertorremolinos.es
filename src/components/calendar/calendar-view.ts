@@ -172,7 +172,7 @@ export class CalendarView extends LitElement {
         // Enforce dynamic min nights
         if (diffDays < requiredMinNights) {
           this.dispatchEvent(new CustomEvent('selection-error', {
-            detail: { message: TranslationService.l.cal_err_min_nights(requiredMinNights) },
+            detail: { message: TranslationService.l.cal_err_min_nights(diffDays, requiredMinNights) },
             bubbles: true,
             composed: true
           }));

@@ -83,6 +83,11 @@ export class CalendarService {
       season = 'mid';
     }
 
+    // Apply holiday surcharge (5%)
+    if (isHoliday) {
+      price = price * 1.05;
+    }
+
     // Weekend/Holiday extra surcharge removed (multiplier is 1.0)
     // price = price * pricingConfig.weekendMultiplier;
 

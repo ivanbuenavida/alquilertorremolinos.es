@@ -84,7 +84,9 @@ export const pricingConfig: PricingConfig = {
     '02-28', // Andalusia Day
     '12-25', // Christmas
     '01-01', // New Year
-    // You can add specific dates like '2026-04-02' (Holy Week)
+    // Holy Week 2026 (March 29 - April 5)
+    '2026-03-29', '2026-03-30', '2026-03-31', '2026-04-01',
+    '2026-04-02', '2026-04-03', '2026-04-04', '2026-04-05',
   ],
 
   // Discounts: 7d = 20%, 14d = 30%, 30d = 40%
@@ -92,6 +94,6 @@ export const pricingConfig: PricingConfig = {
     weekly: 0.80,
     biweekly: 0.75,
     monthly: 0.70,
-    earlyBird: 0.90
+    earlyBird: 0.95
   }
 };
