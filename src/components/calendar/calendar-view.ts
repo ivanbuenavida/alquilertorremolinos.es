@@ -345,6 +345,22 @@ export class CalendarView extends LitElement {
     return date.toLocaleDateString(locale, { month: 'long', year: 'numeric' });
   }
 
+  // Unused legend for now
+  private renderLegend() {
+    return html`
+      <div class="d-flex justify-content-center gap-4 p-3 bg-light border-top small fw-bold text-dark">
+        <div class="d-flex align-items-center gap-2">
+          <span class="rounded-circle bg-primary" style="width: 10px; height: 10px;"></span>
+          <span>${TranslationService.l.cal_legend_available}</span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="rounded-circle bg-danger" style="width: 10px; height: 10px;"></span>
+          <span>${TranslationService.l.cal_legend_occupied}</span>
+        </div>
+      </div>
+    `;
+  }
+
   render() {
     const lang = TranslationService.currentLang;
     const weekDaysMap: any = {
@@ -448,17 +464,7 @@ export class CalendarView extends LitElement {
           </div>
         ` : ''}
 
-        <!-- Legend -->
-        <div class="d-flex justify-content-center gap-4 p-3 bg-light border-top small fw-bold text-dark">
-          <div class="d-flex align-items-center gap-2">
-            <span class="rounded-circle bg-primary" style="width: 10px; height: 10px;"></span>
-            <span>${TranslationService.l.cal_legend_available}</span>
-          </div>
-          <div class="d-flex align-items-center gap-2">
-            <span class="rounded-circle bg-danger" style="width: 10px; height: 10px;"></span>
-            <span>${TranslationService.l.cal_legend_occupied}</span>
-          </div>
-        </div>
+
       </div>
     `;
   }
