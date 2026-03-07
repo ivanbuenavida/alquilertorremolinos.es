@@ -28,16 +28,16 @@ export const propertyData: PropertyData = {
   amenities: [
     { icon: "bi-wifi", name: "" },      // 1. Wi-Fi
     { icon: "bi-snow", name: "" },      // 2. AC
-    { icon: "bi-washer", name: "" },    // 3. Washer
+    { icon: "bi-water", name: "" },    // 3. Washer (Waves)
     { icon: "bi-door-open", name: "" }, // 4. Balcony
     { icon: "bi-tv", name: "" },        // 5. Smart TV
     { icon: "bi-cup-hot", name: "" },   // 6. Coffee
-    { icon: "bi-grid-3x3-gap", name: "" }, // 7. Microwave
+    { icon: "bi-pip", name: "" },       // 7. Microwave (Small screen/window)
     { icon: "bi-grid", name: "" },      // 8. Toaster
     { icon: "bi-egg-fried", name: "" }, // 9. Essentials
     { icon: "bi-cup", name: "" },       // 10. Kettle
     { icon: "bi-wind", name: "" },      // 11. Hairdryer
-    { icon: "bi-droplet-fill", name: "" }, // 12. Toiletry
+    { icon: "bi-droplet", name: "" },   // 12. Toiletry (Drop)
     { icon: "bi-arrow-down-up", name: "" }, // 13. No elevator (Reverted to arrows)
     { icon: "bi-thermometer-half", name: "" }, // 14. Iron
     { icon: "bi-moon", name: "" },      // 15. Blackout
