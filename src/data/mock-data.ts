@@ -38,7 +38,7 @@ export const propertyData: PropertyData = {
     { icon: "bi-cup", name: "" },       // 10. Kettle
     { icon: "bi-wind", name: "" },      // 11. Hairdryer
     { icon: "bi-stars", name: "" },     // 12. Toiletry
-    { icon: "bi-bar-chart-steps", name: "" }, // 13. No elevator (Steps/Stairs icon)
+    { icon: "bi-arrow-down-up", name: "" }, // 13. No elevator (Reverted to arrows)
     { icon: "bi-thermometer-half", name: "" }, // 14. Iron
     { icon: "bi-moon", name: "" },      // 15. Blackout
     { icon: "bi-heart", name: "" },     // 16. Pets
