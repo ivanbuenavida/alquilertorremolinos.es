@@ -70,7 +70,7 @@ export const pricingConfig: PricingConfig = {
   minNights: {
     low: 3,
     mid: 4,
-    high: 7
+    high: 5
   },
 
   // Low season: November, December, January, February, March (except indicated below)
@@ -97,7 +97,7 @@ export const pricingConfig: PricingConfig = {
     weekly: 0.80,
     biweekly: 0.75,
     monthly: 0.70,
-    earlyBird: 0.95
+    earlyBird: 1.0
   },
   depositPercent: 0.10
 };

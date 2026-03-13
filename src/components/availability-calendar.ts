@@ -155,9 +155,6 @@ export class AvailabilityCalendar extends LitElement {
         longStayDiscountLabel: '',
         longStayPercent: 0,
         longStayDiscountAmount: 0,
-        isEarlyBird: false,
-        earlyBirdPercent: 0,
-        earlyBirdDiscountAmount: 0,
         finalPrice: 0,
         depositAmount: 0,
         depositPercent: 0
@@ -186,9 +183,6 @@ export class AvailabilityCalendar extends LitElement {
         let discountSection = '';
         if (priceDetails.longStayDiscountAmount > 0) {
           discountSection += `\n${priceDetails.longStayDiscountLabel} (-${priceDetails.longStayPercent}%): -${priceDetails.longStayDiscountAmount}€`;
-        }
-        if (priceDetails.isEarlyBird) {
-          discountSection += `\n${labels.cal_summary_discount_early} (-${priceDetails.earlyBirdPercent}%): -${priceDetails.earlyBirdDiscountAmount}€`;
         }
 
         const discountStr = discountSection ? `\n${labels.cal_summary_subtotal}: ${priceDetails.subtotal}€${discountSection}` : '';
@@ -296,18 +290,7 @@ export class AvailabilityCalendar extends LitElement {
                 </div>
               ` : ''}
 
-              ${priceDetails.isEarlyBird ? html`
-                <div class="d-flex justify-content-between mb-2 small text-success fw-bold">
-                  <span class="d-flex align-items-center gap-1">
-                    ${TranslationService.l.cal_summary_discount_early} (-${priceDetails.earlyBirdPercent}%):
-                    <span class="custom-tooltip">
-                      <i class="bi bi-info-circle small" style="font-size: 0.8em; vertical-align: middle;"></i>
-                      <span class="tooltip-text">${TranslationService.l.cal_summary_discount_early_info}</span>
-                    </span>
-                  </span>
-                  <span>-${priceDetails.earlyBirdDiscountAmount}€</span>
-                </div>
-              ` : ''}
+
 
               <div class="d-flex justify-content-between pt-2 mt-2 border-top">
                 <span class="fw-bold">${TranslationService.l.cal_summary_total}:</span>

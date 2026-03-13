@@ -7,9 +7,6 @@ export interface PriceDetails {
   longStayDiscountLabel: string;
   longStayPercent: number;
   longStayDiscountAmount: number;
-  isEarlyBird: boolean;
-  earlyBirdPercent: number;
-  earlyBirdDiscountAmount: number;
   finalPrice: number;
   depositAmount: number;
   depositPercent: number;
@@ -71,16 +68,7 @@ export class PricingService {
 
     const longStayDiscountAmount = Math.round(subtotal * (1 - longStayMultiplier));
 
-    // Early Bird Logic: 2 months in advance
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const twoMonthsLater = new Date(today);
-    twoMonthsLater.setMonth(today.getMonth() + 2);
-    
-    const isEarlyBird = startDate >= twoMonthsLater;
-    const earlyBirdDiscountAmount = isEarlyBird ? Math.round(subtotal * (1 - this.config.discounts.earlyBird)) : 0;
-    
-    const finalPrice = subtotal - longStayDiscountAmount - earlyBirdDiscountAmount;
+    const finalPrice = subtotal - longStayDiscountAmount;
     const depositAmount = Math.round(finalPrice * this.config.depositPercent);
 
     return {
@@ -88,9 +76,6 @@ export class PricingService {
       longStayDiscountLabel,
       longStayPercent: Math.round((1 - longStayMultiplier) * 100),
       longStayDiscountAmount,
-      isEarlyBird,
-      earlyBirdPercent: Math.round((1 - this.config.discounts.earlyBird) * 100),
-      earlyBirdDiscountAmount,
       finalPrice,
       depositAmount,
       depositPercent: Math.round(this.config.depositPercent * 100)
