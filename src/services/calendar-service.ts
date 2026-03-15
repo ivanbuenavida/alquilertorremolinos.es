@@ -3,7 +3,6 @@ import { pricingService, type Season } from './pricing-service';
 export interface CalendarEvent {
   start: string;
   end: string;
-  summary: string;
 }
 
 export interface DayInfo {
@@ -49,8 +48,7 @@ export class GoogleCalendarProvider implements CalendarProvider {
 
       const events = data.items.map((item: any) => ({
         start: item.start.dateTime || item.start.date,
-        end: item.end.dateTime || item.end.date,
-        summary: item.summary
+        end: item.end.dateTime || item.end.date
       }));
 
       this._eventCache[cacheKey] = events;
@@ -72,8 +70,7 @@ export class GoogleCalendarProvider implements CalendarProvider {
 
     busyDays.push({
       start: start1.toISOString().split('T')[0],
-      end: end1.toISOString().split('T')[0],
-      summary: 'Reserved'
+      end: end1.toISOString().split('T')[0]
     });
 
     const start2 = new Date(today);
@@ -84,8 +81,7 @@ export class GoogleCalendarProvider implements CalendarProvider {
 
     busyDays.push({
       start: start2.toISOString().split('T')[0],
-      end: end2.toISOString().split('T')[0],
-      summary: 'Reserved'
+      end: end2.toISOString().split('T')[0]
     });
 
     return busyDays;

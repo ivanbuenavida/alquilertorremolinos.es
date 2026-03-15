@@ -16,9 +16,12 @@ export class CalendarView extends LitElement {
   @state() private _loading = true;
   @state() private _limitMsgKey: '30days' | 'september' | null = null;
   
-  // Selection state
   @state() _startDate: Date | null = null;
   @state() _endDate: Date | null = null;
+
+  private static readonly CHECKIN_HOUR = 15;
+  private static readonly CHECKOUT_HOUR = 12;
+  private static readonly CLEANING_BUFFER_HRS = 1;
 
   private _minDate = new Date();
   private _maxDate = new Date();
@@ -41,16 +44,24 @@ export class CalendarView extends LitElement {
   }
 
   private _checkIfBusy(date: Date, events: CalendarEvent[]): boolean {
-    const d = new Date(date);
-    d.setHours(0, 0, 0, 0);
-    const dTime = d.getTime();
+    // A day in the grid is "Busy" (not selectable for check-in) if the night 
+    // starting on that day is already occupied or doesn't respect the buffer.
+    const checkInWithBuffer = new Date(date);
+    checkInWithBuffer.setHours(CalendarView.CHECKIN_HOUR - CalendarView.CLEANING_BUFFER_HRS, 0, 0, 0);
+    
+    const nightEnd = new Date(date);
+    nightEnd.setDate(nightEnd.getDate() + 1);
+    nightEnd.setHours(CalendarView.CHECKOUT_HOUR, 0, 0, 0);
 
     return events.some(event => {
-      const start = new Date(event.start);
-      start.setHours(0, 0, 0, 0);
-      const end = new Date(event.end);
-      end.setHours(0, 0, 0, 0);
-      return dTime >= start.getTime() && dTime < end.getTime();
+      const eStart = new Date(event.start);
+      const eEnd = new Date(event.end);
+      
+      // Standard overlap check: max(start) < min(end)
+      const overlapStart = Math.max(checkInWithBuffer.getTime(), eStart.getTime());
+      const overlapEnd = Math.min(nightEnd.getTime(), eEnd.getTime());
+      
+      return overlapStart < overlapEnd;
     });
   }
 
@@ -312,21 +323,24 @@ export class CalendarView extends LitElement {
   }
 
   private _checkIfBusyRange(start: Date, days: number, events: CalendarEvent[]): boolean {
-    const startMs = start.getTime();
-    for (let i = 0; i < days; i++) {
-        const d = new Date(startMs + i * 24 * 60 * 60 * 1000);
-        d.setHours(0,0,0,0);
-        const dTime = d.getTime();
-        const isBusyDay = events.some(event => {
-          const es = new Date(event.start);
-          es.setHours(0, 0, 0, 0);
-          const ee = new Date(event.end);
-          ee.setHours(0, 0, 0, 0);
-          return dTime >= es.getTime() && dTime < ee.getTime();
-        });
-        if (isBusyDay) return true;
-    }
-    return false;
+    // Construct the requested interval with hours and buffers
+    const requestedStart = new Date(start);
+    requestedStart.setHours(CalendarView.CHECKIN_HOUR - CalendarView.CLEANING_BUFFER_HRS, 0, 0, 0);
+    
+    const requestedEnd = new Date(start);
+    requestedEnd.setDate(requestedEnd.getDate() + days);
+    requestedEnd.setHours(CalendarView.CHECKOUT_HOUR, 0, 0, 0);
+
+    const reqStartTime = requestedStart.getTime();
+    const reqEndTime = requestedEnd.getTime();
+
+    return events.some(event => {
+      const eStart = new Date(event.start).getTime();
+      const eEnd = new Date(event.end).getTime();
+      
+      // Any overlap with the requested range (including buffer) means it's busy
+      return Math.max(reqStartTime, eStart) < Math.min(reqEndTime, eEnd);
+    });
   }
 
   private _isDateSelected(date: Date) {
