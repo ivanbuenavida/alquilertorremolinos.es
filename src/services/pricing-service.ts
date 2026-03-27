@@ -40,11 +40,6 @@ export class PricingService {
       season = 'mid';
     }
 
-    // Apply holiday surcharge (5%)
-    if (isHoliday) {
-      price = price * 1.05;
-    }
-
     return { price: Math.round(price), season };
   }
 
