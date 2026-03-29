@@ -19,7 +19,7 @@ export const propertyData: PropertyData = {
   title: "Moderno Apartamento de 2 Dormitorios en el Centro",
   location: "Junto a calle San miguel, Torremolinos, Málaga",
   host: {
-    name: "Iván Benavides",
+    name: "Iván",
     description: "Anfitrión verificado · Respuesta rápida",
     image: "/host-avatar.png",
     experience: "Superhost"
