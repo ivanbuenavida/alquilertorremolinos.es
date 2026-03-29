@@ -21,7 +21,7 @@ export const propertyData: PropertyData = {
   host: {
     name: "Iván Benavides",
     description: "Anfitrión verificado · Respuesta rápida",
-    image: "/anfitrion.jpg",
+    image: "/host-avatar.png",
     experience: "Superhost"
   },
   description: "Un luminoso y moderno apartamento de dos dormitorios situado en el corazón de Torremolinos, a solo dos minutos de la estación de tren. Ubicado en una zona peatonal tranquila, este encantador hogar combina el estilo mediterráneo con un diseño contemporáneo. Se encuentra en la segunda planta de un edificio y ha sido recientemente renovado con materiales de alta calidad. Cuenta con una cocina equipada (horno, microondas, vitrocerámica), un salón espacioso con aire acondicionado y balcón con vistas a una plaza local pintoresca.",
