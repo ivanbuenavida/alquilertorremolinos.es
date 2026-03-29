@@ -46,6 +46,7 @@ export const propertyData: PropertyData = {
     { icon: "bi-key", name: "" }        // 18. Check-in
   ],
   images: [
+    '/images/balcony-view.png',
     '/images/WhatsApp-Image-2026-02-20-at-15.06.42-1.jpeg',
     '/images/WhatsApp-Image-2026-02-20-at-15.06.42-2.jpeg',
     '/images/WhatsApp-Image-2026-02-20-at-15.06.42-3.jpeg',
