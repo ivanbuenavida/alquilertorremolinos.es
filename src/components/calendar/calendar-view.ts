@@ -439,6 +439,12 @@ export class CalendarView extends LitElement {
                         ${day.date.getDate()}
                       </span>
 
+                      ${isSelectable && !day.isBusy ? html`
+                        <span class="text-muted font-monospace" style="font-size: 0.65rem; font-weight: 500; opacity: 0.8;">
+                          ${day.price}€
+                        </span>
+                      ` : ''}
+
                       ${!isSelected && !isInRange && isSelectable ? html`
                         <div class="rounded-circle position-absolute bottom-0 mb-1 ${day.isBusy ? 'bg-danger' : 'bg-primary'}" 
                              style="width: 4px; height: 4px;"></div>

@@ -22,9 +22,12 @@ export class PricingService {
   getPriceAndSeasonForDate(date: Date): { price: number, season: Season } {
     const month = date.getMonth(); // 0-indexed
     
-    // Check if it's a holiday
-    const specificDateString = date.toISOString().split('T')[0]; // YYYY-MM-DD
-    const recurringDateString = specificDateString.substring(5); // MM-DD
+    // Check if it's a holiday (use local date components to avoid timezone shifts)
+    const y = date.getFullYear();
+    const m = (date.getMonth() + 1).toString().padStart(2, '0');
+    const d = date.getDate().toString().padStart(2, '0');
+    const specificDateString = `${y}-${m}-${d}`;
+    const recurringDateString = `${m}-${d}`;
     const isHoliday = this.config.holidays.includes(specificDateString) || 
                       this.config.holidays.includes(recurringDateString);
 
