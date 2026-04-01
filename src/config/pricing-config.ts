@@ -53,18 +53,17 @@ export interface PricingConfig {
 
 export const pricingConfig: PricingConfig = {
   // Default price during low season (Mon-Thu)
-  basePrice: 100,
+  basePrice: 80,
 
-  // Weekend increase removed - prices are purely seasonal now
+  // Weekend increase removed
   weekendMultiplier: 1.0,
 
-  // Base mid season costs 30% more than base low season
-  midSeasonMultiplier: 1.30, 
+  // Mid season: 100 EUR/night (100 / 80 = 1.25)
+  midSeasonMultiplier: 1.25, 
 
-  // Base high season costs approx 78.5% more than base low season
-  // Calculated for 1000 EUR/week after 20% discount:
-  // (1000 / 0.8) / 7 = 178.57 per night. If base is 100, multiplier is 1.7857
-  highSeasonMultiplier: 1.7857,
+  // High season: 1000 EUR/week after 20% discount:
+  // (1000 / 0.8) / 7 = 178.57 per night. Multiplier = 178.57 / 80 = 2.2321
+  highSeasonMultiplier: 2.2321,
 
   // Minimum nights depending on the season of the start date
   minNights: {
