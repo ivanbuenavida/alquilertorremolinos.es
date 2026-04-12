@@ -457,9 +457,14 @@ export class CalendarView extends LitElement {
                         </span>
                       ` : ''}
 
-                      ${(!isSelected && !isInRange && isSelectable) || day.isBooking ? html`
-                        <div class="rounded-circle position-absolute bottom-0 mb-1 ${!isSelectable && day.isBooking ? 'bg-primary' : (day.isBusy ? 'bg-danger' : 'bg-primary')}" 
+                      ${!isSelected && !isInRange && isSelectable ? html`
+                        <div class="rounded-circle position-absolute bottom-0 mb-1 bg-primary" 
                              style="width: 4px; height: 4px;"></div>
+                      ` : ''}
+
+                      ${day.isBooking ? html`
+                        <div class="position-absolute top-0 start-0 end-0 mt-1 mx-2 rounded-pill shadow-sm" 
+                             style="height: 2px; background-color: #003580; z-index: 2;"></div>
                       ` : ''}
                     </div>
                   `;
