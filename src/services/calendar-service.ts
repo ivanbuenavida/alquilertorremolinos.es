@@ -21,12 +21,15 @@ export interface CalendarProvider {
 
 export class GoogleCalendarProvider implements CalendarProvider {
   private static API_KEY = 'AIzaSyAaIkxaKDZnma_1mfYJXZ0TXISiL3NrE5o';
-  private static CALENDAR_ID = 'c_d03a807d6b2067a8380983f831efe4cba0a5b5340d7044bc47a9c03e6283c703@group.calendar.google.com';
+  private static CALENDAR_IDS = [
+    'c_d03a807d6b2067a8380983f831efe4cba0a5b5340d7044bc47a9c03e6283c703@group.calendar.google.com',
+    'jd4vroaka1ad3d1g51foblo6bmcpu489@import.calendar.google.com'
+  ];
   private _eventCache: { [key: string]: CalendarEvent[] } = {};
 
   async getBusyDays(start: Date, end: Date): Promise<CalendarEvent[]> {
-    if (!GoogleCalendarProvider.API_KEY || !GoogleCalendarProvider.CALENDAR_ID || GoogleCalendarProvider.API_KEY === 'YOUR_API_KEY_HERE') {
-      console.warn('Google Calendar API Key or ID not properly configured. Using mock data.');
+    if (!GoogleCalendarProvider.API_KEY || GoogleCalendarProvider.CALENDAR_IDS.length === 0 || GoogleCalendarProvider.API_KEY === 'YOUR_API_KEY_HERE') {
+      console.warn('Google Calendar API Key or IDs not properly configured. Using mock data.');
       return this.getMockBusyDays(start, end);
     }
 
@@ -37,22 +40,27 @@ export class GoogleCalendarProvider implements CalendarProvider {
       const timeMin = start.toISOString();
       const timeMax = end.toISOString();
       
-      const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(GoogleCalendarProvider.CALENDAR_ID)}/events?key=${GoogleCalendarProvider.API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
-      
-      const response = await fetch(url);
-      const data = await response.json();
+      const fetchPromises = GoogleCalendarProvider.CALENDAR_IDS.map(async (calendarId) => {
+        const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${GoogleCalendarProvider.API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        if (data.error) {
+          console.warn(`Error fetching calendar ${calendarId}:`, data.error.message);
+          return [];
+        }
 
-      if (data.error) {
-        throw new Error(data.error.message);
-      }
+        return (data.items || []).map((item: any) => ({
+          start: item.start.dateTime || item.start.date,
+          end: item.end.dateTime || item.end.date
+        }));
+      });
 
-      const events = data.items.map((item: any) => ({
-        start: item.start.dateTime || item.start.date,
-        end: item.end.dateTime || item.end.date
-      }));
+      const allResults = await Promise.all(fetchPromises);
+      const combinedEvents = allResults.flat();
 
-      this._eventCache[cacheKey] = events;
-      return events;
+      this._eventCache[cacheKey] = combinedEvents;
+      return combinedEvents;
     } catch (error) {
       console.error('Error fetching calendar events:', error);
       return [];
