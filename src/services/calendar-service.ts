@@ -3,11 +3,13 @@ import { pricingService, type Season } from './pricing-service';
 export interface CalendarEvent {
   start: string;
   end: string;
+  source?: 'google' | 'booking';
 }
 
 export interface DayInfo {
   date: Date;
   isBusy: boolean;
+  isBooking: boolean;
   price: number;
   season: Season;
   isCurrentMonth: boolean;
@@ -50,9 +52,12 @@ export class GoogleCalendarProvider implements CalendarProvider {
           return [];
         }
 
+        const isBooking = calendarId.includes('import.calendar.google.com');
+
         return (data.items || []).map((item: any) => ({
           start: item.start.dateTime || item.start.date,
-          end: item.end.dateTime || item.end.date
+          end: item.end.dateTime || item.end.date,
+          source: isBooking ? 'booking' : 'google'
         }));
       });
 
@@ -78,7 +83,8 @@ export class GoogleCalendarProvider implements CalendarProvider {
 
     busyDays.push({
       start: start1.toISOString().split('T')[0],
-      end: end1.toISOString().split('T')[0]
+      end: end1.toISOString().split('T')[0],
+      source: 'google'
     });
 
     const start2 = new Date(today);
@@ -89,7 +95,8 @@ export class GoogleCalendarProvider implements CalendarProvider {
 
     busyDays.push({
       start: start2.toISOString().split('T')[0],
-      end: end2.toISOString().split('T')[0]
+      end: end2.toISOString().split('T')[0],
+      source: 'booking'
     });
 
     return busyDays;

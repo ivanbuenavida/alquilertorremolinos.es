@@ -43,7 +43,7 @@ export class CalendarView extends LitElement {
     });
   }
 
-  private _checkIfBusy(date: Date, events: CalendarEvent[]): boolean {
+  private _getBusyState(date: Date, events: CalendarEvent[]): { isBusy: boolean, isBooking: boolean } {
     // A day in the grid is "Busy" (not selectable for check-in) if the night 
     // starting on that day is already occupied or doesn't respect the buffer.
     const checkInWithBuffer = new Date(date);
@@ -53,7 +53,10 @@ export class CalendarView extends LitElement {
     nightEnd.setDate(nightEnd.getDate() + 1);
     nightEnd.setHours(CalendarView.CHECKOUT_HOUR, 0, 0, 0);
 
-    return events.some(event => {
+    let isBusy = false;
+    let isBooking = false;
+
+    for (const event of events) {
       const eStart = new Date(event.start);
       const eEnd = new Date(event.end);
       
@@ -61,8 +64,15 @@ export class CalendarView extends LitElement {
       const overlapStart = Math.max(checkInWithBuffer.getTime(), eStart.getTime());
       const overlapEnd = Math.min(nightEnd.getTime(), eEnd.getTime());
       
-      return overlapStart < overlapEnd;
-    });
+      if (overlapStart < overlapEnd) {
+        isBusy = true;
+        if (event.source === 'booking') {
+          isBooking = true;
+        }
+      }
+    }
+
+    return { isBusy, isBooking };
   }
 
   connectedCallback() {
@@ -96,9 +106,11 @@ export class CalendarView extends LitElement {
 
     while (curr <= end) {
       const { price, season } = pricingService.getPriceAndSeasonForDate(curr);
+      const { isBusy, isBooking } = this._getBusyState(curr, busyEvents);
       days.push({
         date: new Date(curr),
-        isBusy: this._checkIfBusy(curr, busyEvents),
+        isBusy,
+        isBooking,
         price,
         season,
         isCurrentMonth: curr.getMonth() === month,
@@ -445,8 +457,8 @@ export class CalendarView extends LitElement {
                         </span>
                       ` : ''}
 
-                      ${!isSelected && !isInRange && isSelectable ? html`
-                        <div class="rounded-circle position-absolute bottom-0 mb-1 ${day.isBusy ? 'bg-danger' : 'bg-primary'}" 
+                      ${(!isSelected && !isInRange && isSelectable) || day.isBooking ? html`
+                        <div class="rounded-circle position-absolute bottom-0 mb-1 ${!isSelectable && day.isBooking ? 'bg-primary' : (day.isBusy ? 'bg-danger' : 'bg-primary')}" 
                              style="width: 4px; height: 4px;"></div>
                       ` : ''}
                     </div>
