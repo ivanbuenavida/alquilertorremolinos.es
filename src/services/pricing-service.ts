@@ -96,8 +96,8 @@ export class PricingService {
     // Convert to days (rounding to avoid DST issues)
     const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
 
-    // Last-minute window: 10 days
-    if (diffDays >= 0 && diffDays <= 10) {
+    // Last-minute window: 7 days
+    if (diffDays >= 0 && diffDays <= 7) {
       return 2;
     }
 
