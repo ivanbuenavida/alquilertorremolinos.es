@@ -421,26 +421,26 @@ export class CalendarView extends LitElement {
                   
                   // Use conditional classes to avoid background conflicts
                   let bgClass = 'bg-white';
-                  if (day.isCurrentMonth && !day.isBusy && !isSelected && !isInRange) {
-                    if (day.season === 'high') bgClass = 'bg-info bg-opacity-10'; // Subtle blue for high season
-                    else if (day.season === 'mid') bgClass = 'bg-warning bg-opacity-10'; // Subtle yellow for mid season
-                  }
-
-                  if (day.isBusy) {
-                    bgClass = 'bg-light-subtle text-decoration-line-through text-muted';
-                  } else if (day.date.getTime() > this._maxDate.getTime()) {
-                    bgClass = 'bg-light-subtle text-muted opacity-50';
+                  if (day.isPast || day.date.getTime() > this._maxDate.getTime()) {
+                    bgClass = 'bg-light-subtle text-muted';
+                  } else if (day.isBusy) {
+                    bgClass = 'bg-danger-subtle text-danger-emphasis';
                   } else if (isSelected) {
                     bgClass = 'bg-primary text-white shadow-sm z-1';
                   } else if (isInRange) {
                     bgClass = 'bg-primary-subtle z-0';
+                  } else if (day.isCurrentMonth) {
+                    bgClass = 'bg-success-subtle text-success-emphasis';
+                  } else {
+                    bgClass = 'bg-success-subtle text-success-emphasis opacity-50';
                   }
 
                   const isSelectable = !day.isBusy && !day.isPast && day.date.getTime() <= this._maxDate.getTime();
+                  const showAsPast = day.isPast || day.date.getTime() > this._maxDate.getTime();
                   
                   return html`
                     <div class="aspect-ratio-1 d-flex flex-column align-items-center justify-content-center p-1 user-select-none
-                                ${(!day.isCurrentMonth || !isSelectable) && !day.isBusy ? 'opacity-25' : ''} 
+                                ${(!day.isCurrentMonth || !isSelectable) && (!day.isBusy || showAsPast) ? 'opacity-25' : ''} 
                                 ${isSelectable ? 'cursor-pointer' : ''}
                                 ${bgClass}
                                 position-relative"
@@ -451,18 +451,7 @@ export class CalendarView extends LitElement {
                         ${day.date.getDate()}
                       </span>
 
-                      ${isSelectable && !day.isBusy ? html`
-                        <span class="text-muted font-monospace" style="font-size: 0.65rem; font-weight: 500; opacity: 0.8;">
-                          ${day.price}€
-                        </span>
-                      ` : ''}
-
-                      ${!isSelected && !isInRange && isSelectable ? html`
-                        <div class="rounded-circle position-absolute bottom-0 mb-1 bg-primary" 
-                             style="width: 4px; height: 4px;"></div>
-                      ` : ''}
-
-                      ${day.isBooking ? html`
+                      ${day.isBooking && !day.isPast ? html`
                         <div class="position-absolute top-0 start-0 end-0 mt-1 mx-2 rounded-pill shadow-sm" 
                              style="height: 2px; background-color: #003580; z-index: 2;"></div>
                       ` : ''}

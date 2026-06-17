@@ -4,7 +4,6 @@ import './calendar/calendar-view.ts';
 import { TranslationService } from '../services/translation-service';
 import { AnalyticsService } from '../services/analytics-service';
 import { shareService } from '../services/share-service';
-import { pricingService } from '../services/pricing-service';
 import { contactConfig } from '../config/contact-config';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
@@ -132,8 +131,6 @@ export class AvailabilityCalendar extends LitElement {
     const startStr = this._startDate?.toLocaleDateString(locale) || '';
     const endStr = this._endDate?.toLocaleDateString(locale) || '';
     const datesStr = `${startStr} - ${endStr}`;
-    const priceDetails = this._calculatePriceDetails();
-    const priceStr = `${priceDetails.finalPrice}€`;
     
     // Construct URL with dates
     const url = new URL(window.location.origin + window.location.pathname);
@@ -143,33 +140,13 @@ export class AvailabilityCalendar extends LitElement {
 
     await shareService.share({
       title: TranslationService.l.cal_share_title,
-      text: TranslationService.l.cal_share_text(propertyTitle, datesStr, priceStr),
+      text: TranslationService.l.cal_share_text(propertyTitle, datesStr),
       url: url.toString()
     });
   }
 
-  private _calculatePriceDetails() {
-    if (!this._startDate || !this._endDate) {
-      return {
-        subtotal: 0,
-        longStayDiscountLabel: '',
-        longStayPercent: 0,
-        longStayDiscountAmount: 0,
-        finalPrice: 0,
-        depositAmount: 0,
-        depositPercent: 0
-      };
-    }
 
-    return pricingService.calculateBookingDetails(
-      this._startDate,
-      this._endDate,
-      this._totalPrice,
-      TranslationService
-    );
-  }
-
-  private _getWhatsAppUrl(priceDetails: any) {
+  private _getWhatsAppUrl() {
     const locale = TranslationService.currentLang;
     const l = TranslationService.l;
 
@@ -180,15 +157,7 @@ export class AvailabilityCalendar extends LitElement {
       let msg = `${labels.wa_hello}, ${labels.wa_request_prefix}: ${labels.prop_location} (${contactConfig.googleMapsUrl}).`;
       
       if (this._startDate && this._endDate) {
-        let discountSection = '';
-        if (priceDetails.longStayDiscountAmount > 0) {
-          discountSection += `\n${priceDetails.longStayDiscountLabel} (-${priceDetails.longStayPercent}%): -${priceDetails.longStayDiscountAmount}€`;
-        }
-
-        const discountStr = discountSection ? `\n${labels.cal_summary_subtotal}: ${priceDetails.subtotal}€${discountSection}` : '';
-        const depositLine = `\n${labels.cal_summary_deposit(priceDetails.depositPercent)}: ${priceDetails.depositAmount}€`;
-        
-        msg = `${labels.wa_hello}, ${labels.wa_would_like} ${labels.prop_location}\n📍 ${contactConfig.googleMapsUrl}\n\n${labels.cal_summary_title}:\n${labels.cal_summary_dates}: ${s} ${labels.wa_date_to} ${e}\n${labels.cal_summary_nights}: ${this._nights}${discountStr}\n${labels.cal_summary_total}: ${priceDetails.finalPrice}€${depositLine}`;
+        msg = `${labels.wa_hello}, ${labels.wa_would_like} ${labels.prop_location}\n📍 ${contactConfig.googleMapsUrl}\n\n${labels.cal_summary_title}:\n${labels.cal_summary_dates}: ${s} ${labels.wa_date_to} ${e}\n${labels.cal_summary_nights}: ${this._nights}`;
       }
       return msg;
     };
@@ -206,8 +175,6 @@ export class AvailabilityCalendar extends LitElement {
   }
 
   render() {
-    const priceDetails = this._calculatePriceDetails();
-
     return html`
       <div class="card p-3 p-md-4 rounded-4 shadow-lg border-opacity-25 border mb-4">
         <h4 class="fw-bold d-flex align-items-center gap-2 mb-4">
@@ -217,6 +184,18 @@ export class AvailabilityCalendar extends LitElement {
         
         <div class="mb-4">
           <calendar-view></calendar-view>
+        </div>
+        
+        <!-- Legend -->
+        <div class="d-flex flex-wrap gap-3 justify-content-center mb-4 small border-bottom pb-3">
+          <div class="d-flex align-items-center gap-2">
+            <span class="d-inline-block rounded bg-success-subtle border border-success" style="width: 14px; height: 14px;"></span>
+            <span class="text-muted fw-semibold">${TranslationService.l.cal_legend_available}</span>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <span class="d-inline-block rounded bg-danger-subtle border border-danger" style="width: 14px; height: 14px;"></span>
+            <span class="text-muted fw-semibold">${TranslationService.l.cal_legend_occupied}</span>
+          </div>
         </div>
 
         ${this._selectionError ? html`
@@ -274,38 +253,8 @@ export class AvailabilityCalendar extends LitElement {
 
             ${this._endDate ? html`
               <div class="d-flex justify-content-between mb-2 small mt-3">
-                <span class="text-muted">${TranslationService.l.cal_summary_nights}:</span>
+                <span class="text-muted text-capitalize">${TranslationService.l.cal_summary_nights}:</span>
                 <span class="fw-medium">${this._nights}</span>
-              </div>
-
-              <div class="d-flex justify-content-between mb-2 small">
-                <span class="text-muted">${TranslationService.l.cal_summary_subtotal}:</span>
-                <span class="fw-medium font-monospace">${priceDetails.subtotal}€</span>
-              </div>
-
-              ${priceDetails.longStayDiscountAmount > 0 ? html`
-                <div class="d-flex justify-content-between mb-2 small text-success fw-bold">
-                  <span>${priceDetails.longStayDiscountLabel} (-${priceDetails.longStayPercent}%):</span>
-                  <span>-${priceDetails.longStayDiscountAmount}€</span>
-                </div>
-              ` : ''}
-
-
-
-              <div class="d-flex justify-content-between pt-2 mt-2 border-top">
-                <span class="fw-bold">${TranslationService.l.cal_summary_total}:</span>
-                <span class="fw-bold fs-5 text-primary">${priceDetails.finalPrice}€</span>
-              </div>
-
-              <div class="d-flex justify-content-between mb-2 small mt-1 text-muted italic">
-                <span class="d-flex align-items-center gap-1">
-                  ${TranslationService.l.cal_summary_deposit(priceDetails.depositPercent)}
-                  <span class="custom-tooltip">
-                    <i class="bi bi-info-circle small" style="font-size: 0.8em; vertical-align: middle;"></i>
-                    <span class="tooltip-text">${TranslationService.l.cal_summary_deposit_info}</span>
-                  </span>:
-                </span>
-                <span class="fw-medium">${priceDetails.depositAmount}€</span>
               </div>
             ` : ''}
           </div>
@@ -313,7 +262,7 @@ export class AvailabilityCalendar extends LitElement {
 
         <div class="d-grid gap-3 mb-4">
           <a 
-            href="${this._getWhatsAppUrl(priceDetails)}" 
+            href="${this._getWhatsAppUrl()}" 
             target="_blank"
             class="btn btn-success btn-lg d-flex align-items-center justify-content-center gap-2 fw-bold rounded-pill shadow-sm ${!this._startDate || !this._endDate ? 'disabled opacity-50' : ''}" 
             @click="${this._handleWhatsAppClick}"

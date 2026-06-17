@@ -69,7 +69,7 @@ interface Labels {
   cal_summary_deposit_info: string;
   cal_btn_share: string;
   cal_share_title: string;
-  cal_share_text: (property: string, dates: string, price: string) => string;
+  cal_share_text: (property: string, dates: string) => string;
   cal_copy_success: string;
   // Policies (Accordion)
   pol_title: string;
@@ -199,7 +199,7 @@ const translations: Record<Language, Labels> = {
     cal_summary_deposit_info: "Para garantizar su reserva, el pago del depósito debe completarse en un plazo de 24 horas. De lo contrario, las fechas volverán a estar disponibles.",
     cal_btn_share: "Compartir reserva",
     cal_share_title: "Mira este alojamiento en Torremolinos",
-    cal_share_text: (property, dates, price) => `He encontrado este alojamiento en Torremolinos: ${property}\n\nFechas: ${dates}\nPrecio total: ${price}\n\nPuedes verlo aquí:`,
+    cal_share_text: (property, dates) => `He encontrado este alojamiento en Torremolinos: ${property}\n\nFechas: ${dates}\n\nPuedes verlo aquí:`,
     cal_copy_success: "¡Enlace copiado al portapapeles!",
     pol_title: "Condiciones de reserva",
     pol_cancellation_title: "Política de cancelación",
@@ -313,7 +313,7 @@ const translations: Record<Language, Labels> = {
     cal_summary_deposit_info: "To guarantee your booking, the deposit payment must be completed within 24 hours. Otherwise, the dates will be released.",
     cal_btn_share: "Share booking",
     cal_share_title: "Check out this accommodation in Torremolinos",
-    cal_share_text: (property, dates, price) => `I found this accommodation in Torremolinos: ${property}\n\nDates: ${dates}\nTotal price: ${price}\n\nYou can see it here:`,
+    cal_share_text: (property, dates) => `I found this accommodation in Torremolinos: ${property}\n\nDates: ${dates}\n\nYou can see it here:`,
     cal_copy_success: "Link copied to clipboard!",
     pol_title: "Booking Conditions",
     pol_cancellation_title: "Cancellation Policy",
@@ -427,7 +427,7 @@ const translations: Record<Language, Labels> = {
     cal_summary_deposit_info: "Um Ihre Buchung zu garantieren, muss die Anzahlung innerhalb von 24 Stunden erfolgen. Andernfalls werden die Termine wieder freigegeben.",
     cal_btn_share: "Reservierung teilen",
     cal_share_title: "Schau dir diese Unterkunft in Torremolinos an",
-    cal_share_text: (property, dates, price) => `Ich habe diese Unterkunft in Torremolinos gefunden: ${property}\n\nDaten: ${dates}\nGesamtpreis: ${price}\n\nHier kannst du sie sehen:`,
+    cal_share_text: (property, dates) => `Ich habe diese Unterkunft in Torremolinos gefunden: ${property}\n\nDaten: ${dates}\n\nHier kannst du sie sehen:`,
     cal_copy_success: "Link in die Zwischenablage kopiert!",
     pol_title: "Buchungsbedingungen",
     pol_cancellation_title: "Stornierungsbedingungen",
@@ -541,7 +541,7 @@ const translations: Record<Language, Labels> = {
     cal_summary_deposit_info: "Pour garantir votre réservation, le paiement de l'acompte doit être effectué dans les 24 heures. Dans le cas contraire, les dates seront remises en disponibilité.",
     cal_btn_share: "Partager la réservation",
     cal_share_title: "Regardez ce logement à Torremolinos",
-    cal_share_text: (property, dates, price) => `J'ai trouvé ce logement à Torremolinos : ${property}\n\nDates : ${dates}\nPrix total : ${price}\n\nVous pouvez le voir ici :`,
+    cal_share_text: (property, dates) => `J'ai trouvé ce logement à Torremolinos : ${property}\n\nDates : ${dates}\n\nVous pouvez le voir ici :`,
     cal_copy_success: "Lien copié dans le presse-papiers !",
     pol_title: "Conditions de réservation",
     pol_cancellation_title: "Conditions d'annulation",
@@ -655,7 +655,7 @@ const translations: Record<Language, Labels> = {
     cal_summary_deposit_info: "Om uw boeking te garanderen, moet de aanbetaling binnen 24 uur worden voldaan. Anders worden de data weer vrijgegeven.",
     cal_btn_share: "Reservering delen",
     cal_share_title: "Bekijk deze accommodatie in Torremolinos",
-    cal_share_text: (property, dates, price) => `Ik heb deze accommodatie in Torremolinos gevonden: ${property}\n\nData: ${dates}\nTotale prijs: ${price}\n\nJe kunt het hier bekijken:`,
+    cal_share_text: (property, dates) => `Ik heb deze accommodatie in Torremolinos gevonden: ${property}\n\nData: ${dates}\n\nJe kunt het hier bekijken:`,
     cal_copy_success: "Link gekopieerd naar klembord!",
     pol_title: "Boekingsvoorwaarden",
     pol_cancellation_title: "Annuleringsvoorwaarden",
