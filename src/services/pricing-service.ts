@@ -83,6 +83,27 @@ export class PricingService {
   getMinNightsForSeason(season: Season): number {
     return this.config.minNights[season];
   }
+
+  getMinNightsForDate(date: Date): number {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const dateCopy = new Date(date);
+    dateCopy.setHours(0, 0, 0, 0);
+
+    // Difference in milliseconds
+    const diffTime = dateCopy.getTime() - today.getTime();
+    // Convert to days (rounding to avoid DST issues)
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+    // Last-minute window: 10 days
+    if (diffDays >= 0 && diffDays <= 10) {
+      return 2;
+    }
+
+    const { season } = this.getPriceAndSeasonForDate(date);
+    return this.config.minNights[season];
+  }
 }
 
 export const pricingService = new PricingService();

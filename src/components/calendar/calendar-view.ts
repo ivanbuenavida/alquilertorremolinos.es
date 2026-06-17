@@ -183,9 +183,8 @@ export class CalendarView extends LitElement {
           return;
         }
 
-        // Determine min nights based on start date's season
-        const { season } = pricingService.getPriceAndSeasonForDate(this._startDate!);
-        const requiredMinNights = pricingService.getMinNightsForSeason(season);
+        // Determine min nights based on start date
+        const requiredMinNights = pricingService.getMinNightsForDate(this._startDate!);
 
         // Enforce dynamic min nights
         if (diffDays < requiredMinNights) {
