@@ -118,5 +118,5 @@ export const labels: Labels = {
   wa_would_like: "I would like to book the accommodation at",
   wa_date_to: "to",
   wa_translation_prefix: "Spanish translation for the host:",
-  wa_client_detail: "🌐 Message in the client's selected language:"
+  wa_client_detail: "Message in the client's selected language:"
 };

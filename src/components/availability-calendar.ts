@@ -208,7 +208,7 @@ export class AvailabilityCalendar extends LitElement {
       let msg = `${labels.wa_hello}, ${labels.wa_request_prefix}: ${labels.prop_location} (${contactConfig.googleMapsUrl}).`;
       
       if (this._startDate && this._endDate) {
-        msg = `${labels.wa_hello}, ${labels.wa_would_like} ${labels.prop_location}\n🔗 ${contactConfig.googleMapsUrl}\n\n${labels.cal_summary_title}:\n${labels.cal_summary_dates}: ${s} ${labels.wa_date_to} ${e}\n${labels.cal_summary_nights}: ${this._nights}`;
+        msg = `${labels.wa_hello}, ${labels.wa_would_like} ${labels.prop_location}\n- Maps: ${contactConfig.googleMapsUrl}\n\n${labels.cal_summary_title}:\n${labels.cal_summary_dates}: ${s} ${labels.wa_date_to} ${e}\n${labels.cal_summary_nights}: ${this._nights}`;
       }
       return msg;
     };

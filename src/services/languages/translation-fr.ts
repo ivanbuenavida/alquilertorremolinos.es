@@ -118,5 +118,5 @@ export const labels: Labels = {
   wa_would_like: "je souhaiterais réserver l'hébergement à",
   wa_date_to: "au",
   wa_translation_prefix: "Traduction en espagnol pour l'hôte :",
-  wa_client_detail: "🌐 Message dans la langue sélectionnée par le client :"
+  wa_client_detail: "Message dans la langue sélectionnée par le client :"
 };
