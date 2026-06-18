@@ -123,6 +123,7 @@ export interface Labels {
   wa_hello: string;
   wa_request_prefix: string;
   wa_would_like: string;
+  wa_interest: string;
   wa_date_to: string;
   wa_translation_prefix: string;
   wa_client_detail: string;

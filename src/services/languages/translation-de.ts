@@ -116,6 +116,7 @@ export const labels: Labels = {
   wa_hello: "Hallo",
   wa_request_prefix: "eine Reservierung wurde für die Unterkunft in angefordert",
   wa_would_like: "ich möchte die Unterkunft in buchen",
+  wa_interest: "ich bin an der Unterkunft in interessiert",
   wa_date_to: "bis",
   wa_translation_prefix: "Spanische Übersetzung für den Gastgeber:",
   wa_client_detail: "Nachricht in der vom Kunden ausgewählten Sprache:"

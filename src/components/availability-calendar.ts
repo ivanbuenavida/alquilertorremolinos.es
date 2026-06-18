@@ -156,7 +156,6 @@ export class AvailabilityCalendar extends LitElement {
 
   private _handleWhatsAppClick(e: Event) {
     e.preventDefault();
-    if (!this._startDate || !this._endDate) return;
     AnalyticsService.trackLead(this._totalPrice, this._nights);
     const message = this._buildWhatsAppMessage();
     const waNumber = atob(contactConfig.whatsappBase64);
@@ -211,7 +210,7 @@ export class AvailabilityCalendar extends LitElement {
       if (this._startDate) webUrl.searchParams.set('checkin', this._formatDateLocal(this._startDate));
       if (this._endDate) webUrl.searchParams.set('checkout', this._formatDateLocal(this._endDate));
 
-      let msg = `${labels.wa_hello}, ${labels.wa_request_prefix}: ${labels.prop_location} (${contactConfig.googleMapsUrl}).`;
+      let msg = `${labels.wa_hello}, ${labels.wa_interest} ${labels.prop_location}\n- Web: ${webUrl.toString()}\n- Maps: ${contactConfig.googleMapsUrl}`;
       
       if (this._startDate && this._endDate) {
         msg = `${labels.wa_hello}, ${labels.wa_would_like} ${labels.prop_location}\n- Web: ${webUrl.toString()}\n- Maps: ${contactConfig.googleMapsUrl}\n\n${labels.cal_summary_title}:\n${labels.cal_summary_dates}: ${s} ${labels.wa_date_to} ${e}\n${labels.cal_summary_nights}: ${this._nights}`;
@@ -313,9 +312,8 @@ export class AvailabilityCalendar extends LitElement {
         <div class="d-grid gap-3 mb-4">
           <a 
             href="#"
-            class="btn btn-success btn-lg d-flex align-items-center justify-content-center gap-2 fw-bold rounded-pill shadow-sm ${!this._startDate || !this._endDate ? 'disabled opacity-50' : ''}" 
+            class="btn btn-success btn-lg d-flex align-items-center justify-content-center gap-2 fw-bold rounded-pill shadow-sm" 
             @click="${this._handleWhatsAppClick}"
-            aria-disabled="${!this._startDate || !this._endDate}"
           >
             <i class="bi bi-whatsapp fs-5"></i> ${TranslationService.l.cal_btn_whatsapp}
           </a>
