@@ -201,20 +201,26 @@ export class AvailabilityCalendar extends LitElement {
     const locale = TranslationService.currentLang;
     const l = TranslationService.l;
 
-    const buildMessage = (labels: any, lang: string) => {
+    const buildMessage = (labels: any, lang: string, urlLang: string) => {
       const s = this._startDate ? this._startDate.toLocaleDateString(lang) : '';
       const e = this._endDate ? this._endDate.toLocaleDateString(lang) : '';
       
+      // Construct URL with dates and correct language
+      const webUrl = new URL(window.location.origin + window.location.pathname);
+      webUrl.searchParams.set('lang', urlLang);
+      if (this._startDate) webUrl.searchParams.set('checkin', this._formatDateLocal(this._startDate));
+      if (this._endDate) webUrl.searchParams.set('checkout', this._formatDateLocal(this._endDate));
+
       let msg = `${labels.wa_hello}, ${labels.wa_request_prefix}: ${labels.prop_location} (${contactConfig.googleMapsUrl}).`;
       
       if (this._startDate && this._endDate) {
-        msg = `${labels.wa_hello}, ${labels.wa_would_like} ${labels.prop_location}\n- Maps: ${contactConfig.googleMapsUrl}\n\n${labels.cal_summary_title}:\n${labels.cal_summary_dates}: ${s} ${labels.wa_date_to} ${e}\n${labels.cal_summary_nights}: ${this._nights}`;
+        msg = `${labels.wa_hello}, ${labels.wa_would_like} ${labels.prop_location}\n- Web: ${webUrl.toString()}\n- Maps: ${contactConfig.googleMapsUrl}\n\n${labels.cal_summary_title}:\n${labels.cal_summary_dates}: ${s} ${labels.wa_date_to} ${e}\n${labels.cal_summary_nights}: ${this._nights}`;
       }
       return msg;
     };
 
-    const messageEs = buildMessage(TranslationService.getLabelsFor('es'), 'es-ES');
-    const messageSelected = buildMessage(l, locale);
+    const messageEs = buildMessage(TranslationService.getLabelsFor('es'), 'es-ES', 'es');
+    const messageSelected = buildMessage(l, locale, locale);
     return TranslationService.formatWhatsAppMessage(messageSelected, messageEs);
   }
 
