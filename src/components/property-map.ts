@@ -29,7 +29,7 @@ export class PropertyMap extends LitElement {
           </a>
         </div>
         <div class="rounded-4 overflow-hidden border shadow-sm" style="height: 400px; background-color: #f8f9fa;" @click="${() => AnalyticsService.trackMapClick()}">
-          <iframe src="https://maps.google.com/maps?q=36.62410380467056,-4.498605617816638&hl=${TranslationService.currentLang}&z=17&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe src="https://maps.google.com/maps?q=Patio%20Andaluz%202%20Dormitorios%20junto%20a%20Calle%20San%20Miguel,%20Torremolinos&hl=${TranslationService.currentLang}&z=17&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </section>
     `;
