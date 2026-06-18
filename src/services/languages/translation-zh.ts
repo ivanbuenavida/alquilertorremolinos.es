@@ -119,5 +119,6 @@ export const labels: Labels = {
   wa_interest: "我想咨询位于这里的房源：",
   wa_date_to: "至",
   wa_translation_prefix: "给房东的西班牙语翻译：",
-  wa_client_detail: "客户选择语言的消息："
+  wa_client_detail: "客户选择语言的消息：",
+  wa_view_on_web: "在网页上查看",
 };

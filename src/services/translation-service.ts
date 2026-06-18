@@ -127,6 +127,7 @@ export interface Labels {
   wa_date_to: string;
   wa_translation_prefix: string;
   wa_client_detail: string;
+  wa_view_on_web: string;
 }
 
 // Dynamically load all language modules in src/services/languages/

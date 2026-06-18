@@ -119,5 +119,6 @@ export const labels: Labels = {
   wa_interest: "sono interessato all'alloggio a",
   wa_date_to: "al",
   wa_translation_prefix: "Traduzione in spagnolo per l'host:",
-  wa_client_detail: "Messaggio nella lingua selezionata dal cliente:"
+  wa_client_detail: "Messaggio nella lingua selezionata dal cliente:",
+  wa_view_on_web: "Vedi sul sito",
 };

@@ -119,5 +119,6 @@ export const labels: Labels = {
   wa_interest: "jag är intresserad av boendet på",
   wa_date_to: "till",
   wa_translation_prefix: "Spansk översättning för värden:",
-  wa_client_detail: "Meddelande på det språk som kunden har valt:"
+  wa_client_detail: "Meddelande på det språk som kunden har valt:",
+  wa_view_on_web: "Visa på webben",
 };

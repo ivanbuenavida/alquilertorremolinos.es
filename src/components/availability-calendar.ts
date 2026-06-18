@@ -210,10 +210,10 @@ export class AvailabilityCalendar extends LitElement {
       if (this._startDate) webUrl.searchParams.set('checkin', this._formatDateLocal(this._startDate));
       if (this._endDate) webUrl.searchParams.set('checkout', this._formatDateLocal(this._endDate));
 
-      let msg = `${labels.wa_hello}, ${labels.wa_interest} ${labels.prop_location}\n- Web: ${webUrl.toString()}`;
+      let msg = `${labels.wa_hello},\n\n${labels.wa_interest} ${labels.prop_location}.\n\n${labels.wa_view_on_web}: ${webUrl.toString()}`;
       
       if (this._startDate && this._endDate) {
-        msg = `${labels.wa_hello}, ${labels.wa_would_like} ${labels.prop_location}\n- Web: ${webUrl.toString()}\n\n${labels.cal_summary_title}:\n${labels.cal_summary_dates}: ${s} ${labels.wa_date_to} ${e}\n${labels.cal_summary_nights}: ${this._nights}`;
+        msg = `${labels.wa_hello},\n\n${labels.wa_would_like} ${labels.prop_location}.\n\n*${labels.cal_summary_title}:*\n- *${labels.cal_summary_dates}:* ${s} ${labels.wa_date_to} ${e}\n- *${labels.cal_summary_nights}:* ${this._nights}\n\n${labels.wa_view_on_web}: ${webUrl.toString()}`;
       }
       return msg;
     };
