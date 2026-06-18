@@ -17,8 +17,28 @@ export class AvailabilityCalendar extends LitElement {
   @state() private _endDate: Date | null = null;
   @state() private _nights: number = 0;
   @state() private _totalPrice: number = 0;
-  @state() private _selectionError: string = '';
+  @state() private _errorType: 'min_nights' | 'overlap' | 'past_or_invalid' | null = null;
+  @state() private _errorParams: any = {};
   @state() private _alternatives: {start: Date, end: Date}[] = [];
+
+  private get _selectionError(): string {
+    if (!this._errorType) return '';
+    if (this._errorType === 'min_nights') {
+      return TranslationService.l.cal_err_min_nights(this._errorParams.reserved, this._errorParams.min);
+    }
+    if (this._errorType === 'overlap') {
+      return TranslationService.l.cal_err_overlap;
+    }
+    if (this._errorType === 'past_or_invalid') {
+      return TranslationService.l.cal_err_overlap; // fallback error translation
+    }
+    return '';
+  }
+
+  private _clearError() {
+    this._errorType = null;
+    this._errorParams = {};
+  }
 
   constructor() {
     super();
@@ -30,7 +50,7 @@ export class AvailabilityCalendar extends LitElement {
       this._endDate = e.detail.end;
       this._nights = e.detail.nights || 0;
       this._totalPrice = e.detail.totalPrice || 0;
-      this._selectionError = '';
+      this._clearError();
       this._alternatives = [];
       
       // TRACKING: Interest in specific dates
@@ -40,11 +60,14 @@ export class AvailabilityCalendar extends LitElement {
     });
 
     this.addEventListener('selection-error', (e: any) => {
-      this._selectionError = e.detail.message || '';
+      this._errorType = e.detail.type || null;
+      this._errorParams = e.detail.params || {};
       this._alternatives = e.detail.alternatives || [];
       
-    // TRACKING: Why aren't they booking? (Too few nights? Occupied?)
-      AnalyticsService.trackAvailabilityError('booking_restriction', this._selectionError);
+      // TRACKING: Why aren't they booking? (Too few nights? Occupied?)
+      if (this._errorType) {
+        AnalyticsService.trackAvailabilityError('booking_restriction', this._selectionError);
+      }
     });
   }
 
@@ -63,9 +86,13 @@ export class AvailabilityCalendar extends LitElement {
         const calendarView = this.querySelector('calendar-view') as any;
         if (calendarView) {
           try {
-            const start = new Date(checkinStr);
+            // Parse YYYY-MM-DD components directly to construct a local Date, avoiding timezone shifts
+            const [startYear, startMonth, startDay] = checkinStr.split('-').map(Number);
+            const start = new Date(startYear, startMonth - 1, startDay);
             start.setHours(0,0,0,0);
-            const end = new Date(checkoutStr);
+
+            const [endYear, endMonth, endDay] = checkoutStr.split('-').map(Number);
+            const end = new Date(endYear, endMonth - 1, endDay);
             end.setHours(0,0,0,0);
             
             if (!isNaN(start.getTime()) && !isNaN(end.getTime())) {
@@ -88,7 +115,7 @@ export class AvailabilityCalendar extends LitElement {
       calendarView._handleDayClick(alt.end, false);
       
       // Update local state just in case event takes time or we want immediate feedback
-      this._selectionError = '';
+      this._clearError();
       this._alternatives = [];
     }
   }
@@ -98,7 +125,7 @@ export class AvailabilityCalendar extends LitElement {
     this._endDate = null;
     this._nights = 0;
     this._totalPrice = 0;
-    this._selectionError = '';
+    this._clearError();
     this._alternatives = [];
     
     const calendarView = this.renderRoot.querySelector('calendar-view') as any;
@@ -108,11 +135,18 @@ export class AvailabilityCalendar extends LitElement {
     this._updateUrlWithDates();
   }
 
+  private _formatDateLocal(date: Date): string {
+    const y = date.getFullYear();
+    const m = (date.getMonth() + 1).toString().padStart(2, '0');
+    const d = date.getDate().toString().padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
   private _updateUrlWithDates() {
     const url = new URL(window.location.href);
     if (this._startDate && this._endDate) {
-      url.searchParams.set('checkin', this._startDate.toISOString().split('T')[0]);
-      url.searchParams.set('checkout', this._endDate.toISOString().split('T')[0]);
+      url.searchParams.set('checkin', this._formatDateLocal(this._startDate));
+      url.searchParams.set('checkout', this._formatDateLocal(this._endDate));
     } else {
       url.searchParams.delete('checkin');
       url.searchParams.delete('checkout');
@@ -153,8 +187,8 @@ export class AvailabilityCalendar extends LitElement {
     // Construct URL with dates
     const url = new URL(window.location.origin + window.location.pathname);
     url.searchParams.set('lang', TranslationService.currentLang);
-    if (this._startDate) url.searchParams.set('checkin', this._startDate.toISOString().split('T')[0]);
-    if (this._endDate) url.searchParams.set('checkout', this._endDate.toISOString().split('T')[0]);
+    if (this._startDate) url.searchParams.set('checkin', this._formatDateLocal(this._startDate));
+    if (this._endDate) url.searchParams.set('checkout', this._formatDateLocal(this._endDate));
 
     await shareService.share({
       title: TranslationService.l.cal_share_title,

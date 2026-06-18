@@ -189,7 +189,10 @@ export class CalendarView extends LitElement {
         // Enforce dynamic min nights
         if (diffDays < requiredMinNights) {
           this.dispatchEvent(new CustomEvent('selection-error', {
-            detail: { message: TranslationService.l.cal_err_min_nights(diffDays, requiredMinNights) },
+            detail: { 
+              type: 'min_nights',
+              params: { reserved: diffDays, min: requiredMinNights }
+            },
             bubbles: true,
             composed: true
           }));
@@ -203,7 +206,10 @@ export class CalendarView extends LitElement {
         if (hasBusyDaysBetween) {
           const alternatives = await this._findAlternativeDates(startTime, clickedTime, requiredMinNights);
           this.dispatchEvent(new CustomEvent('selection-error', {
-            detail: { message: TranslationService.l.cal_err_overlap, alternatives },
+            detail: { 
+              type: 'overlap',
+              alternatives
+            },
             bubbles: true,
             composed: true
           }));
@@ -217,7 +223,7 @@ export class CalendarView extends LitElement {
 
     // Clear error if there's no error at this point
     this.dispatchEvent(new CustomEvent('selection-error', {
-      detail: { message: '' },
+      detail: { type: null },
       bubbles: true,
       composed: true
     }));
@@ -266,10 +272,107 @@ export class CalendarView extends LitElement {
 
   async setRange(start: Date, end: Date) {
     this._currentDate = new Date(start.getFullYear(), start.getMonth(), 1);
-    this._startDate = new Date(start);
+    this._startDate = null;
     this._endDate = null;
     await this._generateCalendar();
-    await this._handleDayClick(end, false);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // 1. Basic range check
+    if (start.getTime() >= end.getTime()) {
+      this.dispatchEvent(new CustomEvent('selection-error', {
+        detail: { type: 'past_or_invalid' },
+        bubbles: true,
+        composed: true
+      }));
+      return;
+    }
+
+    // 2. Past or out of bounds check
+    if (start.getTime() < today.getTime() || end.getTime() < today.getTime() ||
+        start.getTime() > this._maxDate.getTime() || end.getTime() > this._maxDate.getTime()) {
+      this.dispatchEvent(new CustomEvent('selection-error', {
+        detail: { type: 'past_or_invalid' },
+        bubbles: true,
+        composed: true
+      }));
+      return;
+    }
+
+    const diffDays = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+
+    // 3. Max nights check
+    if (diffDays > 30) {
+      this._limitMsgKey = '30days';
+      this.dispatchEvent(new CustomEvent('selection-error', {
+        detail: { type: null },
+        bubbles: true,
+        composed: true
+      }));
+      return;
+    }
+
+    // 4. Min nights check
+    const requiredMinNights = pricingService.getMinNightsForDate(start);
+    if (diffDays < requiredMinNights) {
+      this.dispatchEvent(new CustomEvent('selection-error', {
+        detail: { 
+          type: 'min_nights',
+          params: { reserved: diffDays, min: requiredMinNights }
+        },
+        bubbles: true,
+        composed: true
+      }));
+      return;
+    }
+
+    // 5. Busy / overlap check
+    const busyEvents = await calendarService.getBusyDays(start, end);
+    const hasBusyDaysBetween = this._checkIfBusyRange(start, diffDays, busyEvents);
+    if (hasBusyDaysBetween) {
+      const alternatives = await this._findAlternativeDates(start.getTime(), end.getTime(), requiredMinNights);
+      this.dispatchEvent(new CustomEvent('selection-error', {
+        detail: { 
+          type: 'overlap',
+          alternatives
+        },
+        bubbles: true,
+        composed: true
+      }));
+      return;
+    }
+
+    // If all checks pass, set the dates and select the range
+    this._startDate = new Date(start);
+    this._endDate = new Date(end);
+    this._limitMsgKey = null;
+
+    // Clear error
+    this.dispatchEvent(new CustomEvent('selection-error', {
+      detail: { type: null },
+      bubbles: true,
+      composed: true
+    }));
+
+    // Calculate total price
+    let totalPrice = 0;
+    let curr = new Date(this._startDate);
+    while (curr < this._endDate) {
+      totalPrice += pricingService.getPriceAndSeasonForDate(curr).price;
+      curr.setDate(curr.getDate() + 1);
+    }
+
+    this.dispatchEvent(new CustomEvent('range-selected', {
+      detail: { 
+        start: this._startDate, 
+        end: this._endDate,
+        nights: diffDays,
+        totalPrice: totalPrice
+      },
+      bubbles: true,
+      composed: true
+    }));
   }
 
   resetSelection() {
