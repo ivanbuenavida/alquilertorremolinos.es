@@ -26,8 +26,8 @@ export class HostProfile extends LitElement {
         <div class="row gx-4 gx-lg-5">
           <div class="col-md-4 mb-4 mb-md-0">
             <div class="card bg-white shadow-sm border rounded-4 text-center p-4 mb-0">
-              <img src="${this.host.image || '/logo.svg'}" class="rounded-circle mx-auto mb-3" width="100" height="100" style="object-fit:cover;" alt="${TranslationService.l.prop_host_prefix} - ${this.host.name}">
-              <h4 class="fw-bold mb-1">${this.host.name}</h4>
+              <img src="${this.host.image || '/logo.svg'}" class="rounded-circle mx-auto mb-3" width="100" height="100" style="object-fit:cover;" alt="${TranslationService.l.prop_host_prefix}">
+              <h4 class="fw-bold mb-1">${TranslationService.l.prop_host_prefix}</h4>
               <p class="text-muted small mb-0"><i class="bi bi-award-fill text-dark"></i> ${TranslationService.l.host_superhost}</p>
             </div>
           </div>
@@ -44,7 +44,7 @@ export class HostProfile extends LitElement {
               </div>
               <div class="col-md-6 d-flex align-items-center text-body fs-6">
                 <i class="bi bi-chat-quote me-2 fs-5"></i>
-                <span>${this.host.name === 'Iván' ? TranslationService.l.host_qualities_ivan : TranslationService.l.host_qualities_other}</span>
+                <span>${TranslationService.l.host_qualities_ivan}</span>
               </div>
               <div class="col-md-12 d-flex align-items-center text-body fs-6 mt-1 mt-md-0">
                 <i class="bi bi-translate me-2 fs-5"></i>
