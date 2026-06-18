@@ -280,10 +280,11 @@ export class TranslationService {
   }
 
   static formatWhatsAppMessage(messageSelected: string, messageEs: string): string {
+    const website = window.location.origin;
     if (this._currentLang === 'es') {
-      return messageEs;
+      return `${messageEs}\n\n${website}`;
     }
-    const label = this.l.wa_client_detail;
-    return `${messageEs}\n\n---\n${label}\n${messageSelected}`;
+    const label = this.l.wa_translation_prefix;
+    return `${messageSelected}\n\n---\n${label}\n${messageEs}\n\n${website}`;
   }
 }
