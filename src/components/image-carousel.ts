@@ -121,12 +121,10 @@ export class ImageCarousel extends LitElement {
             
             <!-- Modal Top Bar -->
             <div class="border-bottom" style="background-color: rgba(255, 255, 255, 0.65); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom-color: rgba(0, 0, 0, 0.08) !important;">
-              <div class="container px-4 py-3 d-flex justify-content-between align-items-center">
-                <div class="fw-bold fs-5 text-dark">${TranslationService.l.img_gallery_title}</div>
-                
+              <div class="container px-4 py-3 d-flex align-items-center">
                 <button class="btn btn-outline-dark rounded-pill px-3 py-1.5 fw-semibold d-flex align-items-center gap-2" @click="${this._closeModal}">
-                  <span>${TranslationService.l.img_btn_close}</span>
-                  <i class="bi bi-x-lg fs-6"></i>
+                  <i class="bi bi-arrow-left fs-5"></i>
+                  <span>${TranslationService.l.img_btn_back}</span>
                 </button>
               </div>
             </div>
