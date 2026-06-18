@@ -205,10 +205,10 @@ export class AvailabilityCalendar extends LitElement {
       const s = this._startDate ? this._startDate.toLocaleDateString(lang, dateOptions) : '';
       const e = this._endDate ? this._endDate.toLocaleDateString(lang, dateOptions) : '';
       
-      let msg = `${labels.wa_hello}, ${labels.wa_interest} ${labels.prop_location}.`;
+      let msg = `${labels.wa_hello}, ${labels.wa_interest} "${labels.prop_location}".`;
       
       if (this._startDate && this._endDate) {
-        msg = `${labels.wa_hello}, ${labels.wa_would_like} ${labels.prop_location} ${labels.wa_date_from} ${s} ${labels.wa_date_to} ${e}.`;
+        msg = `${labels.wa_hello}, ${labels.wa_would_like} "${labels.prop_location}" ${labels.wa_date_from} ${s} ${labels.wa_date_to} ${e}.`;
       }
       return msg;
     };
