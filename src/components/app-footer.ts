@@ -37,11 +37,11 @@ export class AppFooter extends LitElement {
       <footer class="bg-dark text-white text-center py-4 mt-5">
         <div class="container">
           <div class="mb-3 d-inline-flex align-items-center gap-3 flex-wrap justify-content-center">
-            <a href="#" @click="${this._handleWaFooterClick}" class="text-white text-decoration-none d-inline-flex align-items-center gap-2" style="opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+            <a href="#" @click="${this._handleWaFooterClick}" class="text-white text-decoration-none d-inline-flex align-items-center gap-2 link-light link-opacity-75 link-opacity-100-hover">
               <i class="bi bi-whatsapp fs-5"></i> ${TranslationService.l.footer_whatsapp}
             </a>
             <span class="text-white-50">|</span>
-            <a href="#" @click="${this._handleCallClick}" class="text-white text-decoration-none d-inline-flex align-items-center gap-2" style="opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+            <a href="#" @click="${this._handleCallClick}" class="text-white text-decoration-none d-inline-flex align-items-center gap-2 link-light link-opacity-75 link-opacity-100-hover">
               <i class="bi bi-telephone fs-5"></i>
               <span>+34 614 <span style="display:none">bots</span>44 98 90</span>
             </a>
