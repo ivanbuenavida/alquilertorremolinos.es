@@ -200,26 +200,20 @@ export class AvailabilityCalendar extends LitElement {
     const locale = TranslationService.currentLang;
     const l = TranslationService.l;
 
-    const buildMessage = (labels: any, lang: string, urlLang: string) => {
+    const buildMessage = (labels: any, lang: string) => {
       const s = this._startDate ? this._startDate.toLocaleDateString(lang) : '';
       const e = this._endDate ? this._endDate.toLocaleDateString(lang) : '';
       
-      // Construct URL with dates and correct language
-      const webUrl = new URL(window.location.origin + window.location.pathname);
-      webUrl.searchParams.set('lang', urlLang);
-      if (this._startDate) webUrl.searchParams.set('checkin', this._formatDateLocal(this._startDate));
-      if (this._endDate) webUrl.searchParams.set('checkout', this._formatDateLocal(this._endDate));
-
-      let msg = `${labels.wa_hello},\n\n${labels.wa_interest} ${labels.prop_location}.\n\n${labels.wa_view_on_web}: ${webUrl.toString()}`;
+      let msg = `${labels.wa_hello},\n\n${labels.wa_interest} ${labels.prop_location}.`;
       
       if (this._startDate && this._endDate) {
-        msg = `${labels.wa_hello},\n\n${labels.wa_would_like} ${labels.prop_location}.\n\n*${labels.cal_summary_title}:*\n- *${labels.cal_summary_dates}:* ${s} ${labels.wa_date_to} ${e}\n- *${labels.cal_summary_nights}:* ${this._nights}\n\n${labels.wa_view_on_web}: ${webUrl.toString()}`;
+        msg = `${labels.wa_hello},\n\n${labels.wa_would_like} ${labels.prop_location}.\n\n*${labels.cal_summary_title}:*\n- *${labels.cal_summary_dates}:* ${s} ${labels.wa_date_to} ${e}\n- *${labels.cal_summary_nights}:* ${this._nights}`;
       }
       return msg;
     };
 
-    const messageEs = buildMessage(TranslationService.getLabelsFor('es'), 'es-ES', 'es');
-    const messageSelected = buildMessage(l, locale, locale);
+    const messageEs = buildMessage(TranslationService.getLabelsFor('es'), 'es-ES');
+    const messageSelected = buildMessage(l, locale);
     return TranslationService.formatWhatsAppMessage(messageSelected, messageEs);
   }
 
