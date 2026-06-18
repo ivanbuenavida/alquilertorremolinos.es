@@ -201,13 +201,14 @@ export class AvailabilityCalendar extends LitElement {
     const l = TranslationService.l;
 
     const buildMessage = (labels: any, lang: string) => {
-      const s = this._startDate ? this._startDate.toLocaleDateString(lang) : '';
-      const e = this._endDate ? this._endDate.toLocaleDateString(lang) : '';
+      const dateOptions: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+      const s = this._startDate ? this._startDate.toLocaleDateString(lang, dateOptions) : '';
+      const e = this._endDate ? this._endDate.toLocaleDateString(lang, dateOptions) : '';
       
-      let msg = `${labels.wa_hello},\n\n${labels.wa_interest} ${labels.prop_location}.`;
+      let msg = `${labels.wa_hello}, ${labels.wa_interest} ${labels.prop_location}.`;
       
       if (this._startDate && this._endDate) {
-        msg = `${labels.wa_hello},\n\n${labels.wa_would_like} ${labels.prop_location}.\n\n*${labels.cal_summary_title}:*\n- *${labels.cal_summary_dates}:* ${s} ${labels.wa_date_to} ${e}\n- *${labels.cal_summary_nights}:* ${this._nights}`;
+        msg = `${labels.wa_hello}, ${labels.wa_would_like} ${labels.prop_location} ${labels.wa_date_from} ${s} ${labels.wa_date_to} ${e}.`;
       }
       return msg;
     };
