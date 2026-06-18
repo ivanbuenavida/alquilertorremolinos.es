@@ -120,17 +120,27 @@ export class AvailabilityCalendar extends LitElement {
     window.history.replaceState({}, '', url.toString());
   }
 
-  private _handleWhatsAppClick() {
+  private _handleWhatsAppClick(e: Event) {
+    e.preventDefault();
+    if (!this._startDate || !this._endDate) return;
     AnalyticsService.trackLead(this._totalPrice, this._nights);
-    console.log('WhatsApp booking clicked');
+    const message = this._buildWhatsAppMessage();
+    const waNumber = atob(contactConfig.whatsappBase64);
+    window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`, '_blank');
   }
 
   private _handleCallClick(e: Event) {
     e.preventDefault();
     AnalyticsService.trackContact('Call Calendar');
-    // Decode base64 '+34614449890'
-    const phone = atob('KzM0NjE0NDQ5ODkw');
+    const phone = atob(contactConfig.phoneBase64).replace(/\s+/g, '');
     window.location.href = `tel:${phone}`;
+  }
+
+  private _handleGeneralWaClick(e: Event) {
+    e.preventDefault();
+    AnalyticsService.trackContact('WhatsApp Calendar Accordion');
+    const waNumber = atob(contactConfig.whatsappBase64);
+    window.open(`https://wa.me/${waNumber}`, '_blank');
   }
 
   private async _handleShareClick() {
@@ -153,8 +163,7 @@ export class AvailabilityCalendar extends LitElement {
     });
   }
 
-
-  private _getWhatsAppUrl() {
+  private _buildWhatsAppMessage() {
     const locale = TranslationService.currentLang;
     const l = TranslationService.l;
 
@@ -172,9 +181,7 @@ export class AvailabilityCalendar extends LitElement {
 
     const messageEs = buildMessage(TranslationService.getLabelsFor('es'), 'es-ES');
     const messageSelected = buildMessage(l, locale);
-    const message = TranslationService.formatWhatsAppMessage(messageSelected, messageEs);
-
-    return `https://wa.me/${contactConfig.whatsapp}?text=${encodeURIComponent(message)}`;
+    return TranslationService.formatWhatsAppMessage(messageSelected, messageEs);
   }
 
   render() {
@@ -265,8 +272,7 @@ export class AvailabilityCalendar extends LitElement {
 
         <div class="d-grid gap-3 mb-4">
           <a 
-            href="${this._getWhatsAppUrl()}" 
-            target="_blank"
+            href="#"
             class="btn btn-success btn-lg d-flex align-items-center justify-content-center gap-2 fw-bold rounded-pill shadow-sm ${!this._startDate || !this._endDate ? 'disabled opacity-50' : ''}" 
             @click="${this._handleWhatsAppClick}"
             aria-disabled="${!this._startDate || !this._endDate}"
@@ -343,7 +349,7 @@ export class AvailabilityCalendar extends LitElement {
               <div class="accordion-body small text-muted pt-0 pb-3">
                 <p class="mb-2">${TranslationService.l.pol_contact_desc}</p>
                 <div class="d-flex flex-column gap-2">
-                  <a href="https://wa.me/${contactConfig.whatsapp}" target="_blank" class="text-decoration-none text-success d-flex align-items-center gap-2">
+                  <a href="#" @click="${this._handleGeneralWaClick}" class="text-decoration-none text-success d-flex align-items-center gap-2">
                     <i class="bi bi-whatsapp"></i> WhatsApp
                   </a>
                   <a href="#" 

@@ -1,15 +1,15 @@
 export interface ContactConfig {
-  phone: string;
-  whatsapp: string;
+  phoneBase64: string;
+  whatsappBase64: string;
   googleMapsUrl: string;
 }
 
 export const contactConfig: ContactConfig = {
-  // Número principal de contacto (formato legible)
-  phone: '+34 614 44 98 90',
+  // Base64 de '+34 614 44 98 90'
+  phoneBase64: 'KzM0IDYxNCA0NCA5OCA5MA==',
   
-  // Número para enlaces de WhatsApp (limpio sin '+')
-  whatsapp: '34614449890',
+  // Base64 de '34614449890'
+  whatsappBase64: 'MzQ2MTQ0NDk4OTA=',
   
   // Enlace a Google Maps para ver la ubicación del alojamiento
   googleMapsUrl: 'https://maps.app.goo.gl/pjxcoY85eUZZqP8H7'

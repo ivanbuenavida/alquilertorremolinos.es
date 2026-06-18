@@ -373,6 +373,16 @@ export class CalendarView extends LitElement {
     return date.toLocaleDateString(locale, { month: 'long', year: 'numeric' });
   }
 
+  private _handleWaLimitClick(e: Event) {
+    e.preventDefault();
+    const dateStr = this._maxDate.toLocaleDateString(
+      ({ 'es': 'es-ES', 'en': 'en-US', 'de': 'de-DE', 'fr': 'fr-FR', 'nl': 'nl-NL' } as any)[TranslationService.currentLang] || 'es-ES'
+    );
+    const message = TranslationService.l.cal_wa_limit_msg(dateStr);
+    const waNumber = atob(contactConfig.whatsappBase64);
+    window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`, '_blank');
+  }
+
 
   render() {
     const lang = TranslationService.currentLang;
@@ -468,8 +478,8 @@ export class CalendarView extends LitElement {
               <div class="d-flex align-items-center gap-2 text-dark fw-medium">
                 <span>${this._limitMsgKey === '30days' ? TranslationService.l.cal_err_max_nights_msg : TranslationService.l.cal_err_date_limit_msg}</span>
               </div>
-              <a href="https://wa.me/${contactConfig.whatsapp}?text=${encodeURIComponent(TranslationService.l.cal_wa_limit_msg(this._maxDate.toLocaleDateString(({ 'es': 'es-ES', 'en': 'en-US', 'de': 'de-DE', 'fr': 'fr-FR', 'nl': 'nl-NL' } as any)[TranslationService.currentLang] || 'es-ES')))}" 
-                 target="_blank" 
+              <a href="#" 
+                 @click="${this._handleWaLimitClick}" 
                  class="btn btn-outline-success btn-sm rounded-pill px-3 fw-bold mt-1">
                 <i class="bi bi-whatsapp me-1"></i> WhatsApp
               </a>
