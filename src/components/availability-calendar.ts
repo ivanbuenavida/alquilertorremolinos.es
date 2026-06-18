@@ -125,6 +125,14 @@ export class AvailabilityCalendar extends LitElement {
     console.log('WhatsApp booking clicked');
   }
 
+  private _handleCallClick(e: Event) {
+    e.preventDefault();
+    AnalyticsService.trackContact('Call Calendar');
+    // Decode base64 '+34614449890'
+    const phone = atob('KzM0NjE0NDQ5ODkw');
+    window.location.href = `tel:${phone}`;
+  }
+
   private async _handleShareClick() {
     const propertyTitle = TranslationService.l.app_property_title;
     const locale = TranslationService.currentLang;
@@ -340,9 +348,9 @@ export class AvailabilityCalendar extends LitElement {
                   </a>
                   <a href="#" 
                      class="text-decoration-none d-flex align-items-center gap-2"
-                     @click="${(e: Event) => { e.preventDefault(); window.location.href = `mailto:${contactConfig.emailUser}@${contactConfig.emailDomain}`; }}">
-                    <i class="bi bi-envelope"></i>
-                    <span>${contactConfig.emailUser}<span style="display:none">robots</span>@${contactConfig.emailDomain}</span>
+                     @click="${this._handleCallClick}">
+                    <i class="bi bi-telephone"></i>
+                    <span>+34 614 <span style="display:none">bots</span>44 98 90</span>
                   </a>
                 </div>
               </div>
