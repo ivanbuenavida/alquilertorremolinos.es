@@ -85,6 +85,7 @@ export const labels: Labels = {
   month_jul: "七月", month_aug: "八月", month_sep: "九月",
   month_oct: "十月", month_nov: "十一月", month_dec: "十二月",
   img_btn_show_all: "查看全部照片",
+  img_btn_close: "关闭",
   img_gallery_title: "照片之旅",
   img_btn_share: "分享",
   img_gallery_photo: "照片",

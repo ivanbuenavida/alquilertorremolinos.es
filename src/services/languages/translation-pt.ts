@@ -85,6 +85,7 @@ export const labels: Labels = {
   month_jul: "Julho", month_aug: "Agosto", month_sep: "Setembro",
   month_oct: "Outubro", month_nov: "Novembro", month_dec: "Dezembro",
   img_btn_show_all: "Mostrar todas as fotos",
+  img_btn_close: "Fechar",
   img_gallery_title: "Visita fotográfica",
   img_btn_share: "Partilhar",
   img_gallery_photo: "Foto",

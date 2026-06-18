@@ -85,6 +85,7 @@ export const labels: Labels = {
   month_jul: "Juli", month_aug: "Augusti", month_sep: "September",
   month_oct: "Oktober", month_nov: "November", month_dec: "December",
   img_btn_show_all: "Visa alla bilder",
+  img_btn_close: "Stäng",
   img_gallery_title: "Fototur",
   img_btn_share: "Dela",
   img_gallery_photo: "Bild",

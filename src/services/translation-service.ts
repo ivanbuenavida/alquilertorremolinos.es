@@ -89,6 +89,7 @@ export interface Labels {
   month_jul: string; month_aug: string; month_sep: string;
   month_oct: string; month_nov: string; month_dec: string;
   img_btn_show_all: string;
+  img_btn_close: string;
   img_gallery_title: string;
   img_btn_share: string;
   img_gallery_photo: string;

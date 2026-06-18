@@ -114,33 +114,32 @@ export class ImageCarousel extends LitElement {
 
       <!-- Fullscreen Modal Gallery -->
       ${this._showModal ? html`
-        <div class="position-fixed top-0 start-0 w-100 h-100" style="z-index: 1050; background-color: rgba(255, 255, 255, 0.95);" @click="${this._handleOverlayClick}">
+        <div class="position-fixed top-0 start-0 w-100 h-100" style="z-index: 1050; background-color: rgba(33, 37, 41, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);" @click="${this._handleOverlayClick}">
           
           <!-- Sticky Header Area (Top Bar + Thumbnails) -->
           <div class="sticky-top w-100" style="background-color: transparent;">
             
             <!-- Modal Top Bar -->
-            <div class="px-4 py-3 d-flex justify-content-between align-items-center bg-white bg-opacity-75" style="backdrop-filter: blur(10px);">
-              <button class="btn btn-light rounded-circle p-2 d-flex align-items-center justify-content-center border" style="width: 40px; height: 40px;" @click="${this._closeModal}">
-                <i class="bi bi-chevron-left"></i>
-              </button>
+            <div class="px-4 py-3 d-flex justify-content-between align-items-center" style="background-color: rgba(33, 37, 41, 0.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.15);">
+              <div class="fw-bold fs-5 text-white">${TranslationService.l.img_gallery_title}</div>
               
-              <div class="fw-bold fs-5 d-none d-md-block flex-grow-1 text-center">${TranslationService.l.img_gallery_title}</div>
-
-              <div style="width: 40px;"></div> <!-- Spacer to keep title centered -->
+              <button class="btn btn-outline-light rounded-pill px-3 py-1.5 fw-semibold d-flex align-items-center gap-2" @click="${this._closeModal}">
+                <span>${TranslationService.l.img_btn_close}</span>
+                <i class="bi bi-x-lg fs-6"></i>
+              </button>
             </div>
 
             <!-- Thumbnail Bar -->
-            <div class="w-100 bg-white bg-opacity-75 border-bottom py-3 overflow-auto" style="backdrop-filter: blur(10px); white-space: nowrap;">
+            <div class="w-100 border-bottom py-3 overflow-auto" style="background-color: rgba(33, 37, 41, 0.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom-color: rgba(255, 255, 255, 0.15) !important; white-space: nowrap;">
               <div class="container d-flex gap-3 px-4">
                 ${this.images.map((img, index) => html`
-                  <a href="#gallery-img-${index}" class="text-decoration-none text-dark d-inline-block" style="width: 120px;" @click="${(e: Event) => {
+                  <a href="#gallery-img-${index}" class="text-decoration-none d-inline-block link-light link-opacity-75 link-opacity-100-hover" style="width: 120px;" @click="${(e: Event) => {
                     e.preventDefault();
                     const target = this.renderRoot.querySelector(`#gallery-img-${index}`);
                     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
                   }}">
-                    <img src="${img}" class="img-fluid rounded mb-1 w-100 object-fit-cover" style="height: 80px;" alt="${(TranslationService.l as any)['img_title_' + (index + 1)]}">
-                    <div class="small text-truncate text-center">${(TranslationService.l as any)['img_title_' + (index + 1)]}</div>
+                    <img src="${img}" class="img-fluid rounded mb-1 w-100 object-fit-cover border border-white border-opacity-10" style="height: 80px;" alt="${(TranslationService.l as any)['img_title_' + (index + 1)]}">
+                    <div class="small text-truncate text-center text-white-50">${(TranslationService.l as any)['img_title_' + (index + 1)]}</div>
                   </a>
                 `)}
               </div>
@@ -154,7 +153,7 @@ export class ImageCarousel extends LitElement {
               <div class="d-flex flex-column gap-5">
                 ${this.images.map((img, index) => html`
                   <div class="w-100" id="gallery-img-${index}">
-                    <img src="${img}" class="img-fluid rounded-4 w-100 shadow-sm border border-light" alt="${(TranslationService.l as any)['img_title_' + (index + 1)]} - Alquiler Torremolinos">
+                    <img src="${img}" class="img-fluid rounded-4 w-100 shadow-lg border border-white border-opacity-10" alt="${(TranslationService.l as any)['img_title_' + (index + 1)]} - Alquiler Torremolinos">
                   </div>
                 `)}
               </div>
