@@ -20,7 +20,9 @@ export class AppFooter extends LitElement {
   }
 
   render() {
-    const footerWaMsg = encodeURIComponent(TranslationService.l.footer_whatsapp_msg);
+    const msgEs = TranslationService.getLabelsFor('es').footer_whatsapp_msg;
+    const msgSelected = TranslationService.l.footer_whatsapp_msg;
+    const footerWaMsg = encodeURIComponent(TranslationService.formatWhatsAppMessage(msgSelected, msgEs));
     const footerWaUrl = `https://wa.me/${contactConfig.whatsapp}?text=${footerWaMsg}`;
 
     return html`

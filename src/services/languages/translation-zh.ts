@@ -116,5 +116,6 @@ export const labels: Labels = {
   wa_request_prefix: "已申请预订以下地点的房源：",
   wa_would_like: "我想预订位于这里的房源：",
   wa_date_to: "至",
-  wa_translation_prefix: "给房东的西班牙语翻译："
+  wa_translation_prefix: "给房东的西班牙语翻译：",
+  wa_client_detail: "🌐 客户选择语言的消息："
 };

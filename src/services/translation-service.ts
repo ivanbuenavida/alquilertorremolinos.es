@@ -124,6 +124,7 @@ export interface Labels {
   wa_would_like: string;
   wa_date_to: string;
   wa_translation_prefix: string;
+  wa_client_detail: string;
 }
 
 // Dynamically load all language modules in src/services/languages/
@@ -272,5 +273,13 @@ export class TranslationService {
       'bi-car-front': this.l.amen_parking,
     };
     return map[key] || key;
+  }
+
+  static formatWhatsAppMessage(messageSelected: string, messageEs: string): string {
+    if (this._currentLang === 'es') {
+      return messageEs;
+    }
+    const label = this.l.wa_client_detail;
+    return `${messageEs}\n\n---\n${label}\n${messageSelected}`;
   }
 }

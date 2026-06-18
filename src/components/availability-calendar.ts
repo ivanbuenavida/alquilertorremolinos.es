@@ -162,14 +162,9 @@ export class AvailabilityCalendar extends LitElement {
       return msg;
     };
 
-    let message = buildMessage(l, locale);
-
-    // If not in Spanish, append Spanish translation for the host
-    if (locale !== 'es') {
-      const labelsEs = TranslationService.getLabelsFor('es');
-      const messageEs = buildMessage(labelsEs, 'es-ES');
-      message += `\n\n---\n${l.wa_translation_prefix}\n${messageEs}`;
-    }
+    const messageEs = buildMessage(TranslationService.getLabelsFor('es'), 'es-ES');
+    const messageSelected = buildMessage(l, locale);
+    const message = TranslationService.formatWhatsAppMessage(messageSelected, messageEs);
 
     return `https://wa.me/${contactConfig.whatsapp}?text=${encodeURIComponent(message)}`;
   }
