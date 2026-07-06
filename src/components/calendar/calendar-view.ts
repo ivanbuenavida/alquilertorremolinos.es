@@ -5,6 +5,38 @@ import { TranslationService } from '../../services/translation-service';
 import { pricingService } from '../../services/pricing-service';
 import { contactConfig } from '../../config/contact-config';
 
+const getLocalDateString = (d: Date): string => {
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+};
+
+const parseToLocalDateString = (dateStr: string): string => {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+    return dateStr;
+  }
+  const d = new Date(dateStr);
+  try {
+    const formatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Europe/Madrid',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    });
+    const parts = formatter.formatToParts(d);
+    const month = parts.find(p => p.type === 'month')!.value;
+    const day = parts.find(p => p.type === 'day')!.value;
+    const year = parts.find(p => p.type === 'year')!.value;
+    return `${year}-${month}-${day}`;
+  } catch (e) {
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  }
+};
+
 @customElement('calendar-view')
 export class CalendarView extends LitElement {
   createRenderRoot() {
@@ -18,10 +50,6 @@ export class CalendarView extends LitElement {
   
   @state() _startDate: Date | null = null;
   @state() _endDate: Date | null = null;
-
-  private static readonly CHECKIN_HOUR = 15;
-  private static readonly CHECKOUT_HOUR = 12;
-  private static readonly CLEANING_BUFFER_HRS = 1;
 
   private _minDate = new Date();
   private _maxDate = new Date();
@@ -44,27 +72,16 @@ export class CalendarView extends LitElement {
   }
 
   private _getBusyState(date: Date, events: CalendarEvent[]): { isBusy: boolean, isBooking: boolean } {
-    // A day in the grid is "Busy" (not selectable for check-in) if the night 
-    // starting on that day is already occupied or doesn't respect the buffer.
-    const checkInWithBuffer = new Date(date);
-    checkInWithBuffer.setHours(CalendarView.CHECKIN_HOUR - CalendarView.CLEANING_BUFFER_HRS, 0, 0, 0);
-    
-    const nightEnd = new Date(date);
-    nightEnd.setDate(nightEnd.getDate() + 1);
-    nightEnd.setHours(CalendarView.CHECKOUT_HOUR, 0, 0, 0);
+    const currStr = getLocalDateString(date);
 
     let isBusy = false;
     let isBooking = false;
 
     for (const event of events) {
-      const eStart = new Date(event.start);
-      const eEnd = new Date(event.end);
-      
-      // Standard overlap check: max(start) < min(end)
-      const overlapStart = Math.max(checkInWithBuffer.getTime(), eStart.getTime());
-      const overlapEnd = Math.min(nightEnd.getTime(), eEnd.getTime());
-      
-      if (overlapStart < overlapEnd) {
+      const eStartStr = parseToLocalDateString(event.start);
+      const eEndStr = parseToLocalDateString(event.end);
+
+      if (currStr >= eStartStr && currStr < eEndStr) {
         isBusy = true;
         if (event.source === 'booking') {
           isBooking = true;
@@ -437,24 +454,20 @@ export class CalendarView extends LitElement {
   }
 
   private _checkIfBusyRange(start: Date, days: number, events: CalendarEvent[]): boolean {
-    // Construct the requested interval with hours and buffers
-    const requestedStart = new Date(start);
-    requestedStart.setHours(CalendarView.CHECKIN_HOUR - CalendarView.CLEANING_BUFFER_HRS, 0, 0, 0);
-    
-    const requestedEnd = new Date(start);
-    requestedEnd.setDate(requestedEnd.getDate() + days);
-    requestedEnd.setHours(CalendarView.CHECKOUT_HOUR, 0, 0, 0);
-
-    const reqStartTime = requestedStart.getTime();
-    const reqEndTime = requestedEnd.getTime();
-
-    return events.some(event => {
-      const eStart = new Date(event.start).getTime();
-      const eEnd = new Date(event.end).getTime();
-      
-      // Any overlap with the requested range (including buffer) means it's busy
-      return Math.max(reqStartTime, eStart) < Math.min(reqEndTime, eEnd);
-    });
+    const curr = new Date(start);
+    for (let i = 0; i < days; i++) {
+      const currStr = getLocalDateString(curr);
+      const isNightBusy = events.some(event => {
+        const eStartStr = parseToLocalDateString(event.start);
+        const eEndStr = parseToLocalDateString(event.end);
+        return currStr >= eStartStr && currStr < eEndStr;
+      });
+      if (isNightBusy) {
+        return true;
+      }
+      curr.setDate(curr.getDate() + 1);
+    }
+    return false;
   }
 
   private _isDateSelected(date: Date) {
