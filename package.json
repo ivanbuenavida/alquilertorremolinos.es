@@ -1,21 +1,23 @@
 {
-  "name": "temp_app",
+  "name": "alquilertorremolinos-monorepo",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@types/bootstrap": "^5.2.10",
-    "bootstrap": "^5.3.8",
-    "bootstrap-icons": "^1.13.1",
-    "lit": "^3.3.1"
+    "dev": "npm run dev --workspace=@alquiler/web",
+    "build": "npm run build --workspace=@alquiler/web",
+    "preview": "npm run preview --workspace=@alquiler/web",
+    "test:i18n": "npm run test:i18n --workspace=@alquiler/web",
+    "build:packages": "npm run build --workspace=@alquiler/domain && npm run build --workspace=@alquiler/beds24",
+    "build:all": "npm run build:packages && npm run build",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "beds24:cli": "npm run cli --workspace=@alquiler/beds24 --"
   },
   "devDependencies": {
-    "typescript": "~5.9.3",
-    "vite": "^7.3.1"
+    "typescript": "~5.9.3"
   }
 }
