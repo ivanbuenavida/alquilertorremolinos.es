@@ -60,7 +60,7 @@ export const labels: Labels = {
   cal_summary_discount_weekly: "Weekkorting",
   cal_summary_discount_monthly: "Lange verblijfskorting",
   cal_err_max_nights_msg: "Verblijven langer dan 30 dagen kunnen niet online worden geboekt. Neem rechtstreeks contact met ons op voor een lang verblijf.",
-  cal_err_date_limit_msg: "Boekingen na 30 september zijn niet online beschikbaar. Neem contact met ons op om toekomstige beschikbaarheid te controleren.",
+  cal_err_date_limit_msg: "Boekingen na 31 december 2027 zijn niet online beschikbaar. Neem contact met ons op om toekomstige beschikbaarheid te controleren.",
   cal_wa_limit_msg: (date) => `Hallo, ik wil graag boeken voor deze data: ${date}`,
   cal_summary_discount_early: "Vroegboekkorting",
   cal_summary_discount_early_info: "Als de reservering wordt geannuleerd of gewijzigd, komt deze korting te vervallen.",

@@ -60,7 +60,7 @@ export const labels: Labels = {
   cal_summary_discount_weekly: "周租折扣",
   cal_summary_discount_monthly: "长租折扣",
   cal_err_max_nights_msg: "在线预订天数不能超过30天。如需长期住宿，请直接与我们联系。",
-  cal_err_date_limit_msg: "目前网页暂不支持预订9月30日之后的日期。请直接联系我们以咨询未来的空房情况。",
+  cal_err_date_limit_msg: "目前网页暂不支持预订2027年12月31日之后的日期。请直接联系我们以咨询未来的空房情况。",
   cal_wa_limit_msg: (date) => `您好，我想预订以下日期的住宿： ${date}`,
   cal_summary_discount_early: "早鸟优惠",
   cal_summary_discount_early_info: "如取消或修改预订，该折扣将失效。",

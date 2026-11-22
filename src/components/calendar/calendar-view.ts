@@ -46,7 +46,7 @@ export class CalendarView extends LitElement {
   @state() private _currentDate = new Date();
   @state() private _days: DayInfo[] = [];
   @state() private _loading = true;
-  @state() private _limitMsgKey: '30days' | 'september' | null = null;
+  @state() private _limitMsgKey: '30days' | 'dateLimit' | null = null;
   
   @state() _startDate: Date | null = null;
   @state() _endDate: Date | null = null;
@@ -60,8 +60,8 @@ export class CalendarView extends LitElement {
     this._minDate = new Date(now.getFullYear(), now.getMonth(), 1);
     this._minDate.setHours(0, 0, 0, 0);
     
-    // Hard cap strictly at September 30th, 2026
-    this._maxDate = new Date(2026, 8, 30, 23, 59, 59); // 8 is September (0-indexed)
+    // Hard cap strictly at December 31st, 2027
+    this._maxDate = new Date(2027, 11, 31, 23, 59, 59); // 11 is December (0-indexed)
     
     this._currentDate = new Date(this._minDate);
 
@@ -152,11 +152,18 @@ export class CalendarView extends LitElement {
     return prev >= this._minDate;
   }
 
+  private _isMaxMonth() {
+    return (
+      this._currentDate.getFullYear() === this._maxDate.getFullYear() &&
+      this._currentDate.getMonth() === this._maxDate.getMonth()
+    );
+  }
+
   private _nextMonth() {
     if (!this._canGoNext()) {
-      // If we are in September (8) and try to go next, show message
-      if (this._currentDate.getMonth() === 8) {
-        this._limitMsgKey = 'september';
+      // If we are on the last allowed month and try to go next, show message
+      if (this._isMaxMonth()) {
+        this._limitMsgKey = 'dateLimit';
       }
       return;
     }
@@ -520,7 +527,7 @@ export class CalendarView extends LitElement {
             <i class="bi bi-chevron-left small"></i>
           </button>
           <div class="fw-bold text-dark text-capitalize px-2">${this._formatMonth(this._currentDate)}</div>
-          <button class="btn btn-light rounded-circle p-1 d-flex align-items-center justify-content-center ${!this._canGoNext() && this._currentDate.getMonth() !== 8 ? 'opacity-25 pointer-events-none' : ''}" 
+          <button class="btn btn-light rounded-circle p-1 d-flex align-items-center justify-content-center ${!this._canGoNext() && !this._isMaxMonth() ? 'opacity-25 pointer-events-none' : ''}" 
                   @click="${this._nextMonth}" style="width: 32px; height: 32px;">
             <i class="bi bi-chevron-right small"></i>
           </button>

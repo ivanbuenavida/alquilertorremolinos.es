@@ -60,7 +60,7 @@ export const labels: Labels = {
   cal_summary_discount_weekly: "Remise hebdomadaire",
   cal_summary_discount_monthly: "Remise longue durée",
   cal_err_max_nights_msg: "Les séjours de plus de 30 jours ne peuvent pas être réservés en ligne. Veuillez nous contacter directement pour les longs séjours.",
-  cal_err_date_limit_msg: "Les réservations au-delà du 30 septembre ne sont pas disponibles en ligne. Veuillez nous contacter pour vérifier la disponibilité future.",
+  cal_err_date_limit_msg: "Les réservations au-delà du 31 décembre 2027 ne sont pas disponibles en ligne. Veuillez nous contacter pour vérifier la disponibilité future.",
   cal_wa_limit_msg: (date) => `Bonjour, je souhaite réserver pour ces dates : ${date}`,
   cal_summary_discount_early: "Remise réservation anticipée",
   cal_summary_discount_early_info: "Si la réservation est annulée ou modifiée, cette remise sera perdue.",

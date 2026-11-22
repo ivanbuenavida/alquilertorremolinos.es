@@ -60,7 +60,7 @@ export const labels: Labels = {
   cal_summary_discount_weekly: "Wochenrabatt",
   cal_summary_discount_monthly: "Langzeitrabatt",
   cal_err_max_nights_msg: "Aufenthalte von mehr als 30 Tagen können nicht online gebucht werden. Bitte kontaktieren Sie uns direkt für Langzeitaufenthalte.",
-  cal_err_date_limit_msg: "Buchungen über den 30. September hinaus sind online nicht möglich. Bitte kontaktieren Sie uns, um die zukünftige Verfügbarkeit zu prüfen.",
+  cal_err_date_limit_msg: "Buchungen über den 31. Dezember 2027 hinaus sind online nicht möglich. Bitte kontaktieren Sie uns, um die zukünftige Verfügbarkeit zu prüfen.",
   cal_wa_limit_msg: (date) => `Hallo, ich möchte für diese Termine buchen: ${date}`,
   cal_summary_discount_early: "Frühbucherrabatt",
   cal_summary_discount_early_info: "Wenn die Reservierung storniert oder geändert wird, geht dieser Rabatt verloren.",

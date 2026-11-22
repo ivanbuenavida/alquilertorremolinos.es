@@ -60,7 +60,7 @@ export const labels: Labels = {
   cal_summary_discount_weekly: "Veckorabatt",
   cal_summary_discount_monthly: "Långtidsrabatt",
   cal_err_max_nights_msg: "Det går inte att boka längre än 30 dagar online. Vänligen kontakta oss direkt för långtidsvistelser.",
-  cal_err_date_limit_msg: "Bokningar efter 30 september är inte tillgängliga online. Vänligen kontakta oss för framtida tillgänglighet.",
+  cal_err_date_limit_msg: "Bokningar efter 31 december 2027 är inte tillgängliga online. Vänligen kontakta oss för framtida tillgänglighet.",
   cal_wa_limit_msg: (date) => `Hej, jag vill boka för dessa datum: ${date}`,
   cal_summary_discount_early: "Boka tidigt-rabatt",
   cal_summary_discount_early_info: "Om bokningen avbokas eller ändras kommer denna rabatt att gå förlorad.",

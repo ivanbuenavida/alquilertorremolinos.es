@@ -60,7 +60,7 @@ export const labels: Labels = {
   cal_summary_discount_weekly: "Weekly discount",
   cal_summary_discount_monthly: "Long stay discount",
   cal_err_max_nights_msg: "Stays longer than 30 days cannot be booked online. Please contact us directly for long-term stays.",
-  cal_err_date_limit_msg: "Bookings beyond September 30th are not available online. Please contact us to check future availability.",
+  cal_err_date_limit_msg: "Bookings beyond December 31st, 2027 are not available online. Please contact us to check future availability.",
   cal_wa_limit_msg: (date) => `Hello, I would like to book for these dates: ${date}`,
   cal_summary_discount_early: "Early bird discount",
   cal_summary_discount_early_info: "If the reservation is cancelled or modified, this discount will be lost.",
